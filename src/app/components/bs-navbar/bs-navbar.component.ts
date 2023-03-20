@@ -1,0 +1,32 @@
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { AuthService } from 'src/app/services/auth.service';
+import { AppUser } from '../../models/user';
+
+@Component({
+  selector: 'bs-navbar',
+  templateUrl: './bs-navbar.component.html',
+  styleUrls: ['./bs-navbar.component.css']
+})
+export class BsNavbarComponent implements OnInit {
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private toastr: ToastrService,
+    ) {}
+
+  appUser: AppUser
+
+  ngOnInit(): void {
+    this.authService.appUser$.subscribe(appUser => this.appUser = appUser)
+  }
+
+  logout() {
+    this.authService.logout()
+    .subscribe(() => {
+      this.toastr.success('Logged out successfully');
+      this.router.navigate(['']);
+    })
+  }
+}
