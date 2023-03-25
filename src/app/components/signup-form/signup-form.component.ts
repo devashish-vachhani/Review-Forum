@@ -85,7 +85,7 @@ export class SignupFormComponent {
       )
       .subscribe(() => {
         this.toastr.success('Account created successfully');
-        this.router.navigate(['/login']);
+        this.router.navigate(['/dashboard']);
       });
   }
 }
