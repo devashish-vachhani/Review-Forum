@@ -23,12 +23,16 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { UserService } from './services/user.service';
 import { HotToastModule } from '@ngneat/hot-toast';
 import { ToastrModule } from 'ngx-toastr';
+import { FormsModule } from '@angular/forms';
 
 import { BsNavbarComponent } from './components/bs-navbar/bs-navbar.component';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { SignupFormComponent } from './components/signup-form/signup-form.component';
+import { BookFormComponent } from './components/book-form/book-form.component';
+import { UniversityService } from './services/university.service';
+import { BookService } from './services/book.service';
 
 @NgModule({
   declarations: [
@@ -39,6 +43,7 @@ import { SignupFormComponent } from './components/signup-form/signup-form.compon
     LoginComponent,
     SignupComponent,
     SignupFormComponent,
+    BookFormComponent,
   ],
   imports: [
     BrowserModule,
@@ -63,11 +68,14 @@ import { SignupFormComponent } from './components/signup-form/signup-form.compon
       positionClass: 'toast-top-center',
       preventDuplicates: true,
       closeButton: true
-    })
+    }),
+    FormsModule,
   ],
   providers: [
     AuthService,
-    UserService
+    UserService,
+    UniversityService,
+    BookService,
   ],
   bootstrap: [AppComponent]
 })
