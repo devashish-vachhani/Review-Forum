@@ -49,10 +49,14 @@ export class BookFormComponent implements OnInit, OnDestroy {
       tags: [tag],
       status: false
     };
-    this.bookService.createBook(book).then(() => {
+    this.bookService.createBook(book)
+    .then(() => {
       this.toastr.success('Request submitted successfully');
       this.router.navigate(['/dashboard']);
-    });
+    })
+    .catch(error => {
+      this.toastr.error(error);
+    })
   }
 
   ngOnDestroy(): void {
