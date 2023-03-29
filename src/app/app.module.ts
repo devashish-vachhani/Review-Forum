@@ -24,6 +24,7 @@ import { UserService } from './services/user.service';
 import { HotToastModule } from '@ngneat/hot-toast';
 import { ToastrModule } from 'ngx-toastr';
 import { FormsModule } from '@angular/forms';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { BsNavbarComponent } from './components/bs-navbar/bs-navbar.component';
 import { HomeComponent } from './components/home/home.component';
@@ -33,6 +34,8 @@ import { SignupFormComponent } from './components/signup-form/signup-form.compon
 import { BookFormComponent } from './components/book-form/book-form.component';
 import { UniversityService } from './services/university.service';
 import { BookService } from './services/book.service';
+import { BooksComponent } from './components/books/books.component';
+import { BookSearchFormComponent } from './components/book-search-form/book-search-form.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +47,8 @@ import { BookService } from './services/book.service';
     SignupComponent,
     SignupFormComponent,
     BookFormComponent,
+    BooksComponent,
+    BookSearchFormComponent,
   ],
   imports: [
     BrowserModule,
@@ -70,6 +75,7 @@ import { BookService } from './services/book.service';
       closeButton: true
     }),
     FormsModule,
+    FlexLayoutModule,
   ],
   providers: [
     AuthService,

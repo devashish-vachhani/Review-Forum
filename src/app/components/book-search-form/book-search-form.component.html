@@ -1,0 +1,21 @@
+<div class="container d-flex flex-column align-items-center justify-content-center vh-100">
+        <div class="input-group mb-3" style="width: 80%;">
+        <input *ngIf="searchMode === 'byTitle'; else byUniversity" type="text" class="form-control" placeholder="Search by title" [(ngModel)]="searchTerm" name="searchTerm">
+        <ng-template #byUniversity>
+            <select class="form-control" [(ngModel)]="selectedUniversity" name="selectedUniversity">
+                <option value="">Select university</option>
+                <option *ngFor="let university of universities$ | async" [value]="university['code']">
+                    {{  university['name']  }}
+                </option>
+            </select>
+        </ng-template>
+        <div class="input-group-append">
+          <button class="btn btn-primary" type="submit" (click)="onSubmit()">Search</button>
+          <button class="btn btn-outline-secondary" type="button" (click)="onClear()">Clear</button>
+        </div>
+      </div>
+      <div class="mb-3">
+        <button class="btn btn-link" (click)="toggleSearchMode()">{{ searchModeLabel }}</button>
+      </div>
+  </div>
+  
