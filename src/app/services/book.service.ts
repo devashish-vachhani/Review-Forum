@@ -7,6 +7,7 @@ import { Book } from '../models/book';
   providedIn: 'root'
 })
 export class BookService {
+
   constructor(
     private firestore: Firestore,
     ) {}
