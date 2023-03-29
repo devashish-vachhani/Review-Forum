@@ -34,7 +34,6 @@ import { SignupComponent } from './components/signup/signup.component';
 import { SignupFormComponent } from './components/signup-form/signup-form.component';
 import { BookFormComponent } from './components/book-form/book-form.component';
 import { UniversityService } from './services/university.service';
-import { BookService } from './services/book.service';
 import { BooksComponent } from './components/books/books.component';
 import { BookSearchFormComponent } from './components/book-search-form/book-search-form.component';
 import { BookComponent } from './components/book/book.component';
