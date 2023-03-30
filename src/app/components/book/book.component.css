@@ -1,0 +1,39 @@
+.item1 { grid-area: body; }
+.item2 { grid-area: image; }
+.item3 { grid-area: bottom; }
+
+body {background-color: #1cf1b2;}
+
+.grid-container {
+  display: grid;
+  grid-template-areas:
+    'image image body body body body body body body'
+    'image image body body body body body body body'
+    'image image body body body body body body body'
+    'image image body body body body body body body'
+    'bottom bottom bottom bottom bottom bottom bottom bottom bottom'
+    'bottom bottom bottom bottom bottom bottom bottom bottom bottom';
+  gap: 0;
+  background-color: #1cf1b100;
+  padding: 10px;
+}
+
+.grid-container > div {
+  background-color: rgba(255, 255, 255, 0);
+  text-align: left;
+  padding: 0 10px;
+  font-size: 15px;
+}
+
+
+div {
+    padding-right: 30px;
+    padding-left: 20px;
+  }
+
+#bookImage {
+    width: 300px;
+    height: 400px;
+    padding-left: 20px;
+  
+  }
