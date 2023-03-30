@@ -22,27 +22,44 @@ export class AuthService {
 
   currentUser$ = authState(this.auth);
 
-  signup(email: string, password: string): Observable<UserCredential> {
-    return from(createUserWithEmailAndPassword(this.auth, email, password));
+  signup(email: string, password: string): Promise<UserCredential> {
+    return createUserWithEmailAndPassword(this.auth, email, password);
   }
 
-  login(email: string, password: string): Observable<any> {
-    return from(signInWithEmailAndPassword(this.auth, email, password));
+  login(email: string, password: string): Promise<UserCredential> {
+    return signInWithEmailAndPassword(this.auth, email, password);
   }
 
-  logout(): Observable<any> {
-    return from(this.auth.signOut());
+  logout(): Promise<void> {
+    return this.auth.signOut();
   }
 
   get appUser$(): Observable<AppUser> {
     return this.currentUser$.pipe(
       switchMap(user => {
         if (user) {
-          return this.userService.getUser(user.uid);
+          return this.userService.getUser(user.uid).pipe(
+            map(docData => docData as AppUser)
+          );
         } else {
           return of(null);
         }
       })
     );
   }
+  
+            
+  //   return this.currentUser$
+  //           .pipe(
+  //             switchMap(user => {
+  //               if (user) {
+  //                 return this.userService.getUser(user.uid).pipe(
+  //                   switchMap(data => data as AppUser);
+  //                 );
+  //               } else {
+  //                 return of(null);
+  //               }
+  //             })
+  //           );
+  // }
 }

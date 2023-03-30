@@ -3,6 +3,7 @@ import { AbstractControl, UntypedFormControl, UntypedFormGroup, ValidationErrors
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { switchMap, catchError, throwError } from 'rxjs';
+import { AppUser } from 'src/app/models/user';
 import { AuthService } from '../../services/auth.service';
 import { UserService } from '../../services/user.service';
 
@@ -65,27 +66,23 @@ export class SignupFormComponent {
     return this.signupForm.get('name');
   }
 
-  onSubmit() {
+  async onSubmit() {
     const { name, email, password } = this.signupForm.value;
 
     if (!this.signupForm.valid || !name || !password || !email) {
       return;
     }
 
-    this.authService
-      .signup(email, password)
-      .pipe(
-        switchMap(({ user: { uid } }) => {
-          return this.userService.addUser({ uid, email, name, isAdmin: false });
-        }),
-        catchError((error) => {
-          this.toastr.error('Error while creating account');
-          return throwError(() => error);
-        })
-      )
-      .subscribe(() => {
-        this.toastr.success('Account created successfully');
-        this.router.navigate(['/dashboard']);
-      });
-  }
+    try {
+      const userCredential = await this.authService.signup(email, password);
+      const user = userCredential.user;
+      const appUser: AppUser = { uid: user.uid, email, name, isAdmin: false };
+      await this.userService.addUser(appUser);
+      this.toastr.success('Account created successfully');
+      this.router.navigate(['/dashboard']);
+    } catch (error) {
+      this.toastr.error(error);
+    }
+      
+    }
 }

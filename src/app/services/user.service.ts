@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { deleteDoc, doc, Firestore, getDoc, setDoc, updateDoc } from '@angular/fire/firestore';
-import { from, map, Observable } from 'rxjs';
+import { deleteDoc, doc, docData, DocumentData, Firestore, setDoc, updateDoc } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
 import { AppUser } from '../models/user';
 
 @Injectable({
@@ -10,25 +10,23 @@ export class UserService {
 
   constructor(private firestore: Firestore) { }
 
-  getUser(uid: string): Observable<AppUser> {
+  getUser(uid: string): Observable<DocumentData> {
     const userDocumentRef = doc(this.firestore, 'users', uid);
-    return from(  getDoc(userDocumentRef)).pipe(
-                  map(userData => userData.data() as AppUser)
-              );
+    return docData(userDocumentRef, { idField: 'id'});
   }
 
-  addUser(user: AppUser): Observable<void> {
+  addUser(user: AppUser) {
     const userDocumentRef = doc(this.firestore, 'users', user.uid);
-    return from(setDoc(userDocumentRef, user));
+    return setDoc(userDocumentRef, user);
   }
 
-  updateUser(user: AppUser): Observable<void> {
+  updateUser(user: AppUser) {
     const userDocumentRef = doc(this.firestore, 'users', user.uid);
-    return from(updateDoc(userDocumentRef, { ...user }));
+    return updateDoc(userDocumentRef, { ...user });
   }
 
-  deleteUser(user: AppUser): Observable<void> {
+  deleteUser(user: AppUser): Promise<void> {
     const userDocumentRef = doc(this.firestore, 'users', user.uid);
-    return from(deleteDoc(userDocumentRef))
+    return deleteDoc(userDocumentRef);
   }
 }

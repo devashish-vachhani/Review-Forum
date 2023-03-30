@@ -44,49 +44,20 @@ export class LoginComponent {
     return this.loginForm.get('password');
   }
 
-  onSubmit() {
+  async onSubmit() {
     const { email, password } = this.loginForm.value;
 
     if (!this.loginForm.valid || !email || !password) {
       return;
     }
 
-    // this.authService
-    //     .login(email, password)
-    //     .pipe(
-    //       catchError(
-    //         (error) => {
-    //           let errorMessage = 'Invalid username or password'
-    //           this.snackBar.open(errorMessage, 'Ok', {
-    //             verticalPosition: 'top',
-    //             horizontalPosition: 'center',
-    //             panelClass: 'bg-danger',
-    //           });
-    //           throw error;
-    //         }
-    //       )
-    //     )
-    //     .subscribe(() => {
-    //       let successMessage = 'Logged in successfully';
-    //       this.snackBar.open(successMessage, 'Ok', {
-    //         verticalPosition: 'top',
-    //         horizontalPosition: 'center',
-    //         panelClass: 'bg-success',
-    //       });
-    //       this.router.navigate(['/dashboard']);
-    //     });
-
-    this.authService
-      .login(email, password)
-      .pipe(
-        catchError((error) => {
-          this.toastr.error('Invalid username or password');
-          return throwError(() => error);
-        })
-      )
-      .subscribe(() => {
-        this.toastr.success('Logged in successfully');
-        this.router.navigate(['/dashboard']);
-      });
+    try {
+      await this.authService.login(email, password);
+      this.toastr.success('Logged in successfully');
+      this.router.navigate(['/dashboard']);
+    } catch (error) {
+      this.toastr.error('Invalid username or password');
+      throw error;
+    }
   }
 }

@@ -22,11 +22,13 @@ export class BsNavbarComponent implements OnInit {
     this.authService.appUser$.subscribe(appUser => this.appUser = appUser)
   }
 
-  logout() {
-    this.authService.logout()
-    .subscribe(() => {
+  async logout() {
+    try {
+      await this.authService.logout();
       this.toastr.success('Logged out successfully');
       this.router.navigate(['']);
-    })
-  }
+    } catch (error) {
+      this.toastr.error(error);
+    }
+  }  
 }
