@@ -16,9 +16,9 @@ export class BookService {
     return collectionData(booksCollectionRef, { idField: 'id' })
   }
 
-  getBook(id: string) {
-    const bookDocRef = doc(this.firestore, 'books', id)
-    return docData(bookDocRef, { idField: 'id'})
+  getBook(bookId: string) {
+    const bookDocumentRef = doc(this.firestore, 'books', bookId)
+    return docData(bookDocumentRef, { idField: 'id'})
   }
 
   createBook(book: Book) {
@@ -26,8 +26,8 @@ export class BookService {
     return addDoc(booksCollectionRef, book);
   }
 
-  addTag(book_id: string, tag: string) {
-    const bookDocumentRef = doc(this.firestore, 'books', book_id);
+  addTag(bookId: string, tag: string) {
+    const bookDocumentRef = doc(this.firestore, 'books', bookId);
     updateDoc(bookDocumentRef, {
       tags: arrayUnion(tag)
   });

@@ -1,9 +1,8 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { BookService } from 'src/app/services/book.service';
-import { Observable, Subscription, tap } from 'rxjs';
-import { DocumentData } from 'firebase/firestore';
-import { Book } from 'src/app/models/book';
 import { ActivatedRoute } from '@angular/router';
+import { Book } from 'src/app/models/book';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -11,9 +10,9 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './book.component.html',
   styleUrls: ['./book.component.css']
 })
-export class BookComponent {
-  book: Book
-  books: Book[];
+export class BookComponent implements OnInit {
+  bookId: string;
+  book: Book;
   subscription: Subscription;
 
   constructor(
@@ -22,12 +21,12 @@ export class BookComponent {
   ) {}
   
   ngOnInit(): void {
-    this.route.queryParams
-    .subscribe(params => {
-      this.subscription = this.bookService.getBook(params['id']).subscribe(book => {
+    this.route.paramMap.subscribe(params => {
+      this.bookId = params.get('id');
+      this.subscription = this.bookService.getBook(this.bookId).subscribe(book => {
         this.book = (book as Book);
       });
-    });
+    })
   };
 
   ngOnDestroy(): void {
