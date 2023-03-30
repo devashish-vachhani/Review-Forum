@@ -1,1 +1,47 @@
-<p>book works!</p>
+<div class="grid-container">
+    <div class="item1">
+        <br>
+        <div>
+            <h1 style="font-size:xx-large; font-weight: bold;">{{book['title']}}</h1>
+        </div>
+        <div>
+            <h2 style="font-weight: lighter; font-size: x-large;">{{book['author']}}</h2>
+        </div>
+        <div>
+            Average Rating
+        </div>
+        <br>
+        <div>
+            <h3>{{book['description']}}</h3>
+        </div>
+    </div>
+    <div class="item2">
+        <br>
+        <img mat-card-image id ="bookImage" data-mb-toggle="popover" title="test" [src]="book['image']">
+        <br>
+        <br>
+        <div>
+            <button
+                type="button"
+                class="btn btn-outline-secondary"
+                style="width:280px"
+            >
+                Add to reading list
+            </button>
+        </div>
+        <br>
+        <div>
+            <label
+                type="button"
+                class="btn btn-outline-secondary"
+                ngbPopover="{{book['tags']}}"
+                triggers="mouseenter:mouseleave"
+                popoverTitle="Tags"
+                style="width:280px"
+            >
+                Tags
+            </label>
+        </div>
+    </div>
+    <div class="item3"><br>Reviews</div>
+</div>
