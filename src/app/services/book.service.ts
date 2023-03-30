@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { collection, collectionData, Firestore, addDoc, doc, docData } from '@angular/fire/firestore';
+import { collection, collectionData, Firestore, addDoc, doc, updateDoc, arrayUnion, docData } from '@angular/fire/firestore';
 import { from } from 'rxjs';
 import { Book } from '../models/book';
 
@@ -24,5 +24,12 @@ export class BookService {
   createBook(book: Book) {
     const booksCollectionRef = collection(this.firestore, 'books');
     return addDoc(booksCollectionRef, book);
+  }
+
+  addTag(book_id: string, tag: string) {
+    const bookDocumentRef = doc(this.firestore, 'books', book_id);
+    updateDoc(bookDocumentRef, {
+      tags: arrayUnion(tag)
+  });
   }
 }
