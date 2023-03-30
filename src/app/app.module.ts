@@ -37,6 +37,7 @@ import { UniversityService } from './services/university.service';
 import { BooksComponent } from './components/books/books.component';
 import { BookSearchFormComponent } from './components/book-search-form/book-search-form.component';
 import { BookComponent } from './components/book/book.component';
+import { ReadingListService } from './services/reading-list.service';
 
 @NgModule({
   declarations: [
@@ -84,6 +85,7 @@ import { BookComponent } from './components/book/book.component';
     UserService,
     UniversityService,
     BookService,
+    ReadingListService,
   ],
   bootstrap: [AppComponent]
 })

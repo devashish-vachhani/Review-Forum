@@ -1,0 +1,41 @@
+import { Injectable } from '@angular/core';
+import { collection, collectionData, deleteDoc, doc, DocumentData, Firestore, getDoc, setDoc } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
+import { Book } from '../models/book';
+import { AuthService } from 'src/app/services/auth.service';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class ReadingListService {
+  uid: string;
+
+  constructor(
+    private firestore: Firestore,
+    private authService: AuthService,
+  ) {
+    this.uid = this.authService.uid;
+  }
+
+  getReadingList(): Observable<DocumentData[]> {
+    const readingListCollectionRef = collection(this.firestore, `users/${this.uid}/reading-list`);
+    return collectionData(readingListCollectionRef, { idField: 'id' });
+  }
+
+  addToReadingList(book: Book): Promise<void> {
+    const bookDocumentRef = doc(this.firestore, `users/${this.uid}/reading-list`, book['id']);
+    return setDoc(bookDocumentRef, book);
+  }
+
+  deleteFromReadingList(bookId: string): Promise<void> {
+    const bookDocumentRef = doc(this.firestore, `users/${this.uid}/reading-list`, bookId);
+    return deleteDoc(bookDocumentRef);
+  }
+
+  async isBookInReadingList(bookId: string): Promise<boolean> {
+    const bookDocumentRef = doc(this.firestore, `users/${this.uid}/reading-list`, bookId);
+    const bookSnapshot = await getDoc(bookDocumentRef);
+    if(bookSnapshot.exists()) return true;
+    return false;
+  }
+}

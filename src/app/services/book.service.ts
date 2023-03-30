@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { collection, collectionData, Firestore, addDoc, doc, updateDoc, arrayUnion, docData } from '@angular/fire/firestore';
-import { from } from 'rxjs';
 import { Book } from '../models/book';
 
 @Injectable({
