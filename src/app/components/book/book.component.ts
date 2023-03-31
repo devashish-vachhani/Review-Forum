@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { BookService } from 'src/app/services/book.service';
 import { ActivatedRoute } from '@angular/router';
 import { Book } from 'src/app/models/book';
-import { Subscription, switchMap } from 'rxjs';
+import { Subscription, switchMap, Observable } from 'rxjs';
 import { ReadingListService } from '../../services/reading-list.service';
+import { ReadingList } from 'src/app/models/reading-list';
 
 @Component({
   selector: 'app-book',
@@ -14,8 +15,8 @@ export class BookComponent implements OnInit {
   bookId: string;
   book: Book;
   subscription: Subscription; 
-  readingList: Book[];
-  bookInReadingList: boolean = true;
+  // bookInReadingList: boolean = true;
+  readingList$: Observable<ReadingList>;
 
   constructor(
     private bookService: BookService,
@@ -29,19 +30,18 @@ export class BookComponent implements OnInit {
         this.bookId = params.get('id');
         return this.bookService.getBook(this.bookId);
       })
-    ).subscribe(async (book: Book) => {
+    ).subscribe((book: Book) => {
       this.book = book;
-      this.bookInReadingList = await this.readingListService.isBookInReadingList(this.bookId);
+      this.readingList$ = this.readingListService.getReadingList();
     });
   }
 
-  async updateReadingList(book: Book): Promise<void> {
-    if(this.bookInReadingList) {
-      await this.readingListService.deleteFromReadingList(book.id);
-    } else {
-      await this.readingListService.addToReadingList(book);
-    }
-    this.bookInReadingList = !this.bookInReadingList;
+  async addToReadingList(book: Book) {
+    await this.readingListService.addToReadingList(book);
+  }
+
+  async deleteFromReadingList(bookId: string) {
+    await this.readingListService.deleteFromReadingList(bookId);
   }
 
   ngOnDestroy(): void {

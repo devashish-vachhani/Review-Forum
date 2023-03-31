@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { collection, collectionData, deleteDoc, doc, DocumentData, Firestore, getDoc, setDoc } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { Book } from '../models/book';
 import { AuthService } from 'src/app/services/auth.service';
+import { ReadingList } from '../models/reading-list';
 
 @Injectable({
   providedIn: 'root'
@@ -17,9 +18,15 @@ export class ReadingListService {
     this.uid = this.authService.uid;
   }
 
-  getReadingList(): Observable<DocumentData[]> {
+  getReadingList(): Observable<ReadingList> {
     const readingListCollectionRef = collection(this.firestore, `users/${this.uid}/reading-list`);
-    return collectionData(readingListCollectionRef, { idField: 'id' });
+    return  collectionData(readingListCollectionRef, { idField: 'id' })
+            .pipe(
+              map(docsData => {
+                const books = docsData as Book[];
+                return new ReadingList(books);
+              })
+            );
   }
 
   addToReadingList(book: Book): Promise<void> {
@@ -30,12 +37,5 @@ export class ReadingListService {
   deleteFromReadingList(bookId: string): Promise<void> {
     const bookDocumentRef = doc(this.firestore, `users/${this.uid}/reading-list`, bookId);
     return deleteDoc(bookDocumentRef);
-  }
-
-  async isBookInReadingList(bookId: string): Promise<boolean> {
-    const bookDocumentRef = doc(this.firestore, `users/${this.uid}/reading-list`, bookId);
-    const bookSnapshot = await getDoc(bookDocumentRef);
-    if(bookSnapshot.exists()) return true;
-    return false;
   }
 }

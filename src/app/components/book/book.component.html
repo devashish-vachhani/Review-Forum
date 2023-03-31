@@ -21,15 +21,24 @@
         <br>
         <br>
         <div>
-            <button
+            <button *ngIf="!(readingList$ | async).isBookInReadingList(bookId); else removeButton"
+                type="button"
+                mat-raised-button color='primary'
+                style="width:280px"
+                (click)="addToReadingList(book)"
+            >
+                Add to reading list
+            </button>
+            <ng-template #removeButton>
+                <button
                 type="button"
                 mat-raised-button
-                [color]="!bookInReadingList ? 'primary' : null"
                 style="width:280px"
-                (click)="updateReadingList(book)"
+                (click)="deleteFromReadingList(bookId)"
             >
-                {{ bookInReadingList ? 'Remove from reading list' : 'Add to reading list' }}
+                Remove from reading list
             </button>
+            </ng-template>
         </div>
         <br>
         <div>
