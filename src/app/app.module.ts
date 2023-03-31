@@ -38,6 +38,7 @@ import { BooksComponent } from './components/books/books.component';
 import { BookSearchFormComponent } from './components/book-search-form/book-search-form.component';
 import { BookComponent } from './components/book/book.component';
 import { ReadingListService } from './services/reading-list.service';
+import { ReadingListComponent } from './components/reading-list/reading-list.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { ReadingListService } from './services/reading-list.service';
     BooksComponent,
     BookSearchFormComponent,
     BookComponent,
+    ReadingListComponent,
   ],
   imports: [
     BrowserModule,
