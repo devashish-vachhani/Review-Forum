@@ -1,1 +1,20 @@
-<p>reading-list works!</p>
+<ng-container *ngIf="readingList$ | async as readingList">
+    <table>
+        <thead>
+            <tr>
+                <th>cover</th>
+                <th>title</th>
+                <th>author</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let book of readingList.books">
+                <td><img mat-card-image [src]="book.image"></td>
+                <td>{{ book.title }}</td>
+                <td>{{ book.author }}</td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+</ng-container>
