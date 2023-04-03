@@ -45,6 +45,7 @@ import { ReadingListService } from './services/reading-list.service';
 import { ReadingListComponent } from './components/reading-list/reading-list.component';
 import { TagComponent } from './components/tag/tag.component';
 import { ReviewService } from './services/review.service';
+import { ReviewsComponent } from './components/reviews/reviews.component';
 
 @NgModule({
   declarations: [
@@ -61,6 +62,7 @@ import { ReviewService } from './services/review.service';
     BookComponent,
     ReadingListComponent,
     TagComponent,
+    ReviewsComponent,
   ],
   imports: [
     BrowserModule,
