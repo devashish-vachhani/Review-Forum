@@ -46,6 +46,7 @@ import { ReadingListComponent } from './components/reading-list/reading-list.com
 import { TagComponent } from './components/tag/tag.component';
 import { ReviewService } from './services/review.service';
 import { ReviewsComponent } from './components/reviews/reviews.component';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -65,6 +66,7 @@ import { ReviewsComponent } from './components/reviews/reviews.component';
     ReviewsComponent,
   ],
   imports: [
+    CommonModule,
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,

@@ -23,7 +23,7 @@ export function passwordsMatchValidator(): ValidatorFn {
 @Component({
   selector: 'signup-form',
   templateUrl: './signup-form.component.html',
-  styleUrls: ['./signup-form.component.css']
+  styleUrls: ['./signup-form.component.scss']
 })
 export class SignupFormComponent {
 

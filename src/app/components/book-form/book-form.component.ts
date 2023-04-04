@@ -10,7 +10,7 @@ import { University } from 'src/app/models/university';
 @Component({
   selector: 'app-book-form',
   templateUrl: './book-form.component.html',
-  styleUrls: ['./book-form.component.css']
+  styleUrls: ['./book-form.component.scss']
 })
 export class BookFormComponent implements OnInit, OnDestroy {
   subscription: Subscription;
