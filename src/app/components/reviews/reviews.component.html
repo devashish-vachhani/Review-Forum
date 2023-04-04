@@ -1,0 +1,95 @@
+<div class="untitled-page root" *ngIf="reviews$ | async as reviews">
+    <div class="wrapper">
+    <section class="box">
+        <div class="wrapper1">
+        <div class="cell"><h2 class="wrapper11">Ratings &amp; Reviews</h2></div>
+        </div>
+        <div class="wrapper2">
+        <h5 class="highlights">Summary</h5>
+        <div class="wrapper3">
+            <div class="cell">
+            <div class="wrapper4">
+                <div class="wrapper5">
+                <div class="wrapper6"><div class="wrapper61">5</div></div>
+                <div class="cell"><div class="wrapper7"></div></div>
+                </div>
+                <div class="wrapper8">
+                <div class="wrapper6"><div class="wrapper61">4</div></div>
+                <div class="cell">
+                    <img src="/assets/b893691b751fb078a929c1c9e943bfa1.png" alt="alt text" class="image" />
+                </div>
+                </div>
+                <div class="wrapper8">
+                <div class="wrapper6"><div class="wrapper61">3</div></div>
+                <div class="cell1">
+                    <img src="/assets/e259c37ea8ecdd7975516d1d3ccf38e7.png" alt="alt text" class="image" />
+                </div>
+                </div>
+                <div class="wrapper8">
+                <div class="wrapper6"><div class="wrapper61">2</div></div>
+                <div class="cell2">
+                    <img src="/assets/1176aeb15e4902965f51f00318f88814.png" alt="alt text" class="image" />
+                </div>
+                </div>
+                <div class="wrapper8">
+                <div class="wrapper6"><div class="wrapper61">1</div></div>
+                <div class="cell3">
+                    <img src="/assets/d8f6dfe709a7d520d7fd81bf13664a5f.png" alt="alt text" class="image" />
+                </div>
+                </div>
+            </div>
+            </div>
+            <div class="spacer"></div>
+            <div class="cell1">
+            <div class="wrapper9">
+                <div class="wrapper91">
+                <div class="wrapper10">
+                    <h2 class="wrapper12">4.5</h2>
+                    <div class="cell">
+                    <div style="--src:url(/assets/ea82c6bb6cba0fd2630dd6c00c5362d4.png)" class="wrapper111"></div>
+                    </div>
+                </div>
+                <div class="info">273 Reviews</div>
+                </div>
+            </div>
+            </div>
+        </div>
+        </div>
+        <div class="wrapper121">
+        <div class="wrapper122">
+            <div class="cell"><h5 class="highlights1">Write a review</h5></div>
+        </div>
+        </div>
+    </section>
+    <section class="box1">
+        <hr size="1" class="line" />
+        <div class="wrapper13">
+        <div class="cell"><h2 class="wrapper11">Community Forum</h2></div>
+        </div>
+        <div class="box2" *ngFor="let review of reviews">
+            <div class="wrapper131">
+                <div class="wrapper14">
+                    <div class="wrapper15">
+                        <div class="wrapper151"><div class="wrapper152">{{ review.reviewer }}</div></div>
+                    </div>
+                <div class="spacer"></div>
+                <div class="cell">
+                    <img src="/assets/8c6d0e89ebdd792665182c4414070216.png" alt="alt text" class="image1" />
+                </div>
+                </div>
+                <p class="wrapper153">
+                    {{ review.text }}
+                </p>
+                <div class="wrapper16">
+                <div class="wrapper17">
+                    <div class="wrapper154"><div class="wrapper155">Like</div></div>
+                    <div class="wrapper156"><div class="wrapper157">Comment</div></div>
+                </div>
+                <div class="spacer"></div>
+                <div class="wrapper158">{{ review.date.toDate() | date: 'mediumDate' }}</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    </div>
+</div>
