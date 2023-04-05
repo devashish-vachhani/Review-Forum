@@ -19,7 +19,6 @@ export class BookComponent implements OnInit {
   colors: Map<string, string>;
   book: Book;
   subscription: Subscription; 
-  // bookInReadingList: boolean = true;
   readingList$: Observable<ReadingList>;
 
   constructor(
@@ -37,7 +36,7 @@ export class BookComponent implements OnInit {
         colorSet.set(tag, '#' + Math.floor(Math.random()*16777215).toString(16) + "66")
       }
     }
-    this.route.paramMap.pipe(
+    this.subscription = this.route.paramMap.pipe(
       switchMap(params => {
         this.bookId = params.get('id');
         return this.bookService.getBook(this.bookId);

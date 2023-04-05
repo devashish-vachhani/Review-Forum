@@ -33,8 +33,8 @@
         <img mat-card-image id ="bookImage" data-mb-toggle="popover" title="test" [src]="book.image">
         <br>
         <br>
-        <div>
-            <button *ngIf="!(readingList$ | async).isBookInReadingList(bookId); else removeButton"
+        <div *ngIf="readingList$ | async as readingList">
+            <button *ngIf="!readingList.hasBook(bookId); else removeButton"
                 type="button"
                 mat-raised-button color='primary'
                 style="width:280px"
