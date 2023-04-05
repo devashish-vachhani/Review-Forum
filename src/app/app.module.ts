@@ -40,7 +40,7 @@ import { BookSearchFormComponent } from './components/book-search-form/book-sear
 import { BookComponent } from './components/book/book.component';
 import { ReadingListService } from './services/reading-list.service';
 import { ReadingListComponent } from './components/reading-list/reading-list.component';
-import { AddTagComponent } from './components/add-tag/add-tag.component';
+import { TagComponent } from './components/tag/tag.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +56,7 @@ import { AddTagComponent } from './components/add-tag/add-tag.component';
     BookSearchFormComponent,
     BookComponent,
     ReadingListComponent,
-    AddTagComponent,
+    TagComponent,
   ],
   imports: [
     BrowserModule,
@@ -94,6 +94,6 @@ import { AddTagComponent } from './components/add-tag/add-tag.component';
     ReadingListService,
   ],
   bootstrap: [AppComponent],
-  entryComponents: [AddTagComponent]
+  entryComponents: [TagComponent]
 })
 export class AppModule { }
