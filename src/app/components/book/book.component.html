@@ -2,7 +2,7 @@
     <div class="item1">
         <br>
         <div>
-            <h1 style="font-size:xx-large; font-weight: bold;">{{ book['title'] }}</h1>
+            <h1 style="font-size:xx-large; font-weight: bold;">{{ book.title }}</h1>
         </div>
         <div>
             <h2 style="font-weight: lighter; font-size: x-large;">{{ book.author }}</h2>
@@ -14,17 +14,14 @@
         <div>
             <h3>{{ book.description }}</h3>
         </div>
-        <br>
         <div>
-            <span *ngFor = "let tag of book['tags']" style="padding: 5px;">
-                <button
-                    type="button"
-                    mat-raised-button color='primary'
-                    [ngStyle]="{'background-color': colors.get(tag)}"
+            <strong>Tags:</strong>
+            <span *ngFor = "let tag of book.tags" style="padding: 5px;">
+                <span
                     style="width:auto; display: inline; color: black;"
                 >
-                    {{tag}}
-                </button>
+                    {{ tag }}
+                </span>
             </span>
         </div>
     </div>
@@ -33,8 +30,8 @@
         <img mat-card-image id ="bookImage" data-mb-toggle="popover" title="test" [src]="book.image">
         <br>
         <br>
-        <div>
-            <button *ngIf="!(readingList$ | async).isBookInReadingList(bookId); else removeButton"
+        <div *ngIf="readingList$ | async as readingList">
+            <button *ngIf="!readingList.hasBook(bookId); else removeButton"
                 type="button"
                 mat-raised-button color='primary'
                 style="width:280px"
@@ -61,7 +58,7 @@
                 style="width:280px"
                 (click)="openDialog()"
             >
-                Request a Tag
+                Recommend a tag
             </button>
         </div>
     </div>

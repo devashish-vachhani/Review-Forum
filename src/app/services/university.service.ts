@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import {collection, collectionData, Firestore } from '@angular/fire/firestore';
+import { University } from '../models/university';
+import { map, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -7,11 +9,12 @@ import {collection, collectionData, Firestore } from '@angular/fire/firestore';
 export class UniversityService {
   constructor(private firestore: Firestore) { }
 
-  getUniversities() {
+  getUniversities(): Observable<University[]> {
     return collectionData(collection(this.firestore, "universities"), { idField: 'id' })
-  }
-
-  getCoursesByUniversity(id: string) {
-    return collectionData(collection(this.firestore, "universities/"+id+"/courses"), { idField: 'id' })
+            .pipe(
+              map(universities => {
+                return universities as University[];
+              })
+            )
   }
 }

@@ -6,6 +6,9 @@ import { Router } from '@angular/router';
 import { Book } from 'src/app/models/book';
 import { BookService } from 'src/app/services/book.service';
 import { ToastrService } from 'ngx-toastr';
+import { University, findCodeById } from 'src/app/models/university';
+import { CourseService } from '../../services/course.service';
+import { Course } from 'src/app/models/course';
 
 @Component({
   selector: 'app-book-form',
@@ -13,8 +16,8 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./book-form.component.css']
 })
 export class BookFormComponent implements OnInit, OnDestroy {
-  universities: DocumentData[];
-  courses$: Observable<DocumentData[]>;
+  universities: University[];
+  courses$: Observable<Course[]>;
   subscription: Subscription;
 
   constructor(
@@ -22,6 +25,7 @@ export class BookFormComponent implements OnInit, OnDestroy {
     private universityService: UniversityService,
     private bookService: BookService,
     private toastr: ToastrService,
+    private courseService: CourseService,
     ) {}
 
   ngOnInit(): void {
@@ -30,17 +34,12 @@ export class BookFormComponent implements OnInit, OnDestroy {
     })
   }
 
-  updateCourses(universityId: string) {
-    this.courses$ = this.universityService.getCoursesByUniversity(universityId);
-  }
-
-  findUniversityCodeById(id: string): string {
-    const university = this.universities.find(university => university['id'] === id);
-    return university['code'];
+  getCourses(universityId: string) {
+    this.courses$ = this.courseService.getCourses(universityId);
   }
 
   onSubmit(f) { 
-    const tag = this.findUniversityCodeById(f.university) + '/' + f.course
+    const tag = `${findCodeById(f.university, this.universities)}/${f.course}`;
     const book: Book = {
       title: f.title,
       author: f.author,
@@ -63,3 +62,4 @@ export class BookFormComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 }
+
