@@ -41,6 +41,7 @@ import { BookComponent } from './components/book/book.component';
 import { ReadingListService } from './services/reading-list.service';
 import { ReadingListComponent } from './components/reading-list/reading-list.component';
 import { TagComponent } from './components/tag/tag.component';
+import { CourseService } from './services/course.service';
 
 @NgModule({
   declarations: [
@@ -90,6 +91,7 @@ import { TagComponent } from './components/tag/tag.component';
     AuthService,
     UserService,
     UniversityService,
+    CourseService,
     BookService,
     ReadingListService,
   ],
