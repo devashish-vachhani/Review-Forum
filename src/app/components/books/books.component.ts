@@ -23,7 +23,7 @@ export class BooksComponent implements OnInit, OnDestroy {
                             .getBooks()
                             .pipe(
                               switchMap(books => {
-                                this.books = (books as Book[]);
+                                this.books = books;
                                 return this.route.queryParams;
                               })
                             )
