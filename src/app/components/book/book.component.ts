@@ -7,7 +7,6 @@ import { ReadingListService } from '../../services/reading-list.service';
 import { ReadingList } from 'src/app/models/reading-list';
 import { MatDialog } from "@angular/material/dialog";
 import { TagComponent } from '../tag/tag.component';
-import { arrayUnion } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-book',
@@ -16,8 +15,6 @@ import { arrayUnion } from '@angular/fire/firestore';
 })
 export class BookComponent implements OnInit {
   bookId: string;
-  tag: string;
-  colors: Map<string, string>;
   book: Book;
   subscription: Subscription; 
   readingList$: Observable<ReadingList>;
@@ -28,7 +25,6 @@ export class BookComponent implements OnInit {
     private route: ActivatedRoute,
     private dialog: MatDialog
   ) {}
-
   
   ngOnInit() {
     this.subscription = this.route.paramMap.pipe(
@@ -54,16 +50,10 @@ export class BookComponent implements OnInit {
     const dialogRef = this.dialog.open(TagComponent, {
       height: '250px',
       width: '600px',
+      data: {
+        bookId: this.bookId,
+      }
     });
-    dialogRef.afterClosed()
-              .subscribe(
-                tag => {
-                  const data = {
-                    tags: arrayUnion(tag)
-                  }
-                  this.bookService.updateBook(this.bookId, data);
-                }
-              );
   }
 
   ngOnDestroy(): void {
