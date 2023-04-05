@@ -12,6 +12,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
+import { MatDialogModule } from '@angular/material/dialog'
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
@@ -39,6 +40,7 @@ import { BookSearchFormComponent } from './components/book-search-form/book-sear
 import { BookComponent } from './components/book/book.component';
 import { ReadingListService } from './services/reading-list.service';
 import { ReadingListComponent } from './components/reading-list/reading-list.component';
+import { AddTagComponent } from './components/add-tag/add-tag.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +56,7 @@ import { ReadingListComponent } from './components/reading-list/reading-list.com
     BookSearchFormComponent,
     BookComponent,
     ReadingListComponent,
+    AddTagComponent,
   ],
   imports: [
     BrowserModule,
@@ -66,6 +69,7 @@ import { ReadingListComponent } from './components/reading-list/reading-list.com
     MatInputModule,
     MatMenuModule,
     MatCardModule,
+    MatDialogModule,
     MatSnackBarModule,
     ReactiveFormsModule,
     provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
@@ -89,6 +93,7 @@ import { ReadingListComponent } from './components/reading-list/reading-list.com
     BookService,
     ReadingListService,
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [AddTagComponent]
 })
 export class AppModule { }

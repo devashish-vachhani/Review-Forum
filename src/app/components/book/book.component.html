@@ -14,6 +14,19 @@
         <div>
             <h3>{{ book.description }}</h3>
         </div>
+        <br>
+        <div>
+            <span *ngFor = "let tag of book['tags']" style="padding: 5px;">
+                <button
+                    type="button"
+                    mat-raised-button color='primary'
+                    [ngStyle]="{'background-color': colors.get(tag)}"
+                    style="width:auto; display: inline; color: black;"
+                >
+                    {{tag}}
+                </button>
+            </span>
+        </div>
     </div>
     <div class="item2">
         <br>
@@ -42,16 +55,14 @@
         </div>
         <br>
         <div>
-            <label
+            <button
                 type="button"
-                class="btn btn-outline-secondary"
-                ngbPopover="{{book['tags']}}"
-                triggers="mouseenter:mouseleave"
-                popoverTitle="Tags"
+                mat-raised-button color='primary'
                 style="width:280px"
+                (click)="openDialog()"
             >
-                Tags
-            </label>
+                Request a Tag
+            </button>
         </div>
     </div>
     <div class="item3"><br>Reviews</div>
