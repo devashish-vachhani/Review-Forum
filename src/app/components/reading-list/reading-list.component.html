@@ -1,20 +1,32 @@
-<ng-container *ngIf="readingList$ | async as readingList">
-    <table>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Reading List</title>
+    <link rel="stylesheet" href="reading-list.component.css">
+  </head>
+  <body>
+    <ng-container *ngIf="readingList$ | async as readingList">
+      <table class="book-table">
         <thead>
-            <tr>
-                <th>cover</th>
-                <th>title</th>
-                <th>author</th>
-                <th></th>
-            </tr>
+          <tr>
+            <th class="book-table__header book-table__header--cover">Cover</th>
+            <th class="book-table__header book-table__header--title">Title</th>
+            <th class="book-table__header book-table__header--author">Author</th>
+            <th class="book-table__header book-table__header--view"></th>
+            <th class="book-table__header book-table__header--remove"></th>
+          </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let book of readingList.books">
-                <td><img mat-card-image [src]="book.image"></td>
-                <td>{{ book.title }}</td>
-                <td>{{ book.author }}</td>
-                <td></td>
-            </tr>
+          <tr *ngFor="let book of readingList.books" class="book-table__row">
+            <td class="book-table__cell book-table__cell--cover"><img mat-card-image [src]="book.image"></td>
+            <td class="book-table__cell book-table__cell--title">{{ book.title }}</td>
+            <td class="book-table__cell book-table__cell--author">{{ book.author }}</td>
+            <td class="book-table__cell book-table__cell--view"><a [routerLink]="['/book', book.id]">View</a></td>
+            <td class="book-table__cell book-table__cell--remove"><a href="#" (click)="deleteFromReadingList(book.id);">Remove</a></td>
+          </tr>
         </tbody>
-    </table>
-</ng-container>
+      </table>
+    </ng-container>
+  </body>
+</html>

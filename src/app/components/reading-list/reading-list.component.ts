@@ -19,4 +19,9 @@ export class ReadingListComponent implements OnInit {
   ngOnInit() {
     this.readingList$ = this.readingListService.getReadingList();
   }
+
+  async deleteFromReadingList(bookId: string) {
+    await this.readingListService.deleteFromReadingList(bookId);
+  }
+
 }
