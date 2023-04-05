@@ -1,61 +1,19 @@
-.book-table {
-  border-collapse: collapse;
+.table {
   width: 100%;
 }
 
-.book-table__header {
-  background-color: #f2f2f2;
-  font-size: 1.2rem;
-  font-weight: bold;
-  text-align: left;
-  padding: 10px;
-  border-bottom: 2px solid #ccc;
+.mat-column-cover {
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
-.book-table__header--cover {
-  width: 20%;
-}
-
-.book-table__header--title {
-  width: 40%;
-}
-
-.book-table__header--author {
-  width: 30%;
-}
-
-.book-table__row:nth-child(even) {
-  background-color: #f2f2f2;
-}
-
-.book-table__row:hover {
-  background-color: #ddd;
-}
-
-.book-table__cell {
-  padding: 10px;
-  border-bottom: 1px solid #ccc;
-  vertical-align: middle;
-}
-
-.book-table__cell--cover {
-  text-align: left;
-}
-
-.book-table__cell--cover img {
+.mat-column-cover img{
   width: 100px;
   height: auto;
 }
 
-.book-table__cell--actions {
-  text-align: right;
-}
-
-.book-table__cell--actions a {
-  margin-right: 10px;
-}
-
-.book-table__cell--remove a {
-  text-decoration: underline;
+.mat-column-actions a{
   cursor: pointer;
+  text-decoration: none;
+  color: rgb(13, 110, 253)
 }
