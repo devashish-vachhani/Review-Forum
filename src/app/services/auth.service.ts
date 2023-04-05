@@ -6,7 +6,7 @@ import {
   createUserWithEmailAndPassword,
   UserCredential,
 } from '@angular/fire/auth';
-import { from, map, Observable, of, switchMap } from 'rxjs';
+import { from, map, Observable, of, switchMap, tap } from 'rxjs';
 import { AppUser } from '../models/user';
 import { UserService } from './user.service';
 
@@ -20,7 +20,15 @@ export class AuthService {
     private userService: UserService
     ) {}
 
-  currentUser$ = authState(this.auth);
+  currentUser$ = authState(this.auth).pipe(
+    tap(user => {
+      if (user) {
+        localStorage.setItem('user', JSON.stringify(user));
+      } else {
+        localStorage.removeItem('user');
+      }
+    })
+  );
 
   signup(email: string, password: string): Promise<UserCredential> {
     return createUserWithEmailAndPassword(this.auth, email, password);
@@ -47,19 +55,15 @@ export class AuthService {
       })
     );
   }
+
+  get uid(): string {
+    const user = this.getUserFromLocalStorage();
+    return user ? user.uid : null;
+  }
   
-            
-  //   return this.currentUser$
-  //           .pipe(
-  //             switchMap(user => {
-  //               if (user) {
-  //                 return this.userService.getUser(user.uid).pipe(
-  //                   switchMap(data => data as AppUser);
-  //                 );
-  //               } else {
-  //                 return of(null);
-  //               }
-  //             })
-  //           );
-  // }
+  private getUserFromLocalStorage() {
+    const userJson = localStorage.getItem('user');
+    return userJson ? JSON.parse(userJson) : null;
+  }
+
 }

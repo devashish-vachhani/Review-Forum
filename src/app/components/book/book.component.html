@@ -1,33 +1,44 @@
-<div class="grid-container">
+<div class="grid-container" *ngIf="book">
     <div class="item1">
         <br>
         <div>
-            <h1 style="font-size:xx-large; font-weight: bold;">{{book['title']}}</h1>
+            <h1 style="font-size:xx-large; font-weight: bold;">{{ book['title'] }}</h1>
         </div>
         <div>
-            <h2 style="font-weight: lighter; font-size: x-large;">{{book['author']}}</h2>
+            <h2 style="font-weight: lighter; font-size: x-large;">{{ book.author }}</h2>
         </div>
         <div>
             Average Rating
         </div>
         <br>
         <div>
-            <h3>{{book['description']}}</h3>
+            <h3>{{ book.description }}</h3>
         </div>
     </div>
     <div class="item2">
         <br>
-        <img mat-card-image id ="bookImage" data-mb-toggle="popover" title="test" [src]="book['image']">
+        <img mat-card-image id ="bookImage" data-mb-toggle="popover" title="test" [src]="book.image">
         <br>
         <br>
         <div>
-            <button
+            <button *ngIf="!(readingList$ | async).isBookInReadingList(bookId); else removeButton"
                 type="button"
-                class="btn btn-outline-secondary"
+                mat-raised-button color='primary'
                 style="width:280px"
+                (click)="addToReadingList(book)"
             >
                 Add to reading list
             </button>
+            <ng-template #removeButton>
+                <button
+                type="button"
+                mat-raised-button
+                style="width:280px"
+                (click)="deleteFromReadingList(bookId)"
+            >
+                Remove from reading list
+            </button>
+            </ng-template>
         </div>
         <br>
         <div>
