@@ -1,0 +1,19 @@
+.table {
+  width: 100%;
+}
+
+.mat-column-cover {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.mat-column-cover img{
+  width: 100px;
+  height: auto;
+}
+
+.mat-column-actions a{
+  cursor: pointer;
+  text-decoration: none;
+  color: rgb(13, 110, 253)
+}
