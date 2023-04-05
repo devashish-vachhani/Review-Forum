@@ -54,3 +54,8 @@
 .book-table__cell--actions a {
   margin-right: 10px;
 }
+
+.book-table__cell--remove a {
+  text-decoration: underline;
+  cursor: pointer;
+}

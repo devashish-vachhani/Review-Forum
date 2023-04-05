@@ -23,7 +23,7 @@
             <td class="book-table__cell book-table__cell--title">{{ book.title }}</td>
             <td class="book-table__cell book-table__cell--author">{{ book.author }}</td>
             <td class="book-table__cell book-table__cell--view"><a [routerLink]="['/book', book.id]">View</a></td>
-            <td class="book-table__cell book-table__cell--remove"><a href="#" (click)="deleteFromReadingList(book.id);">Remove</a></td>
+            <td class="book-table__cell book-table__cell--remove"><a class="remove-link" (click)="deleteFromReadingList(book.id);">Remove</a></td>
           </tr>
         </tbody>
       </table>
