@@ -1,92 +1,151 @@
 <div class="untitled-page root" *ngIf="reviews$ | async as reviews">
     <div class="wrapper">
     <section class="box">
-        <div class="wrapper1">
-        <div class="cell"><h2 class="wrapper11">Ratings &amp; Reviews</h2></div>
+        <div style="text-align: center;">
+        <h2 style="background-color: #4758b8; color: white; border: #4758b8; border-radius: 10px;">Ratings &amp; Reviews</h2>
         </div>
         <div class="wrapper2">
         <h5 class="highlights">Summary</h5>
-        <div class="wrapper3">
+        <div class="wrapper3" style="width: ...; margin: 0 auto;">
             <div class="cell">
             <div class="wrapper4">
                 <div class="wrapper5">
                 <div class="wrapper6"><div class="wrapper61">5</div></div>
-                <div class="cell"><div class="wrapper7"></div></div>
+                <div class="cell" style="padding-left: 5px;">
+                    <div fxLayout="row" fxLayoutGap="15px" fxLayoutAlign="start center" fxLayoutW >
+                        <mat-progress-bar fxFlex mode="determinate" [value]="getPercent(fiveCount, total)"></mat-progress-bar>
+                        <span class="text" style="font-size: smaller; color: rgb(139, 139, 139);">{{fiveCount}} ({{getPercent(fiveCount, total)}}%)</span>
+                    </div>
+                </div>
                 </div>
                 <div class="wrapper8">
                 <div class="wrapper6"><div class="wrapper61">4</div></div>
-                <div class="cell">
-                    <img src="/assets/b893691b751fb078a929c1c9e943bfa1.png" alt="alt text" class="image" />
+                
+                <div class="cell" style="padding-left: 5px;">
+                    <div fxLayout="row" fxLayoutGap="15px" fxLayoutAlign="start center" fxLayoutW >
+                        <mat-progress-bar fxFlex mode="determinate" [value]="getPercent(fourCount, total)"></mat-progress-bar>
+                        <span class="text" style="font-size: smaller; color: rgb(139, 139, 139);">{{fourCount}} ({{getPercent(fiveCount, total)}}%)</span>
+                    </div>
                 </div>
                 </div>
                 <div class="wrapper8">
                 <div class="wrapper6"><div class="wrapper61">3</div></div>
-                <div class="cell1">
-                    <img src="/assets/e259c37ea8ecdd7975516d1d3ccf38e7.png" alt="alt text" class="image" />
+                <div class="cell1" style="padding-left: 5px;">
+                    <div fxLayout="row" fxLayoutGap="15px" fxLayoutAlign="start center" fxLayoutW >
+                        <mat-progress-bar fxFlex mode="determinate" [value]="getPercent(threeCount, total)"></mat-progress-bar>
+                        <span class="text" style="font-size: smaller; color: rgb(139, 139, 139);">{{threeCount}} ({{getPercent(fiveCount, total)}}%)</span>
+                    </div>
                 </div>
                 </div>
                 <div class="wrapper8">
                 <div class="wrapper6"><div class="wrapper61">2</div></div>
-                <div class="cell2">
-                    <img src="/assets/1176aeb15e4902965f51f00318f88814.png" alt="alt text" class="image" />
+                <div class="cell2" style="padding-left: 5px;">
+                    <div fxLayout="row" fxLayoutGap="15px" fxLayoutAlign="start center" fxLayoutW >
+                        <mat-progress-bar fxFlex mode="determinate" [value]="getPercent(twoCount, total)"></mat-progress-bar>
+                        <span class="text" style="font-size: smaller; color: rgb(139, 139, 139);">{{twoCount}} ({{getPercent(fiveCount, total)}}%)</span>
+                    </div>
                 </div>
                 </div>
                 <div class="wrapper8">
                 <div class="wrapper6"><div class="wrapper61">1</div></div>
-                <div class="cell3">
-                    <img src="/assets/d8f6dfe709a7d520d7fd81bf13664a5f.png" alt="alt text" class="image" />
+                <div class="cell3" style="padding-left: 5px;">
+                    <div fxLayout="row" fxLayoutGap="15px" fxLayoutAlign="start center" fxLayoutW >
+                        <mat-progress-bar fxFlex mode="determinate" [value]="getPercent(oneCount, total)"></mat-progress-bar>
+                        <span class="text" style="font-size: smaller; color: rgb(139, 139, 139);">{{oneCount}} ({{getPercent(fiveCount, total)}}%)</span>
+                    </div>
                 </div>
                 </div>
             </div>
             </div>
-            <div class="spacer"></div>
+            <div class="spacer" style="width: 230px;"></div>
             <div class="cell1">
             <div class="wrapper9">
                 <div class="wrapper91">
                 <div class="wrapper10">
-                    <h2 class="wrapper12">4.5</h2>
-                    <div class="cell">
-                    <div style="--src:url(/assets/ea82c6bb6cba0fd2630dd6c00c5362d4.png)" class="wrapper111"></div>
-                    </div>
+                    <h2 class="wrapper12" style="padding-bottom: 0; padding-left: 20px; height: 0;">
+                        {{average}}
+                        <mat-icon style="color: rgb(167, 123, 2);">star</mat-icon>
+                    </h2>
                 </div>
-                <div class="info">273 Reviews</div>
+                <div class="info" style="padding-left: 17px;">{{total}} Reviews</div>
                 </div>
             </div>
             </div>
         </div>
         </div>
         <div class="wrapper121">
-        <div class="wrapper122">
-            <div class="cell"><h5 class="highlights1">Write a review</h5></div>
+        <div style="text-align: center;">
+            <button
+                style="width:870px; height: 50px;"
+                mat-stroked-button="basic"
+            >
+                Write a review
+            </button>
         </div>
         </div>
     </section>
     <section class="box1">
         <hr size="1" class="line" />
-        <div class="wrapper13">
-        <div class="cell"><h2 class="wrapper11">Community Forum</h2></div>
-        </div>
         <div class="box2" *ngFor="let review of reviews">
             <div class="wrapper131">
-                <div class="wrapper14">
-                    <div class="wrapper15">
-                        <div class="wrapper151"><div class="wrapper152">{{ review.reviewer }}</div></div>
+                <div class="wrapper14" style="padding-top: 5px; padding-bottom: 5px;">
+                    <div class="wrapper151"><div class="wrapper152" style="font-size: larger;">{{ review.reviewer }}</div></div>
+                    <div class="spacer4" style="width: 20px;"></div>
+                    <div class="cell2" style="width:124px;">
+                    
+                    <div *ngIf="review['rating'] == 5">
+                        <mat-icon style="color: rgb(167, 123, 2); display: inline-block;">star</mat-icon>
+                        <mat-icon style="color: rgb(167, 123, 2); display: inline-block;">star</mat-icon>
+                        <mat-icon style="color: rgb(167, 123, 2); display: inline-block;">star</mat-icon>
+                        <mat-icon style="color: rgb(167, 123, 2); display: inline-block;">star</mat-icon>
+                        <mat-icon style="color: rgb(167, 123, 2); display: inline-block;">star</mat-icon>
                     </div>
-                <div class="spacer"></div>
-                <div class="cell">
-                    <img src="/assets/8c6d0e89ebdd792665182c4414070216.png" alt="alt text" class="image1" />
+                        
+                    <div *ngIf="review['rating'] == 4">
+                        <mat-icon style="color: rgb(167, 123, 2); display: inline-block;">star</mat-icon>
+                        <mat-icon style="color: rgb(167, 123, 2); display: inline-block;">star</mat-icon>
+                        <mat-icon style="color: rgb(167, 123, 2); display: inline-block;">star</mat-icon>
+                        <mat-icon style="color: rgb(167, 123, 2); display: inline-block;">star</mat-icon>
+                        <mat-icon style="color: rgb(0, 0, 0); display: inline-block;">star_border</mat-icon>
+                    </div>
+                        
+                    <div *ngIf="review['rating'] == 3">
+                        <mat-icon style="color: rgb(167, 123, 2); display: inline-block;">star</mat-icon>
+                        <mat-icon style="color: rgb(167, 123, 2); display: inline-block;">star</mat-icon>
+                        <mat-icon style="color: rgb(167, 123, 2); display: inline-block;">star</mat-icon>
+                        <mat-icon style="color: rgb(0, 0, 0); display: inline-block;">star_border</mat-icon>
+                        <mat-icon style="color: rgb(0, 0, 0); display: inline-block;">star_border</mat-icon>
+                    </div>
+                        
+                    <div *ngIf="review['rating'] == 2">
+                        <mat-icon style="color: rgb(167, 123, 2); display: inline-block;">star</mat-icon>
+                        <mat-icon style="color: rgb(167, 123, 2); display: inline-block;">star</mat-icon>
+                        <mat-icon style="color: rgb(0, 0, 0); display: inline-block;">star_border</mat-icon>
+                        <mat-icon style="color: rgb(0, 0, 0); display: inline-block;">star_border</mat-icon>
+                        <mat-icon style="color: rgb(0, 0, 0); display: inline-block;">star_border</mat-icon>
+                    </div>
+                        
+                    <div *ngIf="review['rating'] == 1">
+                        <mat-icon style="color: rgb(167, 123, 2); display: inline-block;">star</mat-icon>
+                        <mat-icon style="color: rgb(0, 0, 0); display: inline-block;">star_border</mat-icon>
+                        <mat-icon style="color: rgb(0, 0, 0); display: inline-block;">star_border</mat-icon>
+                        <mat-icon style="color: rgb(0, 0, 0); display: inline-block;">star_border</mat-icon>
+                        <mat-icon style="color: rgb(0, 0, 0); display: inline-block;">star_border</mat-icon>
+                    </div>
                 </div>
+                <div class="spacer1" style="width: 560px;"></div>
+                <div style="text-align: right; font-size: small;">{{ review.date.toDate() | date: 'mediumDate' }}</div>
                 </div>
-                <p class="wrapper153">
+                <hr size="0" class="line3" align="center" style="padding: 0; margin: 0;"/>
+                <p class="wrapper153" style="padding-left: 10px; padding-top: 5px;">
                     {{ review.text }}
                 </p>
                 <div class="wrapper16">
-                <div class="wrapper17">
-                    <div class="wrapper154"><div class="wrapper155">Like</div></div>
-                    <div class="wrapper156"><div class="wrapper157">Comment</div></div>
+                <div class="wrapper17" style="padding-left: 10px">
+                    
+                    <div class="wrapper154"><mat-icon style="color:rgb(87, 87, 87);">thumb_up</mat-icon></div>
+                    <div class="wrapper156"><mat-icon style="color:rgb(87, 87, 87)"> comment</mat-icon></div>
                 </div>
-                <div class="spacer"></div>
-                <div class="wrapper158">{{ review.date.toDate() | date: 'mediumDate' }}</div>
                 </div>
             </div>
         </div>
