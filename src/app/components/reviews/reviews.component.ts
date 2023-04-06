@@ -20,6 +20,9 @@ export class ReviewsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.subscription = this.reviewService.getReviews(this.bookId)
+                        .pipe(
+                          distinctUntilChanged( (prev, curr) => prev.length === curr.length )
+                        )
                         .subscribe(reviews => {
                           this.reviews = reviews;
                           reviews.forEach((review) => {
