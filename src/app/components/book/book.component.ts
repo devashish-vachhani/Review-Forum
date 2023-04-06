@@ -7,6 +7,8 @@ import { ReadingListService } from '../../services/reading-list.service';
 import { ReadingList } from 'src/app/models/reading-list';
 import { MatDialog } from "@angular/material/dialog";
 import { TagComponent } from '../tag/tag.component';
+import { arrayUnion } from '@angular/fire/firestore';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-book',
@@ -14,7 +16,6 @@ import { TagComponent } from '../tag/tag.component';
   styleUrls: ['./book.component.css']
 })
 export class BookComponent implements OnInit {
-  bookId: string;
   book: Book;
   subscription: Subscription; 
   readingList$: Observable<ReadingList>;
@@ -23,14 +24,14 @@ export class BookComponent implements OnInit {
     private bookService: BookService,
     private readingListService: ReadingListService,
     private route: ActivatedRoute,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private snackBar: MatSnackBar,
   ) {}
   
   ngOnInit() {
     this.subscription = this.route.paramMap.pipe(
       switchMap(params => {
-        this.bookId = params.get('id');
-        return this.bookService.getBook(this.bookId);
+        return this.bookService.getBook(params.get('id'));
       })
     ).subscribe((book: Book) => {
       this.book = book;
@@ -38,20 +39,32 @@ export class BookComponent implements OnInit {
     });
   }
 
-  async addToReadingList(book: Book) {
-    await this.readingListService.addToReadingList(book);
+  async addToReadingList() {
+    await this.readingListService.addToReadingList(this.book);
   }
 
-  async deleteFromReadingList(bookId: string) {
-    await this.readingListService.deleteFromReadingList(bookId);
+  async deleteFromReadingList() {
+    await this.readingListService.deleteFromReadingList(this.book.id);
   }
 
-  openDialog() {
+  openDialog(): void {
     const dialogRef = this.dialog.open(TagComponent, {
       height: '250px',
       width: '600px',
-      data: {
-        bookId: this.bookId,
+    });
+
+    dialogRef.afterClosed().subscribe(tag => {
+      if(tag) {
+        if(this.book.hasTag(tag)) {
+          this.snackBar.open('Tag already exists', 'Dismiss', {
+            panelClass: 'warning',
+        })
+        } else {
+          const data = {
+            tags: arrayUnion(tag)
+          } 
+          this.bookService.updateBook(this.book.id, data);
+        }
       }
     });
   }

@@ -4,6 +4,7 @@ import { Observable, map } from 'rxjs';
 import { Book } from '../models/book';
 import { AuthService } from 'src/app/services/auth.service';
 import { ReadingList } from '../models/reading-list';
+import { BookService } from './book.service';
 
 @Injectable({
   providedIn: 'root'

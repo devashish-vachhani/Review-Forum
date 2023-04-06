@@ -40,14 +40,14 @@ export class BookFormComponent implements OnInit, OnDestroy {
 
   onSubmit(f) { 
     const tag = `${findCodeById(f.university, this.universities)}/${f.course}`;
-    const book: Book = {
-      title: f.title,
-      author: f.author,
-      description: f.description,
-      image: f.image,
-      tags: [tag],
-      status: false
-    };
+    const book = new Book(
+      f.title,
+      f.author,
+      f.description,
+      f.image,
+      [tag],
+      false
+    );
     this.bookService.createBook(book)
     .then(() => {
       this.toastr.success('Request submitted successfully');

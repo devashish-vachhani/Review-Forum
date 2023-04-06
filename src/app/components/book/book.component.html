@@ -31,11 +31,11 @@
         <br>
         <br>
         <div *ngIf="readingList$ | async as readingList">
-            <button *ngIf="!readingList.hasBook(bookId); else removeButton"
+            <button *ngIf="!readingList.hasBook(book.id); else removeButton"
                 type="button"
                 mat-raised-button color='primary'
                 style="width:280px"
-                (click)="addToReadingList(book)"
+                (click)="addToReadingList()"
             >
                 Add to reading list
             </button>
@@ -44,7 +44,7 @@
                 type="button"
                 mat-raised-button
                 style="width:280px"
-                (click)="deleteFromReadingList(bookId)"
+                (click)="deleteFromReadingList()"
             >
                 Remove from reading list
             </button>

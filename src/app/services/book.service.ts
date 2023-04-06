@@ -14,20 +14,16 @@ export class BookService {
   getBooks(): Observable<Book[]> {
     const booksCollectionRef = collection(this.firestore, 'books');
     return collectionData(booksCollectionRef, { idField: 'id' })
-            .pipe(
-              map(books => {
-                return books as Book[];
-              })
-            )
+      .pipe(
+        map(books => books.map(book => new Book(book['title'], book['author'], book['description'], book['image'], book['tags'], book['status'], book['id'])))
+      );
   }
 
   getBook(bookId: string): Observable<Book> {
     const bookDocumentRef = doc(this.firestore, 'books', bookId)
-    return  docData(bookDocumentRef, { idField: 'id'})
+    return docData(bookDocumentRef, { idField: 'id'})
             .pipe(
-              map(book => {
-                return book as Book;
-              })
+              map(book => new Book(book['title'], book['author'], book['description'], book['image'], book['tags'], book['status'], book['id']))
             )
   }
 
