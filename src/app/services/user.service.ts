@@ -14,12 +14,12 @@ export class UserService {
     private firestore: Firestore,
     private authService: AuthService,
     ) {
-      this.uid = authService.uid;
+      this.uid = this.authService.uid;
     }
 
   getUser(uid: string): Observable<AppUser> {
     const userDocumentRef = doc(this.firestore, 'users', uid);
-    return docData(userDocumentRef, { idField: 'id'})
+    return docData(userDocumentRef)
             .pipe(
               map(user => new AppUser(user['email'], user['username'], user['isAdmin']))
             );
