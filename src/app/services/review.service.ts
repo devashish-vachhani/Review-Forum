@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Firestore, addDoc, collection, collectionData, doc } from '@angular/fire/firestore';
 import { Observable, map } from 'rxjs';
 import { Review } from '../models/review';
-import { deleteDoc } from 'firebase/firestore';
+import { deleteDoc, updateDoc } from 'firebase/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -31,5 +31,10 @@ export class ReviewService {
   async deleteReview(bookId: string, reviewId: string): Promise<void> {
     const reviewDocumentRef = doc(this.firestore, `books/${bookId}/reviews`, reviewId);
     await deleteDoc(reviewDocumentRef);
+  }
+
+  async updateReview(bookId: string, reviewId: string, data): Promise<void> {
+    const reviewDocumentRef = doc(this.firestore, `books/${bookId}/reviews`, reviewId);
+    await updateDoc(reviewDocumentRef, data);
   }
 }

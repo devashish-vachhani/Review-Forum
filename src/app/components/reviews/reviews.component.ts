@@ -2,6 +2,9 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Observable, Subscription, distinctUntilChanged } from 'rxjs';
 import { Review } from 'src/app/models/review';
 import { ReviewService } from 'src/app/services/review.service';
+import { increment } from '@angular/fire/firestore';
+import { PostComponent } from '../post/post.component';
+import { MatDialog } from "@angular/material/dialog";
 
 @Component({
   selector: 'reviews',
@@ -16,6 +19,7 @@ export class ReviewsComponent implements OnInit, OnDestroy {
 
   constructor(
     private reviewService: ReviewService,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -31,6 +35,20 @@ export class ReviewsComponent implements OnInit, OnDestroy {
     });
   }
 
+  openDialog() {
+    const dialogRef = this.dialog.open(PostComponent, {
+      height: '300px',
+      width: '600px',
+      data: {
+        bookId: this.bookId,
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result.rating);
+      console.log(result.review);
+    });
+  }
+
   convertToPercent(number) {
     return ((number / this.reviews.length) * 100).toFixed(0).toString();
   }
@@ -40,6 +58,24 @@ export class ReviewsComponent implements OnInit, OnDestroy {
     const len = this.reviews.length;
     const avg = sum/len;
     return avg.toFixed(1).toString();
+  }
+
+  likeInteraction(event, review: Review) {
+    console.log()
+    if(event.selected) {
+      review.likes += 1
+      const data = {
+        likes: increment(1)
+      }
+      this.reviewService.updateReview(this.bookId, review.id, data);
+    }
+    else {
+      review.likes -= 1
+      const data = {
+        likes: increment(-1)
+      }
+      this.reviewService.updateReview(this.bookId, review.id, data);
+    }
   }
 
   ngOnDestroy(): void {

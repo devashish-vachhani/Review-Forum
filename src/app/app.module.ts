@@ -16,6 +16,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressBarModule } from '@angular/material/progress-bar'
+import { MatChipsModule } from '@angular/material/chips'
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSortModule } from '@angular/material/sort';
@@ -47,6 +48,7 @@ import { ReadingListComponent } from './components/reading-list/reading-list.com
 import { TagComponent } from './components/tag/tag.component';
 import { ReviewService } from './services/review.service';
 import { ReviewsComponent } from './components/reviews/reviews.component';
+import { PostComponent } from './components/post/post.component';
 import { CommonModule } from '@angular/common';
 
 @NgModule({
@@ -65,6 +67,7 @@ import { CommonModule } from '@angular/common';
     ReadingListComponent,
     TagComponent,
     ReviewsComponent,
+    PostComponent,
   ],
   imports: [
     CommonModule,
@@ -84,6 +87,7 @@ import { CommonModule } from '@angular/common';
     MatPaginatorModule,
     MatSortModule,
     MatProgressBarModule,
+    MatChipsModule,
     ReactiveFormsModule,
     provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
     provideAuth(() => getAuth()),

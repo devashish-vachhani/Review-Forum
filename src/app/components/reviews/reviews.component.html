@@ -47,6 +47,7 @@
             <button
                 style="width:870px; height: 50px;"
                 mat-stroked-button="basic"
+                (click)="openDialog()"
             >
                 Write a review
             </button>
@@ -78,8 +79,8 @@
                 <div class="wrapper16">
                 <div class="wrapper17" style="padding-left: 10px">
                     
-                    <div class="wrapper154"><mat-icon style="color:rgb(87, 87, 87);">thumb_up</mat-icon></div>
-                    <div class="wrapper156"><mat-icon style="color:rgb(87, 87, 87)"> comment</mat-icon></div>
+                    <div class="wrapper154"><mat-chip-option color="warn" style="padding-top: 5px;" (selectionChange)="likeInteraction($event, review)"><mat-icon style="color:rgb(87, 87, 87); vertical-align: middle; padding: 0px 30px 30px 0px;">thumb_up</mat-icon>{{review.likes}}</mat-chip-option></div>
+                    <div class="wrapper156"><mat-chip-option style="padding-top: 5px;"><mat-icon style="color:rgb(87, 87, 87); vertical-align: middle; padding-bottom: 30px;"> comment</mat-icon></mat-chip-option></div>
                 </div>
                 </div>
             </div>
