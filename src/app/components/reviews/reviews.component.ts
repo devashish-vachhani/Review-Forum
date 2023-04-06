@@ -39,9 +39,6 @@ export class ReviewsComponent implements OnInit, OnDestroy {
     const dialogRef = this.dialog.open(PostComponent, {
       height: '300px',
       width: '600px',
-      data: {
-        bookId: this.bookId,
-      }
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log(result.rating);
