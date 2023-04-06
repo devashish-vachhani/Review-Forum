@@ -29,7 +29,7 @@ export class BookService {
 
   async createBook(book: Book): Promise<void> {
     const booksCollectionRef = collection(this.firestore, 'books');
-    await addDoc(booksCollectionRef, book);
+    await addDoc(booksCollectionRef, book.toJSON());
   }
 
   async updateBook(bookId: string, data): Promise<void> {

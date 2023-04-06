@@ -76,5 +76,17 @@ export class Book {
     hasTag(tag: string): boolean {
         return this._tags.includes(tag);
     }
+
+    toJSON(): any {
+        return {
+          title: this.title,
+          author: this.author,
+          description: this.description,
+          image: this.image,
+          tags: this.tags,
+          status: this.status,
+          id: this.id,
+        };
+    }
   }
   
