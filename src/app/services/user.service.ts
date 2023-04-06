@@ -1,32 +1,32 @@
 import { Injectable } from '@angular/core';
-import { deleteDoc, doc, docData, DocumentData, Firestore, setDoc, updateDoc } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
+import { doc, docData, Firestore, setDoc } from '@angular/fire/firestore';
+import { map, Observable } from 'rxjs';
+import { AuthService } from './auth.service';
 import { AppUser } from '../models/user';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
+  uid: string;
 
-  constructor(private firestore: Firestore) { }
+  constructor(
+    private firestore: Firestore,
+    private authService: AuthService,
+    ) {
+      this.uid = authService.uid;
+    }
 
-  getUser(uid: string): Observable<DocumentData> {
+  getUser(uid: string): Observable<AppUser> {
     const userDocumentRef = doc(this.firestore, 'users', uid);
-    return docData(userDocumentRef, { idField: 'id'});
+    return docData(userDocumentRef, { idField: 'id'})
+            .pipe(
+              map(user => new AppUser(user['email'], user['username'], user['isAdmin']))
+            );
   }
 
-  addUser(user: AppUser) {
-    const userDocumentRef = doc(this.firestore, 'users', user.uid);
-    return setDoc(userDocumentRef, user);
-  }
-
-  updateUser(user: AppUser) {
-    const userDocumentRef = doc(this.firestore, 'users', user.uid);
-    return updateDoc(userDocumentRef, { ...user });
-  }
-
-  deleteUser(user: AppUser): Promise<void> {
-    const userDocumentRef = doc(this.firestore, 'users', user.uid);
-    return deleteDoc(userDocumentRef);
+  async addUser(user: AppUser) {
+    const userDocumentRef = doc(this.firestore, 'users', this.uid);
+    await setDoc(userDocumentRef, user.toJson());
   }
 }

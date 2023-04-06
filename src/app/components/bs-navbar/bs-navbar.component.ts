@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/services/auth.service';
-import { AppUser } from '../../models/user';
+import { UserService } from '../../services/user.service';
+import { Subscription, of, switchMap } from 'rxjs';
+import { AppUser } from 'src/app/models/user';
 
 @Component({
   selector: 'bs-navbar',
@@ -10,16 +12,28 @@ import { AppUser } from '../../models/user';
   styleUrls: ['./bs-navbar.component.scss']
 })
 export class BsNavbarComponent implements OnInit {
+  subscription: Subscription;
+  appUser: AppUser;
+
   constructor(
     private authService: AuthService,
     private router: Router,
+    private userService: UserService,
     private toastr: ToastrService,
     ) {}
 
-  appUser: AppUser
-
   ngOnInit(): void {
-    this.authService.appUser$.subscribe(appUser => this.appUser = appUser)
+    this.subscription = this.authService.currentUser$
+                                        .pipe(
+                                          switchMap(user => {
+                                            if (user) {
+                                              return this.userService.getUser(user.uid);
+                                            } else {
+                                              return of(null);
+                                            }
+                                          })
+                                        )
+                                        .subscribe(appUser => this.appUser = appUser);
   }
 
   async logout() {
@@ -30,5 +44,9 @@ export class BsNavbarComponent implements OnInit {
     } catch (error) {
       this.toastr.error(error);
     }
-  }  
+  }
+  
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
 }

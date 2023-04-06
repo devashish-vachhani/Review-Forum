@@ -6,9 +6,7 @@ import {
   createUserWithEmailAndPassword,
   UserCredential,
 } from '@angular/fire/auth';
-import { from, map, Observable, of, switchMap, tap } from 'rxjs';
-import { AppUser } from '../models/user';
-import { UserService } from './user.service';
+import { tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -17,7 +15,6 @@ export class AuthService {
 
   constructor(
     private auth: Auth,
-    private userService: UserService
     ) {}
 
   currentUser$ = authState(this.auth).pipe(
@@ -40,20 +37,6 @@ export class AuthService {
 
   logout(): Promise<void> {
     return this.auth.signOut();
-  }
-
-  get appUser$(): Observable<AppUser> {
-    return this.currentUser$.pipe(
-      switchMap(user => {
-        if (user) {
-          return this.userService.getUser(user.uid).pipe(
-            map(docData => docData as AppUser)
-          );
-        } else {
-          return of(null);
-        }
-      })
-    );
   }
 
   get uid(): string {

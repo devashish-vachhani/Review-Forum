@@ -1,10 +1,10 @@
 <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
     <div class="mb-3">
-        <label for="name">Name</label>
-        <input type="text" formControlName="name" class="form-control" />
+        <label for="username">Username</label>
+        <input type="text" formControlName="username" class="form-control" />
         <div *ngIf="
-                name?.touched && 
-                name?.hasError('required')">
+                username?.touched && 
+                username?.hasError('required')">
                 Name is <strong>required</strong>
         </div>
     </div>
