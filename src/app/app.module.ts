@@ -17,8 +17,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatMenuModule } from '@angular/material/menu';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSortModule } from '@angular/material/sort';
+import { MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSnackBarModule } from '@angular/material/snack-bar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -100,6 +100,10 @@ import { CourseService } from './services/course.service';
     CourseService,
     BookService,
     ReadingListService,
+    {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue:  {
+                                                          verticalPosition: 'top',
+                                                          horizontalPosition: 'center',
+                                                        }}
   ],
   bootstrap: [AppComponent],
   entryComponents: [TagComponent]

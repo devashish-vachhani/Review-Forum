@@ -4,6 +4,7 @@ import { Observable, map } from 'rxjs';
 import { Book } from '../models/book';
 import { AuthService } from 'src/app/services/auth.service';
 import { ReadingList } from '../models/reading-list';
+import { BookService } from './book.service';
 
 @Injectable({
   providedIn: 'root'
@@ -31,7 +32,7 @@ export class ReadingListService {
 
   addToReadingList(book: Book): Promise<void> {
     const bookDocumentRef = doc(this.firestore, `users/${this.uid}/reading-list`, book['id']);
-    return setDoc(bookDocumentRef, book);
+    return setDoc(bookDocumentRef, book.toJSON());
   }
 
   deleteFromReadingList(bookId: string): Promise<void> {
