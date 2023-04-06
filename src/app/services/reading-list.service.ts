@@ -32,7 +32,7 @@ export class ReadingListService {
 
   addToReadingList(book: Book): Promise<void> {
     const bookDocumentRef = doc(this.firestore, `users/${this.uid}/reading-list`, book['id']);
-    return setDoc(bookDocumentRef, Object.assign({}, book.toJSON()));
+    return setDoc(bookDocumentRef, book.toJSON());
   }
 
   deleteFromReadingList(bookId: string): Promise<void> {
