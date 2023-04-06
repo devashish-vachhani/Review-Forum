@@ -1,60 +1,29 @@
-<div class="untitled-page root" *ngIf="reviews$ | async as reviews">
+<div class="untitled-page root" *ngIf="reviews">
     <div class="wrapper">
     <section class="box">
-        <div style="text-align: center;">
-        <h2 style="background-color: #4758b8; color: white; border: #4758b8; border-radius: 10px;">Ratings &amp; Reviews</h2>
+        <div style="text-align: left;">
+        <h2>Ratings &amp; Reviews</h2>
         </div>
         <div class="wrapper2">
         <h5 class="highlights">Summary</h5>
         <div class="wrapper3" style="width: ...; margin: 0 auto;">
             <div class="cell">
             <div class="wrapper4">
-                <div class="wrapper5">
-                <div class="wrapper6"><div class="wrapper61">5</div></div>
-                <div class="cell" style="padding-left: 5px;">
-                    <div fxLayout="row" fxLayoutGap="15px" fxLayoutAlign="start center" fxLayoutW >
-                        <mat-progress-bar fxFlex mode="determinate" [value]="getPercent(fiveCount, total)"></mat-progress-bar>
-                        <span class="text" style="font-size: smaller; color: rgb(139, 139, 139);">{{fiveCount}} ({{getPercent(fiveCount, total)}}%)</span>
+                <ng-container *ngFor="let ratingStat of ratingStats.slice().reverse(); let ratingVal=index">
+                    <div class="wrapper8">
+                        <div class="wrapper6">
+                            <div class="wrapper61">
+                                {{ 5-ratingVal }}
+                            </div>
+                        </div>
+                        <div class="cell" style="padding-left: 5px;">
+                            <div fxLayout="row" fxLayoutGap="15px" fxLayoutAlign="start center" fxLayoutW >
+                            <mat-progress-bar fxFlex mode="determinate" [value]="convertToPercent(ratingStat)"></mat-progress-bar>
+                            <span class="text" style="font-size: smaller; color: rgb(139, 139, 139);">{{ratingStat}} ({{convertToPercent(ratingStat)}}%)</span>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                </div>
-                <div class="wrapper8">
-                <div class="wrapper6"><div class="wrapper61">4</div></div>
-                
-                <div class="cell" style="padding-left: 5px;">
-                    <div fxLayout="row" fxLayoutGap="15px" fxLayoutAlign="start center" fxLayoutW >
-                        <mat-progress-bar fxFlex mode="determinate" [value]="getPercent(fourCount, total)"></mat-progress-bar>
-                        <span class="text" style="font-size: smaller; color: rgb(139, 139, 139);">{{fourCount}} ({{getPercent(fiveCount, total)}}%)</span>
-                    </div>
-                </div>
-                </div>
-                <div class="wrapper8">
-                <div class="wrapper6"><div class="wrapper61">3</div></div>
-                <div class="cell1" style="padding-left: 5px;">
-                    <div fxLayout="row" fxLayoutGap="15px" fxLayoutAlign="start center" fxLayoutW >
-                        <mat-progress-bar fxFlex mode="determinate" [value]="getPercent(threeCount, total)"></mat-progress-bar>
-                        <span class="text" style="font-size: smaller; color: rgb(139, 139, 139);">{{threeCount}} ({{getPercent(fiveCount, total)}}%)</span>
-                    </div>
-                </div>
-                </div>
-                <div class="wrapper8">
-                <div class="wrapper6"><div class="wrapper61">2</div></div>
-                <div class="cell2" style="padding-left: 5px;">
-                    <div fxLayout="row" fxLayoutGap="15px" fxLayoutAlign="start center" fxLayoutW >
-                        <mat-progress-bar fxFlex mode="determinate" [value]="getPercent(twoCount, total)"></mat-progress-bar>
-                        <span class="text" style="font-size: smaller; color: rgb(139, 139, 139);">{{twoCount}} ({{getPercent(fiveCount, total)}}%)</span>
-                    </div>
-                </div>
-                </div>
-                <div class="wrapper8">
-                <div class="wrapper6"><div class="wrapper61">1</div></div>
-                <div class="cell3" style="padding-left: 5px;">
-                    <div fxLayout="row" fxLayoutGap="15px" fxLayoutAlign="start center" fxLayoutW >
-                        <mat-progress-bar fxFlex mode="determinate" [value]="getPercent(oneCount, total)"></mat-progress-bar>
-                        <span class="text" style="font-size: smaller; color: rgb(139, 139, 139);">{{oneCount}} ({{getPercent(fiveCount, total)}}%)</span>
-                    </div>
-                </div>
-                </div>
+                 </ng-container>
             </div>
             </div>
             <div class="spacer" style="width: 230px;"></div>
@@ -63,11 +32,11 @@
                 <div class="wrapper91">
                 <div class="wrapper10">
                     <h2 class="wrapper12" style="padding-bottom: 0; padding-left: 20px; height: 0;">
-                        {{average}}
+                        {{ calculateAverageRating() }}
                         <mat-icon style="color: rgb(167, 123, 2);">star</mat-icon>
                     </h2>
                 </div>
-                <div class="info" style="padding-left: 17px;">{{total}} Reviews</div>
+                <div class="info" style="padding-left: 17px;">{{ reviews.length }} Reviews</div>
                 </div>
             </div>
             </div>
@@ -93,45 +62,11 @@
                     <div class="spacer4" style="width: 20px;"></div>
                     <div class="cell2" style="width:124px;">
                     
-                    <div *ngIf="review['rating'] == 5">
-                        <mat-icon style="color: rgb(167, 123, 2); display: inline-block;">star</mat-icon>
-                        <mat-icon style="color: rgb(167, 123, 2); display: inline-block;">star</mat-icon>
-                        <mat-icon style="color: rgb(167, 123, 2); display: inline-block;">star</mat-icon>
-                        <mat-icon style="color: rgb(167, 123, 2); display: inline-block;">star</mat-icon>
-                        <mat-icon style="color: rgb(167, 123, 2); display: inline-block;">star</mat-icon>
-                    </div>
-                        
-                    <div *ngIf="review['rating'] == 4">
-                        <mat-icon style="color: rgb(167, 123, 2); display: inline-block;">star</mat-icon>
-                        <mat-icon style="color: rgb(167, 123, 2); display: inline-block;">star</mat-icon>
-                        <mat-icon style="color: rgb(167, 123, 2); display: inline-block;">star</mat-icon>
-                        <mat-icon style="color: rgb(167, 123, 2); display: inline-block;">star</mat-icon>
-                        <mat-icon style="color: rgb(0, 0, 0); display: inline-block;">star_border</mat-icon>
-                    </div>
-                        
-                    <div *ngIf="review['rating'] == 3">
-                        <mat-icon style="color: rgb(167, 123, 2); display: inline-block;">star</mat-icon>
-                        <mat-icon style="color: rgb(167, 123, 2); display: inline-block;">star</mat-icon>
-                        <mat-icon style="color: rgb(167, 123, 2); display: inline-block;">star</mat-icon>
-                        <mat-icon style="color: rgb(0, 0, 0); display: inline-block;">star_border</mat-icon>
-                        <mat-icon style="color: rgb(0, 0, 0); display: inline-block;">star_border</mat-icon>
-                    </div>
-                        
-                    <div *ngIf="review['rating'] == 2">
-                        <mat-icon style="color: rgb(167, 123, 2); display: inline-block;">star</mat-icon>
-                        <mat-icon style="color: rgb(167, 123, 2); display: inline-block;">star</mat-icon>
-                        <mat-icon style="color: rgb(0, 0, 0); display: inline-block;">star_border</mat-icon>
-                        <mat-icon style="color: rgb(0, 0, 0); display: inline-block;">star_border</mat-icon>
-                        <mat-icon style="color: rgb(0, 0, 0); display: inline-block;">star_border</mat-icon>
-                    </div>
-                        
-                    <div *ngIf="review['rating'] == 1">
-                        <mat-icon style="color: rgb(167, 123, 2); display: inline-block;">star</mat-icon>
-                        <mat-icon style="color: rgb(0, 0, 0); display: inline-block;">star_border</mat-icon>
-                        <mat-icon style="color: rgb(0, 0, 0); display: inline-block;">star_border</mat-icon>
-                        <mat-icon style="color: rgb(0, 0, 0); display: inline-block;">star_border</mat-icon>
-                        <mat-icon style="color: rgb(0, 0, 0); display: inline-block;">star_border</mat-icon>
-                    </div>
+                        <ng-container *ngFor="let i of [0, 1, 2, 3, 4]">
+                            <mat-icon style="color: rgb(167, 123, 2); display: inline-block;">
+                              {{ i < review.rating ? 'star' : 'star_border' }}
+                            </mat-icon>
+                        </ng-container>
                 </div>
                 <div class="spacer1" style="width: 560px;"></div>
                 <div style="text-align: right; font-size: small;">{{ review.date.toDate() | date: 'mediumDate' }}</div>
