@@ -74,8 +74,7 @@ export class SignupFormComponent {
     }
 
     try {
-      const userCredential = await this.authService.signup(email, password);
-      const user = userCredential.user;
+      await this.authService.signup(email, password);
       const appUser = new AppUser(email, username, false);
       await this.userService.addUser(appUser);
       this.toastr.success('Account created successfully');
