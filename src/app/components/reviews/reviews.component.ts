@@ -14,7 +14,7 @@ import { MatDialog } from "@angular/material/dialog";
 export class ReviewsComponent implements OnInit, OnDestroy {
   @Input('bookId') bookId;
   reviews: Review[];
-  ratingStats: number[] = [0,0,0,0,0];
+  ratingStats: Array<number>;
   subscription: Subscription;
 
   constructor(
@@ -24,10 +24,8 @@ export class ReviewsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.subscription = this.reviewService.getReviews(this.bookId)
-                        .pipe(
-                          distinctUntilChanged( (prev, curr) => prev.length === curr.length )
-                        )
                         .subscribe(reviews => {
+                          this.ratingStats = new Array(5).fill(0);
                           this.reviews = reviews;
                           reviews.forEach((review) => {
                             this.ratingStats[review.rating - 1]++;
@@ -40,9 +38,10 @@ export class ReviewsComponent implements OnInit, OnDestroy {
       height: '300px',
       width: '600px',
     });
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(result.rating);
-      console.log(result.review);
+    dialogRef.afterClosed().subscribe(data => {
+      if(data) {
+        this.reviewService.addReview(this.bookId, data.review);
+      }
     });
   }
 
@@ -58,16 +57,13 @@ export class ReviewsComponent implements OnInit, OnDestroy {
   }
 
   likeInteraction(event, review: Review) {
-    console.log()
     if(event.selected) {
-      review.likes += 1
       const data = {
         likes: increment(1)
       }
       this.reviewService.updateReview(this.bookId, review.id, data);
     }
     else {
-      review.likes -= 1
       const data = {
         likes: increment(-1)
       }

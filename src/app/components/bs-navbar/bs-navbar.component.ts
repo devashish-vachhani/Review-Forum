@@ -23,16 +23,7 @@ export class BsNavbarComponent implements OnInit, OnDestroy {
     ) {}
 
   ngOnInit(): void {
-    this.subscription = this.authService.currentUser$
-                                        .pipe(
-                                          switchMap(user => {
-                                            if (user) {
-                                              return this.userService.getUser(user.uid);
-                                            } else {
-                                              return of(null);
-                                            }
-                                          })
-                                        )
+    this.subscription = this.userService.appUser$()
                                         .subscribe(appUser => this.appUser = appUser);
   }
 
