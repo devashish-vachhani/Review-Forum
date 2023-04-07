@@ -1,10 +1,11 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { Observable, Subscription, distinctUntilChanged } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { Review } from 'src/app/models/review';
 import { ReviewService } from 'src/app/services/review.service';
-import { increment } from '@angular/fire/firestore';
+import { arrayRemove, arrayUnion } from '@angular/fire/firestore';
 import { PostComponent } from '../post/post.component';
 import { MatDialog } from "@angular/material/dialog";
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'reviews',
@@ -16,8 +17,10 @@ export class ReviewsComponent implements OnInit, OnDestroy {
   reviews: Review[];
   ratingStats: number[];
   subscription: Subscription;
+  username: string = this.userService.username;
 
   constructor(
+    private userService: UserService,
     private reviewService: ReviewService,
     private dialog: MatDialog
   ) {}
@@ -45,8 +48,8 @@ export class ReviewsComponent implements OnInit, OnDestroy {
     });
   }
 
-  convertToPercent(number) {
-    return ((number / this.reviews.length) * 100).toFixed(0).toString();
+  convertToPercent(value: number) {
+    return ((value / this.reviews.length) * 100).toFixed(0).toString();
   }
 
   calculateAverageRating() {
@@ -56,19 +59,18 @@ export class ReviewsComponent implements OnInit, OnDestroy {
     return avg.toFixed(1).toString();
   }
 
-  likeInteraction(event, review: Review) {
-    if(event.selected) {
-      const data = {
-        likes: increment(1)
-      }
-      this.reviewService.updateReview(this.bookId, review.id, data);
+  onLike(reviewId: string) {
+    const data = {
+      likes: arrayUnion(this.username),
     }
-    else {
-      const data = {
-        likes: increment(-1)
-      }
-      this.reviewService.updateReview(this.bookId, review.id, data);
+    this.reviewService.updateReview(this.bookId, reviewId, data);
+  }
+
+  onDislike(reviewId: string) {
+    const data = {
+      likes: arrayRemove(this.username),
     }
+    this.reviewService.updateReview(this.bookId, reviewId, data);
   }
 
   ngOnDestroy(): void {
