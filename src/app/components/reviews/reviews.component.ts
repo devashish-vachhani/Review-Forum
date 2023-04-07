@@ -19,13 +19,29 @@ export class ReviewsComponent implements OnInit, OnDestroy {
   subscription: Subscription;
   username: string = this.userService.username;
 
+  // Temp Delete when comment service added
+  comments: any[]
+  //
+
+
   constructor(
     private userService: UserService,
     private reviewService: ReviewService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
   ) {}
 
   ngOnInit(): void {
+
+    // Temp Delete when comment service added
+    this.comments = [{
+      text: "Thanks, your review helped a lot!",
+      commenter: "avi"
+    },{
+      text: "Lame review",
+      commenter: "Bob"
+    }]
+    //
+
     this.subscription = this.reviewService.getReviews(this.bookId)
                         .subscribe(reviews => {
                           this.ratingStats = Array.from({ length: 5 }, () => 0);

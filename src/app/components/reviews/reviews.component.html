@@ -97,6 +97,27 @@
                     <div class="wrapper156"><mat-chip-option style="padding-top: 5px;"><mat-icon style="color:rgb(87, 87, 87); vertical-align: middle; padding-bottom: 30px;"> comment</mat-icon></mat-chip-option></div>
                 </div>
                 </div>
+
+
+                <hr size="5" class="line9" align="center" style="margin: 0; padding: 0; margin-top: 10px;"/>
+
+                <!-- replace with *ngFor="let comment of review.comments -->
+                <div class="box3" *ngFor="let comment of comments"> 
+
+                <div class="wrapper14" style="padding-top: 2px; padding-bottom: 2px;">
+                    <div class="wrapper151"><div class="wrapper152" style="font-size: larger;">{{ comment.commenter }}</div></div>
+                <div class="spacer6" style="width: 660px;"></div>
+                <!-- replace review.date with comment.date -->
+                <div style="text-align: right; font-size: small;">{{ review.date.toDate() | date: 'mediumDate' }}</div>
+                </div>
+                <hr size="0" class="line8" align="center" style="margin: 0; padding: 0;"/>
+                <p class="wrapper153" style="padding-left: 10px; padding-top: 5px; padding-bottom: 5px;">
+                    {{ comment.text }}
+                </p>
+                </div>
+
+
+                
             </div>
         </div>
     </section>
