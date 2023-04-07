@@ -1,14 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { UniversityService } from '../../services/university.service';
-import { Observable, Subscription } from 'rxjs';
-import { DocumentData } from '@angular/fire/firestore';
+import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { Book } from 'src/app/models/book';
 import { BookService } from 'src/app/services/book.service';
 import { ToastrService } from 'ngx-toastr';
-import { University, findCodeById } from 'src/app/models/university';
-import { CourseService } from '../../services/course.service';
-import { Course } from 'src/app/models/course';
+import { University } from 'src/app/models/university';
 
 @Component({
   selector: 'app-book-form',
@@ -16,30 +13,28 @@ import { Course } from 'src/app/models/course';
   styleUrls: ['./book-form.component.css']
 })
 export class BookFormComponent implements OnInit, OnDestroy {
-  universities: University[];
-  courses$: Observable<Course[]>;
   subscription: Subscription;
+  universities: University[];
+  courses: string[];
 
   constructor(
     private router: Router,
     private universityService: UniversityService,
     private bookService: BookService,
     private toastr: ToastrService,
-    private courseService: CourseService,
     ) {}
 
   ngOnInit(): void {
-    this.subscription = this.universityService.getUniversities().subscribe(universities => {
-      this.universities = universities;
-    })
+    this.subscription = this.universityService.getUniversities().subscribe(universities => this.universities = universities);
   }
 
-  getCourses(universityId: string) {
-    this.courses$ = this.courseService.getCourses(universityId);
+  updateCourses(universityCode: string) {
+    const selectedUniversity = this.universities.find(university => university.code === universityCode);
+    this.courses = selectedUniversity ? selectedUniversity.courses : [];
   }
 
   onSubmit(f) { 
-    const tag = `${findCodeById(f.university, this.universities)}/${f.course}`;
+    const tag = `${f.university}/${f.course}`;
     const book = new Book(
       f.title,
       f.author,
@@ -58,7 +53,7 @@ export class BookFormComponent implements OnInit, OnDestroy {
     })
   }
 
-  ngOnDestroy(): void {
+  ngOnDestroy() {
     this.subscription.unsubscribe();
   }
 }

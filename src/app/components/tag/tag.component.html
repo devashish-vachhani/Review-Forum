@@ -5,7 +5,7 @@
             <label for="university">University</label>
             <select ngModel name="university" id="university" class="form-control" #university="ngModel" (ngModelChange)="updateCourses(university.value)" required>
                 <option value=""> </option>
-                <option *ngFor="let university of universities" [value]="university.id">
+                <option *ngFor="let university of universities" [value]="university.code">
                     {{  university.name  }}
                 </option>
             </select>
@@ -15,8 +15,8 @@
             <label for="course">Course</label>
             <select ngModel name="course" id="course" class="form-control" #course="ngModel" required>
                 <option value=""> </option>
-                <option *ngFor="let course of courses$ | async" [value]="course.name">
-                    {{  course.name  }}
+                <option *ngFor="let course of courses" [value]="course">
+                    {{  course  }}
                 </option>
             </select>
         </div>

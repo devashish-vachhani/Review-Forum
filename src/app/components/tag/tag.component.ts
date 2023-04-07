@@ -1,10 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription, Observable } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { MatDialogRef } from "@angular/material/dialog";
 import { UniversityService } from 'src/app/services/university.service';
-import { CourseService } from '../../services/course.service';
-import { University, findCodeById } from 'src/app/models/university';
-import { Course } from 'src/app/models/course';
+import { University } from 'src/app/models/university';
 
 @Component({
   selector: 'tag',
@@ -12,15 +10,13 @@ import { Course } from 'src/app/models/course';
   styleUrls: ['./tag.component.css']
 })
 export class TagComponent implements OnInit, OnDestroy {
-    
     subscription: Subscription;
     universities: University[];
-    courses$: Observable<Course[]>;
+    courses: string[];
 
     constructor(
         private universityService: UniversityService,
         private dialogRef: MatDialogRef<TagComponent>,
-        private courseService: CourseService,
         ) {}
 
     ngOnInit(): void {
@@ -29,12 +25,13 @@ export class TagComponent implements OnInit, OnDestroy {
         })
     }
 
-    updateCourses(universityId: string): void {
-        this.courses$ = this.courseService.getCourses(universityId);
-      }
+    updateCourses(universityCode: string) {
+        const selectedUniversity = this.universities.find(university => university.code === universityCode);
+        this.courses = selectedUniversity ? selectedUniversity.courses : [];
+    }
 
     save(f): void {
-        const tag = `${findCodeById(f.university, this.universities)}/${f.course}`;
+        const tag = `${f.university}/${f.course}`;
         this.dialogRef.close(tag);
     }
 
