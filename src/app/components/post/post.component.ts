@@ -10,9 +10,7 @@ import { UserService } from 'src/app/services/user.service';
   templateUrl: './post.component.html',
   styleUrls: ['./post.component.css']
 })
-export class PostComponent implements OnInit, OnDestroy {
-    appUser: AppUser;
-    subscription: Subscription;
+export class PostComponent {
     rating: number = 0;
 
     constructor(
@@ -20,27 +18,19 @@ export class PostComponent implements OnInit, OnDestroy {
         private userService: UserService,
         ) {}
 
-    ngOnInit(): void {
-        this.subscription = this.userService.appUser$()
-                                            .subscribe(appUser => this.appUser = appUser);
-    }
-
     onClick(rating: number): void {
         this.rating = rating
     }
 
     save(f): void {
+        const username = this.userService.username;
         const data = {
-            review: new Review(this.appUser.username, f.text, new Date(), this.rating, 0),
+            review: new Review(username, f.text, new Date(), this.rating, []),
         }
         this.dialogRef.close(data);
     }
 
     close(): void {
         this.dialogRef.close();
-    }
-
-    ngOnDestroy(): void {
-        this.subscription.unsubscribe();
     }
 }

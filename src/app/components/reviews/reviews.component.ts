@@ -14,7 +14,7 @@ import { MatDialog } from "@angular/material/dialog";
 export class ReviewsComponent implements OnInit, OnDestroy {
   @Input('bookId') bookId;
   reviews: Review[];
-  ratingStats: Array<number>;
+  ratingStats: number[];
   subscription: Subscription;
 
   constructor(
@@ -25,7 +25,7 @@ export class ReviewsComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.subscription = this.reviewService.getReviews(this.bookId)
                         .subscribe(reviews => {
-                          this.ratingStats = new Array(5).fill(0);
+                          this.ratingStats = Array.from({ length: 5 }, () => 0);
                           this.reviews = reviews;
                           reviews.forEach((review) => {
                             this.ratingStats[review.rating - 1]++;

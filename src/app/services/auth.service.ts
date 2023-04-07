@@ -20,9 +20,9 @@ export class AuthService {
   currentUser$ = authState(this.auth).pipe(
     tap(user => {
       if (user) {
-        localStorage.setItem('user', JSON.stringify(user));
+        localStorage.setItem('uid', JSON.stringify(user.uid));
       } else {
-        localStorage.removeItem('user');
+        localStorage.removeItem('uid');
       }
     })
   );
@@ -40,13 +40,13 @@ export class AuthService {
   }
 
   get uid(): string {
-    const user = this.getUserFromLocalStorage();
-    return user ? user.uid : null;
+    const uid = this.getUidFromLocalStorage();
+    return uid;
   }
   
-  private getUserFromLocalStorage() {
-    const userJson = localStorage.getItem('user');
-    return userJson ? JSON.parse(userJson) : null;
+  private getUidFromLocalStorage() {
+    const uidJson = localStorage.getItem('uid');
+    return uidJson ? JSON.parse(uidJson) : null;
   }
 
 }

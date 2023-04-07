@@ -4,9 +4,9 @@ export class Review {
     private _text: string;
     private _date: any;
     private _rating: number;
-    private _likes: number;
+    private _likes: string[];
   
-    constructor(reviewer: string, text: string, date: any, rating: number, likes: number, id?: string) {
+    constructor(reviewer: string, text: string, date: any, rating: number, likes: string[], id?: string) {
       this._id = id;
       this._reviewer = reviewer;
       this._text = text;
@@ -55,11 +55,11 @@ export class Review {
       this._rating = value;
     }
   
-    get likes(): number {
+    get likes(): string[] {
       return this._likes;
     }
   
-    set likes(value: number) {
+    set likes(value: string[]) {
       this._likes = value;
     }
 

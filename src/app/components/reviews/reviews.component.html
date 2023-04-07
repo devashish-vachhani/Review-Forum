@@ -1,7 +1,7 @@
 <div class="untitled-page root" *ngIf="reviews">
     <div class="wrapper">
     <section class="box">
-        <div style="text-align: left;">
+        <div style="text-align: center;">
         <h2>Ratings &amp; Reviews</h2>
         </div>
         <div class="wrapper2">
@@ -79,7 +79,7 @@
                 <div class="wrapper16">
                 <div class="wrapper17" style="padding-left: 10px">
                     
-                    <div class="wrapper154"><mat-chip-option color="warn" style="padding-top: 5px;" (selectionChange)="likeInteraction($event, review)"><mat-icon style="color:rgb(87, 87, 87); vertical-align: middle; padding: 0px 30px 30px 0px;">thumb_up</mat-icon>{{review.likes}}</mat-chip-option></div>
+                    <div class="wrapper154"><mat-chip-option color="warn" style="padding-top: 5px;" (selectionChange)="likeInteraction($event, review)"><mat-icon style="color:rgb(87, 87, 87); vertical-align: middle; padding: 0px 30px 30px 0px;">thumb_up</mat-icon>{{review.likes.length}}</mat-chip-option></div>
                     <div class="wrapper156"><mat-chip-option style="padding-top: 5px;"><mat-icon style="color:rgb(87, 87, 87); vertical-align: middle; padding-bottom: 30px;"> comment</mat-icon></mat-chip-option></div>
                 </div>
                 </div>
