@@ -11,6 +11,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class BooksComponent implements OnInit, OnDestroy {
   books: Book[];
+  filteredBooks: Book[];
   subscription: Subscription;
 
   constructor(
@@ -19,18 +20,18 @@ export class BooksComponent implements OnInit, OnDestroy {
   ) {}
   
   ngOnInit(): void {
-    this.subscription = this.bookService
-                            .getBooks()
-                            .pipe(
-                              switchMap(books => {
-                                this.books = books;
-                                return this.route.queryParams;
-                              })
-                            )
-                            .subscribe(params => {
-                              if(params['title']) this.books = this.books.filter(book => book.title.includes(params['title']));
-                              else if(params['university']) this.books = this.books.filter(book => book.tags.some(tag => tag.includes(params['university'])));
-                            });
+    this.subscription = this.bookService.getBooks()
+                                        .pipe(
+                                          switchMap(books => {
+                                            this.books = books;
+                                            return this.route.queryParams;
+                                          })
+                                        )
+                                        .subscribe(params => {
+                                          if(params['title']) this.filteredBooks = this.books.filter(book => book.title.includes(params['title']));
+                                          else if(params['university']) this.filteredBooks = this.books.filter(book => book.tags.some(tag => tag.includes(params['university'])));
+                                          else this.filteredBooks = this.books
+                                        })
   }
 
   ngOnDestroy(): void {

@@ -19,6 +19,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar'
 import { MatChipsModule } from '@angular/material/chips'
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatSelectModule } from '@angular/material/select';
 import { MatSortModule } from '@angular/material/sort';
 import { MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSnackBarModule } from '@angular/material/snack-bar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -41,7 +42,7 @@ import { SignupFormComponent } from './components/signup-form/signup-form.compon
 import { BookFormComponent } from './components/book-form/book-form.component';
 import { UniversityService } from './services/university.service';
 import { BooksComponent } from './components/books/books.component';
-import { BookSearchFormComponent } from './components/book-search-form/book-search-form.component';
+import { BookSearchComponent } from './components/book-search/book-search.component';
 import { BookComponent } from './components/book/book.component';
 import { ReadingListService } from './services/reading-list.service';
 import { ReadingListComponent } from './components/reading-list/reading-list.component';
@@ -64,7 +65,6 @@ import { ReviewComponent } from './components/review/review.component';
     SignupFormComponent,
     BookFormComponent,
     BooksComponent,
-    BookSearchFormComponent,
     BookComponent,
     ReadingListComponent,
     TagComponent,
@@ -72,6 +72,7 @@ import { ReviewComponent } from './components/review/review.component';
     NewReviewComponent,
     CommentsComponent,
     ReviewComponent,
+    BookSearchComponent,
   ],
   imports: [
     CommonModule,
@@ -85,13 +86,14 @@ import { ReviewComponent } from './components/review/review.component';
     MatInputModule,
     MatMenuModule,
     MatCardModule,
+    MatTableModule,
+    MatChipsModule,
     MatDialogModule,
     MatSnackBarModule,
-    MatTableModule,
     MatPaginatorModule,
     MatSortModule,
     MatProgressBarModule,
-    MatChipsModule,
+    MatSelectModule,
     ReactiveFormsModule,
     provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
     provideAuth(() => getAuth()),
