@@ -1,0 +1,49 @@
+<div class="wrapper131">
+    <div class="wrapper14" style="padding-top: 5px; padding-bottom: 5px;">
+        <div class="wrapper151"><div class="wrapper152" style="font-size: larger;">{{ review.reviewer }}</div></div>
+        <div class="spacer4" style="width: 20px;"></div>
+        <div class="cell2" style="width:124px;">
+        
+            <ng-container *ngFor="let i of [0, 1, 2, 3, 4]">
+                <mat-icon style="color: rgb(167, 123, 2); display: inline-block;">
+                  {{ i < review.rating ? 'star' : 'star_border' }}
+                </mat-icon>
+            </ng-container>
+    </div>
+    <div class="spacer1" style="width: 560px;"></div>
+    <div style="text-align: right; font-size: small;">{{ review.date.toDate() | date: 'mediumDate' }}</div>
+    </div>
+    <hr size="0" class="line3" align="center" style="padding: 0; margin: 0;"/>
+    <p class="wrapper153" style="padding-left: 10px; padding-top: 5px;">
+        {{ review.text }}
+    </p>
+    <div class="wrapper16">
+    <div class="wrapper17" style="padding-left: 10px">
+        <div class="wrapper154">
+            <ng-container *ngIf="review.likes.includes(username); else notLiked">
+                <button mat-icon-button (click)="onDislike(review.id)">
+                    <mat-icon style="color:green; vertical-align: middle; padding: 0px 30px 30px 0px;">thumb_up</mat-icon>
+                </button>{{review.likes.length}}
+            </ng-container>
+            <ng-template #notLiked>
+                <button mat-icon-button (click)="onLike(review.id)">
+                    <mat-icon style="color:rgb(87, 87, 87); vertical-align: middle; padding: 0px 30px 30px 0px;">thumb_up</mat-icon>
+                </button>{{review.likes.length}}
+            </ng-template>
+        </div>
+
+        <div class="wrapper154">
+                <button mat-icon-button (click)="toggleComments()">
+                    <mat-icon style="color:rgb(87, 87, 87); vertical-align: middle; padding: 0px 30px 30px 0px;">comment</mat-icon>
+                </button>
+        </div>
+
+    </div>
+    </div>
+
+    <div *ngIf="showComments">
+        <comments [bookId]="bookId" [reviewId]="review.id" [reviewer]="review.reviewer"></comments>
+    </div>
+</div>
+
+    

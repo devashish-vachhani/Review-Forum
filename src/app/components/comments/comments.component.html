@@ -1,0 +1,21 @@
+<ng-container *ngIf="comments$ | async as comments">
+    <hr size="5" class="line9" align="center" style="margin: 0; padding: 0; margin-top: 10px;"/>
+    <form *ngIf = "username != reviewer " #f="ngForm" (ngSubmit)="onPost(f.value)">
+        <div class="form-group">
+            <textarea ngModel name="text" id="text" class="form-control" placeholder="Add a comment" required></textarea>
+        </div>
+        <button class="btn btn-primary" style="margin-top: 5px;">Post</button>
+    </form>
+
+    <div class="box3" *ngFor="let comment of comments"> 
+        <div class="wrapper14" style="padding-top: 2px; padding-bottom: 2px;">
+            <div class="wrapper151"><div class="wrapper152" style="font-size: larger;">{{ comment.commenter }}</div></div>
+        <div class="spacer6" style="width: 660px;"></div>
+        <div style="text-align: right; font-size: small;">{{ comment.date.toDate() | date: 'mediumDate' }}</div>
+        </div>
+        <hr size="0" class="line8" align="center" style="margin: 0; padding: 0;"/>
+        <p class="wrapper153" style="padding-left: 10px; padding-top: 5px; padding-bottom: 5px;">
+            {{ comment.text }}
+        </p>
+    </div>
+</ng-container>

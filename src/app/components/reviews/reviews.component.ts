@@ -2,10 +2,8 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Review } from 'src/app/models/review';
 import { ReviewService } from 'src/app/services/review.service';
-import { arrayRemove, arrayUnion } from '@angular/fire/firestore';
-import { PostComponent } from '../post/post.component';
+import { NewReviewComponent } from '../new-review/new-review.component';
 import { MatDialog } from "@angular/material/dialog";
-import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'reviews',
@@ -17,33 +15,14 @@ export class ReviewsComponent implements OnInit, OnDestroy {
   reviews: Review[];
   ratingStats: number[];
   subscription: Subscription;
-  username: string = this.userService.username;
-  show: Map<string, boolean>;
-
-  // Temp Delete when comment service added
-  comments: any[]
-  //
 
 
   constructor(
-    private userService: UserService,
     private reviewService: ReviewService,
     private dialog: MatDialog,
   ) {}
 
   ngOnInit(): void {
-
-    // Temp Delete when comment service added
-    this.comments = [{
-      text: "Thanks, your review helped a lot!",
-      commenter: "avi"
-    },{
-      text: "Lame review",
-      commenter: "Bob"
-    }]
-    //
-
-    var commentState = new Map<string, boolean>()
 
     this.subscription = this.reviewService.getReviews(this.bookId)
                         .subscribe(reviews => {
@@ -51,15 +30,12 @@ export class ReviewsComponent implements OnInit, OnDestroy {
                           this.reviews = reviews;
                           reviews.forEach((review) => {
                             this.ratingStats[review.rating - 1]++;
-                            commentState.set(review.id, false);
                           });
     });
-
-    this.show = commentState
   }
 
   openDialog() {
-    const dialogRef = this.dialog.open(PostComponent, {
+    const dialogRef = this.dialog.open(NewReviewComponent, {
       height: '300px',
       width: '600px',
     });
@@ -68,19 +44,6 @@ export class ReviewsComponent implements OnInit, OnDestroy {
         this.reviewService.addReview(this.bookId, data.review);
       }
     });
-  }
-
-  toggleComments(id: string) {
-    if(this.show.get(id) == false) {
-      this.show.set(id, true)
-    }
-    else {
-      this.show.set(id, false)
-    }
-  }
-
-  addComment(reviewId: string){
-    
   }
 
   convertToPercent(value: number) {
@@ -92,20 +55,6 @@ export class ReviewsComponent implements OnInit, OnDestroy {
     const len = this.reviews.length;
     const avg = sum/len;
     return avg.toFixed(1).toString();
-  }
-
-  onLike(reviewId: string) {
-    const data = {
-      likes: arrayUnion(this.username),
-    }
-    this.reviewService.updateReview(this.bookId, reviewId, data);
-  }
-
-  onDislike(reviewId: string) {
-    const data = {
-      likes: arrayRemove(this.username),
-    }
-    this.reviewService.updateReview(this.bookId, reviewId, data);
   }
 
   ngOnDestroy(): void {

@@ -7,14 +7,14 @@ import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'post',
-  templateUrl: './post.component.html',
-  styleUrls: ['./post.component.css']
+  templateUrl: './new-review.component.html',
+  styleUrls: ['./new-review.component.css']
 })
-export class PostComponent {
+export class NewReviewComponent {
     rating: number = 0;
 
     constructor(
-        private dialogRef: MatDialogRef<PostComponent>,
+        private dialogRef: MatDialogRef<NewReviewComponent>,
         private userService: UserService,
         ) {}
 

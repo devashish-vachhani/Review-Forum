@@ -48,8 +48,10 @@ import { ReadingListComponent } from './components/reading-list/reading-list.com
 import { TagComponent } from './components/tag/tag.component';
 import { ReviewService } from './services/review.service';
 import { ReviewsComponent } from './components/reviews/reviews.component';
-import { PostComponent } from './components/post/post.component';
+import { NewReviewComponent } from './components/new-review/new-review.component';
 import { CommonModule } from '@angular/common';
+import { CommentsComponent } from './components/comments/comments.component';
+import { ReviewComponent } from './components/review/review.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +69,9 @@ import { CommonModule } from '@angular/common';
     ReadingListComponent,
     TagComponent,
     ReviewsComponent,
-    PostComponent,
+    NewReviewComponent,
+    CommentsComponent,
+    ReviewComponent,
   ],
   imports: [
     CommonModule,
