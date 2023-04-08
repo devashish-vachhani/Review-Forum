@@ -15,6 +15,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatProgressBarModule } from '@angular/material/progress-bar'
+import { MatChipsModule } from '@angular/material/chips'
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSortModule } from '@angular/material/sort';
@@ -44,6 +46,12 @@ import { BookComponent } from './components/book/book.component';
 import { ReadingListService } from './services/reading-list.service';
 import { ReadingListComponent } from './components/reading-list/reading-list.component';
 import { TagComponent } from './components/tag/tag.component';
+import { ReviewService } from './services/review.service';
+import { ReviewsComponent } from './components/reviews/reviews.component';
+import { NewReviewComponent } from './components/new-review/new-review.component';
+import { CommonModule } from '@angular/common';
+import { CommentsComponent } from './components/comments/comments.component';
+import { ReviewComponent } from './components/review/review.component';
 
 @NgModule({
   declarations: [
@@ -60,8 +68,13 @@ import { TagComponent } from './components/tag/tag.component';
     BookComponent,
     ReadingListComponent,
     TagComponent,
+    ReviewsComponent,
+    NewReviewComponent,
+    CommentsComponent,
+    ReviewComponent,
   ],
   imports: [
+    CommonModule,
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
@@ -77,6 +90,8 @@ import { TagComponent } from './components/tag/tag.component';
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
+    MatProgressBarModule,
+    MatChipsModule,
     ReactiveFormsModule,
     provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
     provideAuth(() => getAuth()),
@@ -98,6 +113,7 @@ import { TagComponent } from './components/tag/tag.component';
     UniversityService,
     BookService,
     ReadingListService,
+    ReviewService,
     {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue:  {
                                                           verticalPosition: 'top',
                                                           horizontalPosition: 'center',

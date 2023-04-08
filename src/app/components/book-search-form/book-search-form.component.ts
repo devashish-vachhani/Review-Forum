@@ -5,7 +5,7 @@ import { UniversityService } from '../../services/university.service';
 @Component({
   selector: 'app-book-search-form',
   templateUrl: './book-search-form.component.html',
-  styleUrls: ['./book-search-form.component.css']
+  styleUrls: ['./book-search-form.component.scss']
 })
 export class BookSearchFormComponent {
   universities$;

@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TagComponent } from './tag.component';
+import { NewReviewComponent } from './new-review.component';
 
-describe('TagComponent', () => {
-  let component: TagComponent;
-  let fixture: ComponentFixture<TagComponent>;
+describe('PostComponent', () => {
+  let component: NewReviewComponent;
+  let fixture: ComponentFixture<NewReviewComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TagComponent ]
+      declarations: [ NewReviewComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(TagComponent);
+    fixture = TestBed.createComponent(NewReviewComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

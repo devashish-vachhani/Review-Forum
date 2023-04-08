@@ -23,13 +23,13 @@ export function passwordsMatchValidator(): ValidatorFn {
 @Component({
   selector: 'signup-form',
   templateUrl: './signup-form.component.html',
-  styleUrls: ['./signup-form.component.css']
+  styleUrls: ['./signup-form.component.scss']
 })
 export class SignupFormComponent {
 
   signupForm: UntypedFormGroup = new UntypedFormGroup(
     {
-      name: new UntypedFormControl('', [Validators.required]),
+      username: new UntypedFormControl('', [Validators.required]),
       email: new UntypedFormControl('', [
         Validators.required,
         Validators.email,
@@ -62,21 +62,20 @@ export class SignupFormComponent {
     return this.signupForm.get('confirmPassword');
   }
 
-  get name() {
-    return this.signupForm.get('name');
+  get username() {
+    return this.signupForm.get('username');
   }
 
   async onSubmit() {
-    const { name, email, password } = this.signupForm.value;
+    const { username, email, password } = this.signupForm.value;
 
-    if (!this.signupForm.valid || !name || !password || !email) {
+    if (!this.signupForm.valid || !username || !password || !email) {
       return;
     }
 
     try {
-      const userCredential = await this.authService.signup(email, password);
-      const user = userCredential.user;
-      const appUser: AppUser = { uid: user.uid, email, name, isAdmin: false };
+      await this.authService.signup(email, password);
+      const appUser = new AppUser(email, username, false);
       await this.userService.addUser(appUser);
       this.toastr.success('Account created successfully');
       this.router.navigate(['/dashboard']);

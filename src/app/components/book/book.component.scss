@@ -1,6 +1,7 @@
 .item1 { grid-area: body; }
 .item2 { grid-area: image; }
 .item3 { grid-area: bottom; }
+.item4 { grid-area: blank; }
 
 body {background-color: #1cf1b2;}
 
@@ -11,8 +12,8 @@ body {background-color: #1cf1b2;}
     'image image body body body body body body body'
     'image image body body body body body body body'
     'image image body body body body body body body'
-    'bottom bottom bottom bottom bottom bottom bottom bottom bottom'
-    'bottom bottom bottom bottom bottom bottom bottom bottom bottom';
+    'blank blank bottom bottom bottom bottom bottom bottom bottom'
+    'blank blank bottom bottom bottom bottom bottom bottom bottom';
   gap: 0;
   background-color: #1cf1b100;
   padding: 10px;

@@ -10,14 +10,12 @@ import { BookService } from './book.service';
   providedIn: 'root'
 })
 export class ReadingListService {
-  uid: string;
+  uid: string = this.authService.uid;
 
   constructor(
     private firestore: Firestore,
     private authService: AuthService,
-  ) {
-    this.uid = this.authService.uid;
-  }
+  ) {}
 
   getReadingList(): Observable<ReadingList> {
     const readingListCollectionRef = collection(this.firestore, `users/${this.uid}/reading-list`);
