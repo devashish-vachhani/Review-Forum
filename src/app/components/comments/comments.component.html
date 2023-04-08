@@ -1,10 +1,10 @@
 <ng-container *ngIf="comments$ | async as comments">
-    <hr size="5" class="line9" align="center" style="margin: 0; padding: 0; margin-top: 10px;"/>
-    <form *ngIf = "username != reviewer " #f="ngForm" (ngSubmit)="onPost(f.value)">
+      
+    <form *ngIf = "username != reviewer " #f="ngForm" (ngSubmit)="onPost(f)">
         <div class="form-group">
             <textarea ngModel name="text" id="text" class="form-control" placeholder="Add a comment" required></textarea>
         </div>
-        <button class="btn btn-primary" style="margin-top: 5px;">Post</button>
+        <button mat-flat-button color="primary" style="margin-top: 5px;">Post</button>
     </form>
 
     <div class="box3" *ngFor="let comment of comments"> 

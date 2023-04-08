@@ -46,7 +46,6 @@ export class Comment {
   
     toJson(): any {
       return {
-        id: this._id,
         commenter: this._commenter,
         text: this._text,
         date: this._date,

@@ -13,7 +13,7 @@
     <div class="spacer1" style="width: 560px;"></div>
     <div style="text-align: right; font-size: small;">{{ review.date.toDate() | date: 'mediumDate' }}</div>
     </div>
-    <hr size="0" class="line3" align="center" style="padding: 0; margin: 0;"/>
+    <hr size="0" class="line"/>
     <p class="wrapper153" style="padding-left: 10px; padding-top: 5px;">
         {{ review.text }}
     </p>
@@ -42,6 +42,7 @@
     </div>
 
     <div *ngIf="showComments">
+        <hr size="0" class="line1"/>
         <comments [bookId]="bookId" [reviewId]="review.id" [reviewer]="review.reviewer"></comments>
     </div>
 </div>
