@@ -18,8 +18,8 @@
                             </div>
                         </div>
                         <div class="cell" style="padding-left: 5px;">
-                            <div fxLayout="row" fxLayoutGap="15px" fxLayoutAlign="start center" fxLayoutW >
-                            <mat-progress-bar fxFlex mode="determinate" [value]="convertToPercent(ratingStat)"></mat-progress-bar>
+                            <div fxLayout="row" fxLayoutGap="15px" fxLayoutAlign="start center" fxLayoutW style="margin-right: auto;">
+                            <mat-progress-bar [value]="convertToPercent(ratingStat)" style="width: 180px;"></mat-progress-bar>
                             <span class="text" style="font-size: smaller; color: rgb(139, 139, 139);">{{ratingStat}} ({{convertToPercent(ratingStat)}}%)</span>
                             </div>
                         </div>
@@ -27,7 +27,7 @@
                  </ng-container>
             </div>
             </div>
-            <div class="spacer" style="width: 230px;"></div>
+            <div class="spacer" style="width: 220px;"></div>
             <div class="cell1">
             <div class="wrapper9">
                 <div class="wrapper91">
@@ -94,26 +94,49 @@
                             </button>{{review.likes.length}}
                         </ng-template>
                     </div>
-                    <div class="wrapper156"><mat-chip-option style="padding-top: 5px;"><mat-icon style="color:rgb(87, 87, 87); vertical-align: middle; padding-bottom: 30px;"> comment</mat-icon></mat-chip-option></div>
+
+                    <div class="wrapper154">
+                        <ng-container *ngIf="show.get(review.id) == true; else notShown">
+                            <button mat-icon-button (click)="toggleComments(review.id)">
+                                <mat-icon style="color:green; vertical-align: middle; padding: 0px 30px 30px 0px;">comment</mat-icon>
+                            </button>{{comments.length}}
+                        </ng-container>
+                        <ng-template #notShown>
+                            <button mat-icon-button (click)="toggleComments(review.id)">
+                                <mat-icon style="color:rgb(87, 87, 87); vertical-align: middle; padding: 0px 30px 30px 0px;">comment</mat-icon>
+                            </button>{{comments.length}}
+                        </ng-template>
+                    </div>
+
                 </div>
                 </div>
 
 
-                <hr size="5" class="line9" align="center" style="margin: 0; padding: 0; margin-top: 10px;"/>
+                
 
-                <!-- replace with *ngFor="let comment of review.comments -->
-                <div class="box3" *ngFor="let comment of comments"> 
+                <div *ngIf="show.get(review.id) == true">
+                    <hr size="5" class="line9" align="center" style="margin: 0; padding: 0; margin-top: 10px;"/>
 
-                <div class="wrapper14" style="padding-top: 2px; padding-bottom: 2px;">
-                    <div class="wrapper151"><div class="wrapper152" style="font-size: larger;">{{ comment.commenter }}</div></div>
-                <div class="spacer6" style="width: 660px;"></div>
-                <!-- replace review.date with comment.date -->
-                <div style="text-align: right; font-size: small;">{{ review.date.toDate() | date: 'mediumDate' }}</div>
-                </div>
-                <hr size="0" class="line8" align="center" style="margin: 0; padding: 0;"/>
-                <p class="wrapper153" style="padding-left: 10px; padding-top: 5px; padding-bottom: 5px;">
-                    {{ comment.text }}
-                </p>
+                    <div class="form-group">
+                        <label for="comment">Comment</label>
+                        <textarea ngModel name="comment" class="form-control" required></textarea>
+                    </div>
+                    
+                    <button class="btn btn-primary" style="margin-top: 5px;" (click)="addComment(review.id)">Comment</button>
+                    
+                    <div class="box3" *ngFor="let comment of comments"> 
+
+                        <div class="wrapper14" style="padding-top: 2px; padding-bottom: 2px;">
+                            <div class="wrapper151"><div class="wrapper152" style="font-size: larger;">{{ comment.commenter }}</div></div>
+                        <div class="spacer6" style="width: 660px;"></div>
+                        
+                        <div style="text-align: right; font-size: small;">{{ review.date.toDate() | date: 'mediumDate' }}</div>
+                        </div>
+                        <hr size="0" class="line8" align="center" style="margin: 0; padding: 0;"/>
+                        <p class="wrapper153" style="padding-left: 10px; padding-top: 5px; padding-bottom: 5px;">
+                            {{ comment.text }}
+                        </p>
+                    </div>
                 </div>
 
 

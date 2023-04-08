@@ -183,7 +183,6 @@ $font_type_4: 400 12px/1.65 "Roboto", Helvetica, Arial, serif;
   @include font-face($font_type_0, $color_type_0, 0px);
   position: relative;
   flex: 0 0 auto;
-  min-width: 34px;
 }
 .wrapper10 > .cell {
   @include flex-column;

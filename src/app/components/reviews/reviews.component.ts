@@ -18,6 +18,7 @@ export class ReviewsComponent implements OnInit, OnDestroy {
   ratingStats: number[];
   subscription: Subscription;
   username: string = this.userService.username;
+  show: Map<string, boolean>;
 
   // Temp Delete when comment service added
   comments: any[]
@@ -42,14 +43,19 @@ export class ReviewsComponent implements OnInit, OnDestroy {
     }]
     //
 
+    var commentState = new Map<string, boolean>()
+
     this.subscription = this.reviewService.getReviews(this.bookId)
                         .subscribe(reviews => {
                           this.ratingStats = Array.from({ length: 5 }, () => 0);
                           this.reviews = reviews;
                           reviews.forEach((review) => {
                             this.ratingStats[review.rating - 1]++;
+                            commentState.set(review.id, false);
                           });
     });
+
+    this.show = commentState
   }
 
   openDialog() {
@@ -62,6 +68,19 @@ export class ReviewsComponent implements OnInit, OnDestroy {
         this.reviewService.addReview(this.bookId, data.review);
       }
     });
+  }
+
+  toggleComments(id: string) {
+    if(this.show.get(id) == false) {
+      this.show.set(id, true)
+    }
+    else {
+      this.show.set(id, false)
+    }
+  }
+
+  addComment(reviewId: string){
+    
   }
 
   convertToPercent(value: number) {
