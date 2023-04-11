@@ -2,7 +2,6 @@ import { Component, Input } from '@angular/core';
 import { arrayRemove, arrayUnion } from '@angular/fire/firestore';
 import { Review } from 'src/app/models/review';
 import { ReviewService } from 'src/app/services/review.service';
-import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'review',
@@ -12,13 +11,12 @@ import { UserService } from 'src/app/services/user.service';
 export class ReviewComponent {
   @Input('bookId') bookId: string;
   @Input('review') review: Review;
+  @Input('username') username: string;
 
   constructor(
-    private userService: UserService,
     private reviewService: ReviewService,
   ) {}
 
-  username: string = this.userService.username;
   showComments: boolean = false;
 
   onLike(reviewId: string) {

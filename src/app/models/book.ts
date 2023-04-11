@@ -4,16 +4,18 @@ export class Book {
     private _description: string;
     private _image: string;
     private _tags: string[];
-    private _status: boolean;
+    private _status: string;
+    private _requester: string;
     private _id?: string;
   
-    constructor(title: string, author: string, description: string, image: string, tags: string[], status: boolean, id?: string) {
+    constructor(title: string, author: string, description: string, image: string, tags: string[], status: string, requester: string, id?: string) {
       this._title = title;
       this._author = author;
       this._description = description;
       this._image = image;
       this._tags = tags;
       this._status = status;
+      this._requester = requester;
       this._id = id;
     }
   
@@ -57,12 +59,20 @@ export class Book {
       this._tags = value;
     }
   
-    get status(): boolean {
+    get status(): string {
       return this._status;
     }
   
-    set status(value: boolean) {
+    set status(value: string) {
       this._status = value;
+    }
+
+    get requester(): string {
+      return this._requester;
+    }
+  
+    set requester(value: string) {
+      this._requester = value;
     }
   
     get id(): string | undefined {
@@ -85,7 +95,7 @@ export class Book {
           image: this.image,
           tags: this.tags,
           status: this.status,
-          id: this.id,
+          requester: this.requester,
         };
     }
   }

@@ -1,4 +1,4 @@
-<div class="untitled-page root" *ngIf="reviews">
+<div class="untitled-page root" *ngIf="reviews && username">
     <div class="wrapper">
     <section class="box">
         <div style="text-align: center; height: 20px;">
@@ -61,7 +61,7 @@
             <h2>Community Forum</h2>
         </div>
         <div class="box2" *ngFor="let review of reviews">
-            <review [bookId]="bookId" [review]="review"></review>
+            <review [bookId]="bookId" [review]="review" [username]="username"></review>
         </div>
     </section>
     </div>

@@ -4,6 +4,7 @@ import { Review } from 'src/app/models/review';
 import { ReviewService } from 'src/app/services/review.service';
 import { NewReviewComponent } from '../new-review/new-review.component';
 import { MatDialog } from "@angular/material/dialog";
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'reviews',
@@ -12,19 +13,24 @@ import { MatDialog } from "@angular/material/dialog";
 })
 export class ReviewsComponent implements OnInit, OnDestroy {
   @Input('bookId') bookId;
+  
   reviews: Review[];
   ratingStats: number[];
-  subscription: Subscription;
+  reviewSubscription: Subscription;
+  userSubscription: Subscription;
+  username: string;
 
 
   constructor(
+    private userService: UserService,
     private reviewService: ReviewService,
     private dialog: MatDialog,
   ) {}
 
   ngOnInit(): void {
+    this.userSubscription = this.userService.appUser$.subscribe(appUser => this.username = appUser.username);
 
-    this.subscription = this.reviewService.getReviews(this.bookId)
+    this.reviewSubscription = this.reviewService.getReviews(this.bookId)
                         .subscribe(reviews => {
                           this.ratingStats = Array.from({ length: 5 }, () => 0);
                           this.reviews = reviews;
@@ -58,7 +64,8 @@ export class ReviewsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-      this.subscription.unsubscribe();
+      this.reviewSubscription.unsubscribe();
+      this.userSubscription.unsubscribe();
   }
 
 }

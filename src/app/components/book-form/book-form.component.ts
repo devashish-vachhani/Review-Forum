@@ -6,6 +6,7 @@ import { Book } from 'src/app/models/book';
 import { BookService } from 'src/app/services/book.service';
 import { ToastrService } from 'ngx-toastr';
 import { University } from 'src/app/models/university';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-book-form',
@@ -13,19 +14,23 @@ import { University } from 'src/app/models/university';
   styleUrls: ['./book-form.component.scss']
 })
 export class BookFormComponent implements OnInit, OnDestroy {
-  subscription: Subscription;
+  universitySubscription: Subscription;
+  userSubscription: Subscription;
   universities: University[];
   courses: string[];
+  username: string;
 
   constructor(
     private router: Router,
     private universityService: UniversityService,
     private bookService: BookService,
+    private userService: UserService,
     private toastr: ToastrService,
     ) {}
 
   ngOnInit(): void {
-    this.subscription = this.universityService.getUniversities().subscribe(universities => this.universities = universities);
+    this.universitySubscription = this.universityService.getUniversities().subscribe(universities => this.universities = universities);
+    this.userSubscription = this.userService.appUser$.subscribe(appUser => this.username = appUser.username);
   }
 
   updateCourses(universityCode: string) {
@@ -41,7 +46,8 @@ export class BookFormComponent implements OnInit, OnDestroy {
       f.description,
       f.image,
       [tag],
-      false
+      "pending",
+      this.username,
     );
     this.bookService.createBook(book)
     .then(() => {
@@ -54,7 +60,8 @@ export class BookFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    this.universitySubscription.unsubscribe();
+    this.userSubscription.unsubscribe();
   }
 }
 

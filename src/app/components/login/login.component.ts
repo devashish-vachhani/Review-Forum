@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UserService } from 'src/app/services/user.service';
-import { tap } from 'rxjs';
+import { take, tap } from 'rxjs';
 
 @Component({
   selector: 'login',
@@ -43,12 +43,9 @@ export class LoginComponent {
 
     try {
       const userCredential = await this.authService.login(email, password);
-      this.userService.getUser(userCredential.user.uid).pipe(
-        tap(appUser => {
-          if(appUser) {
-            localStorage.setItem('username', JSON.stringify(appUser.username));
-          }
-        }))
+      this.userService.getUser(userCredential.user.uid).pipe(take(1)).subscribe(appUser => {
+        localStorage.setItem('username', JSON.stringify(appUser.username));
+      });      
       this.snackBar.open('Logged in successfully', 'Dismiss', {
         panelClass: 'success',
         duration: 3000,

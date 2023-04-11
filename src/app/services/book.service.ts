@@ -23,7 +23,7 @@ export class BookService {
     }
     return collectionData(q, { idField: 'id' })
       .pipe(
-        map(books => books.map(book => new Book(book['title'], book['author'], book['description'], book['image'], book['tags'], book['status'], book['id'])))
+        map(books => books.map(book => new Book(book['title'], book['author'], book['description'], book['image'], book['tags'], book['status'], book['requester'], book['id'])))
       );
   }
 
@@ -31,7 +31,7 @@ export class BookService {
     const bookDocumentRef = doc(this.firestore, 'books', bookId)
     return docData(bookDocumentRef, { idField: 'id'})
             .pipe(
-              map(book => new Book(book['title'], book['author'], book['description'], book['image'], book['tags'], book['status'], book['id']))
+              map(book => new Book(book['title'], book['author'], book['description'], book['image'], book['tags'], book['status'], book['requester'], book['id']))
             )
   }
 

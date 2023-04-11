@@ -33,7 +33,7 @@ export class BookRequestsComponent implements OnInit, OnDestroy {
     this.dataSource.sort = this.sort;
   }
 
-  async accept(bookId: string) {
+  async approve(bookId: string) {
     const data = {
       status: "approved",
     }
@@ -45,6 +45,7 @@ export class BookRequestsComponent implements OnInit, OnDestroy {
       })
     }
     catch(error) {
+      console.log(error);
       this.snackBar.open('Book request could not be accepted', 'Dismiss', {
         panelClass: 'error',
         duration: 5000,

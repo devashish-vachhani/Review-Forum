@@ -74,9 +74,8 @@ export class SignupFormComponent {
 
     try {
       const userCredential = await this.authService.signup(email, password);
-      const user = userCredential.user
       const appUser = new AppUser(email, username, false);
-      await this.userService.addUser(user.uid, appUser);
+      await this.userService.addUser(userCredential.user.uid, appUser);
       localStorage.setItem('username', JSON.stringify(appUser.username));
       this.snackBar.open('Signed up successfully', 'Dismiss', {
         panelClass: 'success',
@@ -89,6 +88,5 @@ export class SignupFormComponent {
         duration: 5000,
       })
     }
-      
-    }
+  }
 }

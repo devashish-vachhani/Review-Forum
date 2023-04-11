@@ -1,3 +1,4 @@
+
 <div class="wrapper131">
     <div class="wrapper14" style="padding-top: 5px; padding-bottom: 5px;">
         <div class="wrapper151"><div class="wrapper152" style="font-size: larger;">{{ review.reviewer }}</div></div>
@@ -6,7 +7,7 @@
         
             <ng-container *ngFor="let i of [0, 1, 2, 3, 4]">
                 <mat-icon style="color: rgb(167, 123, 2); display: inline-block;">
-                  {{ i < review.rating ? 'star' : 'star_border' }}
+                {{ i < review.rating ? 'star' : 'star_border' }}
                 </mat-icon>
             </ng-container>
     </div>
@@ -43,8 +44,6 @@
 
     <div *ngIf="showComments">
         <hr size="0" class="line1"/>
-        <comments [bookId]="bookId" [reviewId]="review.id" [reviewer]="review.reviewer"></comments>
+        <comments [bookId]="bookId" [review]="review" [username]="username"></comments>
     </div>
 </div>
-
-    
