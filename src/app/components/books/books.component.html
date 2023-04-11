@@ -1,15 +1,22 @@
-<book-search></book-search>
+<div style="padding-top: 10px; text-align: center;"><book-search></book-search></div>
 <div class="content">
-    <div fxLayout="row wrap" fxLayoutGap="16px grid" style="display: flex; flex: 1 1 auto;">
-        <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="33%" *ngFor="let book of filteredBooks">
-        <mat-card class="mat-elevation-z4">
-          <img mat-card-image [src]="book['image']">
-          <mat-card-content>
-            <p>
-              {{ book['title'] }}
-            </p>
-          </mat-card-content>
-        </mat-card>
-      </div>
-    </div>
+  <div fxLayout="row wrap" fxLayoutGap="16px grid" style="display: flex; flex: 1 1 auto;">
+      <div fxFlex="20%" fxFlex.xs="100%" fxFlex.sm="33%" *ngFor="let book of books">
+      <mat-card class="mat-elevation-z4">
+        <a class="nav-link active" routerLink="/book/{{book['id']}}"><img mat-card-image [src]="book['image']" id="Bookimage"></a>
+        <mat-card-actions style="padding-left: 5px;">
+          <label
+          type="button"
+          class="btn btn-outline-secondary"
+          ngbPopover="{{book['tags']}}"
+          triggers="mouseenter:mouseleave"
+          popoverTitle="Tags"
+          style="width:300px"
+      >
+          Tags
+      </label>
+        </mat-card-actions>
+      </mat-card>
+    <div>
+  </div>
 </div>
