@@ -1,7 +1,6 @@
 import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ReadingListService } from '../../services/reading-list.service';
-import { Observable, Subscription } from 'rxjs';
-import { ReadingList } from 'src/app/models/reading-list';
+import { Subscription } from 'rxjs';
 import { MatTableDataSource } from '@angular/material/table';
 import { Book } from 'src/app/models/book';
 import { MatSort } from '@angular/material/sort';
@@ -12,7 +11,6 @@ import { MatSort } from '@angular/material/sort';
   styleUrls: ['./reading-list.component.css']
 })
 export class ReadingListComponent implements OnInit, AfterViewInit, OnDestroy {
-  readingList$: Observable<ReadingList>;
   displayedColumns = ['cover', 'title', 'author', 'actions' ];
   dataSource = new MatTableDataSource<Book>();
   subscription: Subscription;

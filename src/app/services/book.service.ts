@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { collection, collectionData, Firestore, addDoc, doc, updateDoc, docData, query, where } from '@angular/fire/firestore';
+import { collection, collectionData, Firestore, addDoc, doc, updateDoc, docData, query, where, deleteDoc } from '@angular/fire/firestore';
 import { map, Observable } from 'rxjs';
 import { Book } from '../models/book';
 
@@ -35,6 +35,11 @@ export class BookService {
   async updateBook(bookId: string, data): Promise<void> {
     const bookDocumentRef = doc(this.firestore, 'books', bookId);
     await updateDoc(bookDocumentRef, data);
+  }
+
+  async deleteBook(bookId: string): Promise<void> {
+    const bookDocumentRef = doc(this.firestore, 'books', bookId);
+    await deleteDoc(bookDocumentRef);
   }
   
 }
