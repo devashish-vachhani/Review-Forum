@@ -53,6 +53,7 @@ import { CommonModule } from '@angular/common';
 import { CommentsComponent } from './components/comments/comments.component';
 import { ReviewComponent } from './components/review/review.component';
 import { BookRequestsComponent } from './components/admins/book-requests/book-requests.component';
+import { MyRequestsComponent } from './components/my-requests/my-requests.component';
 
 @NgModule({
   declarations: [
@@ -73,6 +74,7 @@ import { BookRequestsComponent } from './components/admins/book-requests/book-re
     ReviewComponent,
     BookSearchComponent,
     BookRequestsComponent,
+    MyRequestsComponent,
   ],
   imports: [
     CommonModule,

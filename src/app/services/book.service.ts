@@ -7,12 +7,20 @@ import { Book } from '../models/book';
   providedIn: 'root'
 })
 export class BookService {
+
   constructor(
     private firestore: Firestore,
     ) {}
 
-  getBooks(status: boolean): Observable<Book[]> {
-    const q = query(collection(this.firestore, "books"), where("status", "==", status));
+  getBooks(status?: string, requester?: string): Observable<Book[]> {
+    let q;
+    if (status !== undefined) {
+      q = query(collection(this.firestore, "books"), where("status", "==", status));
+    } else if (requester !== undefined) {
+      q = query(collection(this.firestore, "books"), where("requester", "==", requester));
+    } else {
+      q = collection(this.firestore, "books");
+    }
     return collectionData(q, { idField: 'id' })
       .pipe(
         map(books => books.map(book => new Book(book['title'], book['author'], book['description'], book['image'], book['tags'], book['status'], book['id'])))

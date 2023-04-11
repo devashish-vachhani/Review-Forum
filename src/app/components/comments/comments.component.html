@@ -1,4 +1,4 @@
-<ng-container *ngIf="comments$ | async as comments">
+<ng-container *ngIf="comments">
       
     <form *ngIf = "username != reviewer " #f="ngForm" (ngSubmit)="onPost(f)">
         <div class="form-group">

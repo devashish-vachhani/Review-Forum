@@ -20,7 +20,7 @@ export class BooksComponent implements OnInit, OnDestroy {
   ) {}
   
   ngOnInit(): void {
-    this.subscription = this.bookService.getBooks(true)
+    this.subscription = this.bookService.getBooks("approved")
                                         .pipe(
                                           switchMap(books => {
                                             this.books = books;

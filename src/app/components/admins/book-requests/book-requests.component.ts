@@ -24,7 +24,7 @@ export class BookRequestsComponent implements OnInit, OnDestroy {
   @ViewChild(MatSort) sort: MatSort;
 
   ngOnInit(): void {
-    this.subscription = this.bookService.getBooks(false).subscribe(books => {
+    this.subscription = this.bookService.getBooks("pending").subscribe(books => {
       this.dataSource.data = books;
     })
   }
@@ -35,7 +35,7 @@ export class BookRequestsComponent implements OnInit, OnDestroy {
 
   async accept(bookId: string) {
     const data = {
-      status: true,
+      status: "approved",
     }
     try {
       await this.bookService.updateBook(bookId, data);
@@ -53,8 +53,11 @@ export class BookRequestsComponent implements OnInit, OnDestroy {
   }
 
   async decline(bookId: string) {
+    const data = {
+      status: "declined",
+    }
     try {
-      await this.bookService.deleteBook(bookId)
+      await this.bookService.updateBook(bookId, data);
       this.snackBar.open('Book request was declined', 'Dismiss', {
         panelClass: 'success',
         duration: 3000,
