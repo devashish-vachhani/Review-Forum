@@ -16,7 +16,7 @@ export class CommentsComponent {
   @Input('reviewer') reviewer;
 
   comments$: Observable<Comment[]>
-  username: string = this.userService.username;
+  username: string;
 
   constructor(
     private commentService: CommentService,
@@ -24,6 +24,7 @@ export class CommentsComponent {
   ) {}
 
   ngOnInit(): void {
+    this.username = this.userService.username;
     this.comments$ = this.commentService.getComments(this.bookId, this.reviewId);
   }
 

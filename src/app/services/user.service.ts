@@ -8,7 +8,6 @@ import { AppUser } from '../models/user';
   providedIn: 'root'
 })
 export class UserService {
-  uid: string = this.authService.uid;
 
   constructor(
     private firestore: Firestore,
@@ -19,27 +18,28 @@ export class UserService {
     const userDocumentRef = doc(this.firestore, 'users', uid);
     return docData(userDocumentRef)
             .pipe(
-              map(user => new AppUser(user['email'], user['username'], user['isAdmin']))
-            );
+              map(user => {
+                if(user) {
+                  return new AppUser(user['email'], user['username'], user['isAdmin'])
+                } else {
+                  return null;
+                }
+              })
+            )
   }
 
-  async addUser(user: AppUser) {
-    const userDocumentRef = doc(this.firestore, 'users', this.uid);
+  async addUser(uid: string, user: AppUser) {
+    const userDocumentRef = doc(this.firestore, 'users', uid);
     await setDoc(userDocumentRef, user.toJson());
   }
 
-  appUser$(): Observable<AppUser> {
+  get appUser$(): Observable<AppUser> {
     return this.authService.currentUser$
       .pipe(
         switchMap(user => {
           if (user) {
-            return this.getUser(user.uid).pipe(
-              tap(appUser => {
-                localStorage.setItem('username', JSON.stringify(appUser.username));
-              })
-            );
+            return this.getUser(user.uid)
           } else {
-            localStorage.removeItem('username');
             return of(null);
           }
         })

@@ -33,7 +33,7 @@ export class AppUser {
       this._isAdmin = isAdmin;
     }
 
-    toJson(): object {
+    toJson(): any {
         return {
           email: this._email,
           username: this._username,

@@ -1,10 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from '../../services/user.service';
-import { Subscription, of, switchMap } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { AppUser } from 'src/app/models/user';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'bs-navbar',
@@ -19,21 +19,25 @@ export class BsNavbarComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private router: Router,
     private userService: UserService,
-    private toastr: ToastrService,
+    private snackBar: MatSnackBar,
     ) {}
 
   ngOnInit(): void {
-    this.subscription = this.userService.appUser$()
+    this.subscription = this.userService.appUser$
                                         .subscribe(appUser => this.appUser = appUser);
   }
 
   async logout() {
     try {
       await this.authService.logout();
-      this.toastr.success('Logged out successfully');
+      localStorage.removeItem('username');
+      this.snackBar.open('Logged out successfully', 'Dismiss', {
+        panelClass: 'success',
+        duration: 3000,
+      })
       this.router.navigate(['']);
     } catch (error) {
-      this.toastr.error(error);
+      
     }
   }
   

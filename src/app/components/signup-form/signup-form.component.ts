@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
 import { AbstractControl, UntypedFormControl, UntypedFormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
-import { switchMap, catchError, throwError } from 'rxjs';
 import { AppUser } from 'src/app/models/user';
 import { AuthService } from '../../services/auth.service';
 import { UserService } from '../../services/user.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 export function passwordsMatchValidator(): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
@@ -47,7 +46,7 @@ export class SignupFormComponent {
     private router: Router,
     private userService: UserService,
     private authService: AuthService,
-    private toastr: ToastrService
+    private snackBar: MatSnackBar,
   ) {}
 
   get email() {
@@ -74,13 +73,21 @@ export class SignupFormComponent {
     }
 
     try {
-      await this.authService.signup(email, password);
+      const userCredential = await this.authService.signup(email, password);
+      const user = userCredential.user
       const appUser = new AppUser(email, username, false);
-      await this.userService.addUser(appUser);
-      this.toastr.success('Account created successfully');
+      await this.userService.addUser(user.uid, appUser);
+      localStorage.setItem('username', JSON.stringify(appUser.username));
+      this.snackBar.open('Signed up successfully', 'Dismiss', {
+        panelClass: 'success',
+        duration: 3000,
+      })
       this.router.navigate(['/dashboard']);
     } catch (error) {
-      this.toastr.error(error);
+      this.snackBar.open('Error while creating account', 'Dismiss', {
+        panelClass: 'error',
+        duration: 5000,
+      })
     }
       
     }
