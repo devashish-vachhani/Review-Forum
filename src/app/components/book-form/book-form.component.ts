@@ -45,8 +45,8 @@ export class BookFormComponent implements OnInit, OnDestroy {
     );
     this.bookService.createBook(book)
     .then(() => {
-      this.toastr.success('Request submitted successfully');
-      this.router.navigate(['/dashboard']);
+      this.toastr.success('Book request submitted successfully');
+      this.router.navigate(['/books']);
     })
     .catch(error => {
       this.toastr.error(error);

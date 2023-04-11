@@ -53,7 +53,7 @@ export class LoginComponent {
         panelClass: 'success',
         duration: 3000,
       })
-      this.router.navigate(['/dashboard']);
+      this.router.navigate(['/books']);
     } catch (error) {
       this.snackBar.open('Incorrect username or password', 'Dismiss', {
         panelClass: 'error',

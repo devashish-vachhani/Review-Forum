@@ -26,7 +26,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthService } from './services/auth.service';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { UserService } from './services/user.service';
 import { BookService } from './services/book.service';
 import { HotToastModule } from '@ngneat/hot-toast';
@@ -60,7 +59,6 @@ import { BookRequestsComponent } from './components/admins/book-requests/book-re
     AppComponent,
     BsNavbarComponent,
     HomeComponent,
-    DashboardComponent,
     LoginComponent,
     SignupComponent,
     SignupFormComponent,
