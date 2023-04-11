@@ -20,9 +20,8 @@ export class NewReviewComponent implements OnInit, OnDestroy {
         ) {}
 
     ngOnInit(): void {
-        this.subscription = this.userService.appUser$.subscribe(appUser => {
-            this.username = appUser.username;
-        })
+        this.username = this.userService.username;
+        if(!this.username) this.subscription = this.userService.appUser$.subscribe(appUser => this.username = appUser.username);
     }
 
     onClick(rating: number): void {
@@ -41,6 +40,6 @@ export class NewReviewComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy(): void {
-        this.subscription.unsubscribe();
+        if(this.subscription) this.subscription.unsubscribe();
     }
 }

@@ -30,7 +30,8 @@ export class BookFormComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.universitySubscription = this.universityService.getUniversities().subscribe(universities => this.universities = universities);
-    this.userSubscription = this.userService.appUser$.subscribe(appUser => this.username = appUser.username);
+    this.username = this.userService.username;
+    if(!this.username) this.userSubscription = this.userService.appUser$.subscribe(appUser => this.username = appUser.username);
   }
 
   updateCourses(universityCode: string) {
@@ -61,7 +62,7 @@ export class BookFormComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.universitySubscription.unsubscribe();
-    this.userSubscription.unsubscribe();
+    if(this.userSubscription) this.userSubscription.unsubscribe();
   }
 }
 

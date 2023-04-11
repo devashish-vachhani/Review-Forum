@@ -4,7 +4,6 @@ import { Review } from 'src/app/models/review';
 import { ReviewService } from 'src/app/services/review.service';
 import { NewReviewComponent } from '../new-review/new-review.component';
 import { MatDialog } from "@angular/material/dialog";
-import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'reviews',
@@ -16,21 +15,16 @@ export class ReviewsComponent implements OnInit, OnDestroy {
   
   reviews: Review[];
   ratingStats: number[];
-  reviewSubscription: Subscription;
-  userSubscription: Subscription;
-  username: string;
+  subscription: Subscription;
 
 
   constructor(
-    private userService: UserService,
     private reviewService: ReviewService,
     private dialog: MatDialog,
   ) {}
 
   ngOnInit(): void {
-    this.userSubscription = this.userService.appUser$.subscribe(appUser => this.username = appUser.username);
-
-    this.reviewSubscription = this.reviewService.getReviews(this.bookId)
+    this.subscription = this.reviewService.getReviews(this.bookId)
                         .subscribe(reviews => {
                           this.ratingStats = Array.from({ length: 5 }, () => 0);
                           this.reviews = reviews;
@@ -53,19 +47,22 @@ export class ReviewsComponent implements OnInit, OnDestroy {
   }
 
   convertToPercent(value: number) {
-    return ((value / this.reviews.length) * 100).toFixed(0).toString();
+    if(this.isReviewEmpty()) return "0";
+    return ((value / this.reviews.length) * 100).toFixed(0);
   }
 
   calculateAverageRating() {
     const sum = this.ratingStats.reduce((accumulator, value, index) => accumulator + (value*(index+1)), 0);
-    const len = this.reviews.length;
-    const avg = sum/len;
-    return avg.toFixed(1).toString();
+    if(this.isReviewEmpty()) return "0";
+    const avg = sum/(this.reviews.length);
+    return avg.toFixed(1);
   }
 
   ngOnDestroy(): void {
-      this.reviewSubscription.unsubscribe();
-      this.userSubscription.unsubscribe();
+      this.subscription.unsubscribe();
   }
 
+  private isReviewEmpty(): boolean {
+    return this.reviews.length === 0;
+  }
 }

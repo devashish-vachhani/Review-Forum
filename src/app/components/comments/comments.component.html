@@ -1,5 +1,6 @@
 <ng-container *ngIf="(comments$ | async) as comments">
-        <form *ngIf = "username != review.reviewer" #f="ngForm" (ngSubmit)="onPost(f)">
+    <ng-container *ngIf="username">
+        <form *ngIf = "username != reviewer" #f="ngForm" (ngSubmit)="onPost(f)">
             <div class="form-group">
                 <textarea ngModel name="text" id="text" class="form-control" placeholder="Add a comment" required></textarea>
             </div>
@@ -18,3 +19,4 @@
             </p>
         </div>
     </ng-container>
+</ng-container>   

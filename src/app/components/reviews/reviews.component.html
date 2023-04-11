@@ -1,4 +1,4 @@
-<div class="untitled-page root" *ngIf="reviews && username">
+<div class="untitled-page root" *ngIf="reviews">
     <div class="wrapper">
     <section class="box">
         <div style="text-align: center; height: 20px;">
@@ -37,7 +37,7 @@
                         <mat-icon style="color: rgb(167, 123, 2);">star</mat-icon>
                     </h2>
                 </div>
-                <div class="info" style="padding-left: 17px;">{{ reviews.length }} Reviews</div>
+                <div class="info" style="padding-left: 17px;">{{ reviews.length }} reviews</div>
                 </div>
             </div>
             </div>
@@ -61,7 +61,7 @@
             <h2>Community Forum</h2>
         </div>
         <div class="box2" *ngFor="let review of reviews">
-            <review [bookId]="bookId" [review]="review" [username]="username"></review>
+            <review [bookId]="bookId" [review]="review"></review>
         </div>
     </section>
     </div>

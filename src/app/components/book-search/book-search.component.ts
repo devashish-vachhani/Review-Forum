@@ -1,14 +1,16 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { UniversityService } from '../../services/university.service';
+import { Observable } from 'rxjs';
+import { University } from 'src/app/models/university';
 
 @Component({
   selector: 'book-search',
   templateUrl: './book-search.component.html',
-  styleUrls: ['./book-search.component.css']
+  styleUrls: ['./book-search.component.scss']
 })
 export class BookSearchComponent {
-  universities$;
+  universities$: Observable<University[]>;
   searchMode: string = 'byTitle';
   searchTerm = '';
 
