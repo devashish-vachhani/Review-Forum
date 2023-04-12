@@ -7,11 +7,11 @@ import { BookService } from 'src/app/services/book.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
-  selector: 'app-my-requests',
-  templateUrl: './my-requests.component.html',
-  styleUrls: ['./my-requests.component.scss']
+  selector: 'user-book-requests',
+  templateUrl: './user-book-requests.component.html',
+  styleUrls: ['./user-book-requests.component.scss']
 })
-export class MyRequestsComponent {
+export class UserBookRequestsComponent {
   displayedColumns = ['cover', 'title', 'author', 'description', 'tags', 'status' ];
   dataSource = new MatTableDataSource<Book>();
   subscription: Subscription;

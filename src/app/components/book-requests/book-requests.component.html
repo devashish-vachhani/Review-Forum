@@ -1,0 +1,8 @@
+<ng-container *ngIf="appUser">
+    <ng-container *ngIf="appUser.isAdmin; else user">
+        <admin-book-requests></admin-book-requests>
+    </ng-container>
+    <ng-template #user>
+        <user-book-requests></user-book-requests>
+    </ng-template>
+</ng-container>

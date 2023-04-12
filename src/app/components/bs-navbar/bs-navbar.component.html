@@ -6,20 +6,20 @@
       <mat-icon>more_vert</mat-icon>
     </button>
     <mat-menu #menu="matMenu" >
-      <button mat-menu-item routerLink="/reading-list" *ngIf="appUser">
-        <span>Reading List</span>
-      </button>
-      <button mat-menu-item routerLink="/my-requests" *ngIf="appUser">
-        <span>Book Requests</span>
-      </button>
-      <button mat-menu-item (click) = "logout()" *ngIf="appUser">
-        <span>Log out</span>
-      </button>
       <button mat-menu-item routerLink="/login" *ngIf="!appUser">
         <span>Log in</span>
       </button>
       <button mat-menu-item routerLink="/signup" *ngIf="!appUser">
         <span>Sign up</span>
+      </button>
+      <button mat-menu-item routerLink="/reading-list" *ngIf="appUser && !appUser.isAdmin">
+        <span>Reading List</span>
+      </button>
+      <button mat-menu-item routerLink="/books/requests" *ngIf="appUser">
+        <span>Book Requests</span>
+      </button>
+      <button mat-menu-item (click) = "logout()" *ngIf="appUser">
+        <span>Log out</span>
       </button>
     </mat-menu>
   </mat-toolbar-row>

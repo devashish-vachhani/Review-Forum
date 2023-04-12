@@ -52,8 +52,9 @@ import { NewReviewComponent } from './components/new-review/new-review.component
 import { CommonModule } from '@angular/common';
 import { CommentsComponent } from './components/comments/comments.component';
 import { ReviewComponent } from './components/review/review.component';
-import { BookRequestsComponent } from './components/admins/book-requests/book-requests.component';
-import { MyRequestsComponent } from './components/my-requests/my-requests.component';
+import { BookRequestsComponent } from './components/book-requests/book-requests.component';
+import { AdminBookRequestsComponent } from './components/admin-book-requests/admin-book-requests.component';
+import { UserBookRequestsComponent } from './components/user-book-requests/user-book-requests.component';
 
 @NgModule({
   declarations: [
@@ -74,7 +75,8 @@ import { MyRequestsComponent } from './components/my-requests/my-requests.compon
     ReviewComponent,
     BookSearchComponent,
     BookRequestsComponent,
-    MyRequestsComponent,
+    AdminBookRequestsComponent,
+    UserBookRequestsComponent,
   ],
   imports: [
     CommonModule,

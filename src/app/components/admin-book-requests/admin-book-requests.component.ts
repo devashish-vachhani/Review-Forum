@@ -7,11 +7,11 @@ import { Book } from 'src/app/models/book';
 import { BookService } from 'src/app/services/book.service';
 
 @Component({
-  selector: 'app-book-requests',
-  templateUrl: './book-requests.component.html',
-  styleUrls: ['./book-requests.component.scss']
+  selector: 'admin-book-requests',
+  templateUrl: './admin-book-requests.component.html',
+  styleUrls: ['./admin-book-requests.component.scss']
 })
-export class BookRequestsComponent implements OnInit, OnDestroy {
+export class AdminBookRequestsComponent implements OnInit, OnDestroy {
   displayedColumns = ['cover', 'title', 'author', 'description', 'tags', 'actions' ];
   dataSource = new MatTableDataSource<Book>();
   subscription: Subscription;
