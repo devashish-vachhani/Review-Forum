@@ -2,9 +2,9 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { environment } from '../environments/environment';
 import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
-import { provideAuth,getAuth } from '@angular/fire/auth';
+import { provideAuth,getAuth, connectAuthEmulator } from '@angular/fire/auth';
 import { getStorage, provideStorage } from '@angular/fire/storage';
-import { provideFirestore, getFirestore } from '@angular/fire/firestore';
+import { provideFirestore, getFirestore, connectFirestoreEmulator, enableIndexedDbPersistence } from '@angular/fire/firestore';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -98,8 +98,30 @@ import { MyRequestsComponent } from './components/my-requests/my-requests.compon
     MatSelectModule,
     ReactiveFormsModule,
     provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
-    provideAuth(() => getAuth()),
-    provideFirestore(() => getFirestore()),
+    provideAuth(() => {
+      const fireauth = getAuth();
+      connectAuthEmulator(fireauth, 'http://localhost:9099'); // <---FireAuth Port
+      return fireauth;
+    }),
+    provideFirestore(() => {
+      if (environment.useEmulators) {
+          const firestore = getFirestore();
+          connectFirestoreEmulator(firestore, 'localhost', 8080);
+          enableIndexedDbPersistence(firestore);
+          return firestore;
+      } else {
+        return getFirestore();
+      }
+    }),
+    provideAuth(() => {
+        if (environment.useEmulators) {
+            const fireauth = getAuth();
+            connectAuthEmulator(fireauth, 'http://localhost:9099'); // <---FireAuth Port
+            return fireauth;
+        } else {
+            return getAuth();
+        }
+    }),
     provideStorage(() => getStorage()),
     NgbModule,
     HotToastModule,
