@@ -21,17 +21,21 @@ export class BooksComponent implements OnInit, OnDestroy {
   
   ngOnInit(): void {
     this.subscription = this.bookService.getBooks("approved")
-                                        .pipe(
-                                          switchMap(books => {
-                                            this.books = books;
-                                            return this.route.queryParams;
-                                          })
-                                        )
-                                        .subscribe(params => {
-                                          if(params['title']) this.filteredBooks = this.books.filter(book => book.title.includes(params['title']));
-                                          else if(params['university']) this.filteredBooks = this.books.filter(book => book.tags.some(tag => tag.includes(params['university'])));
-                                          else this.filteredBooks = this.books
-                                        })
+                        .pipe(
+                          switchMap(books => {
+                            this.books = books;
+                            return this.route.queryParams;
+                          })
+                        )
+                        .subscribe(params => {
+                          if(params['title']) {
+                            this.filteredBooks = this.books.filter(book => (book.title.toLowerCase()).includes((params['title'].toLowerCase())));
+                          } else if(params['university']) {
+                            this.filteredBooks = this.books.filter(book => book.tags.some(tag => tag.includes(params['university'])));
+                          } else {
+                            this.filteredBooks = this.books
+                          }
+                        })
   }
 
   ngOnDestroy(): void {
