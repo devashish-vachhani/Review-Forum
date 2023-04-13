@@ -32,26 +32,28 @@
         <br>
         <br>
         <div *ngIf="readingList$ | async as readingList">
-            <button *ngIf="!readingList.hasBook(book.id); else removeButton"
-                type="button"
-                mat-raised-button color='primary'
-                style="width:280px"
-                (click)="addToReadingList()"
-            >
-                Add to reading list
-            </button>
-            <ng-template #removeButton>
-                <button
-                type="button"
-                mat-raised-button
-                style="width:280px"
-                (click)="deleteFromReadingList()"
-            >
-                Remove from reading list
-            </button>
-            </ng-template>
+            <ng-container *ngIf="!appUser.isAdmin">
+                <button *ngIf="!readingList.hasBook(book.id); else removeButton"
+                    type="button"
+                    mat-raised-button color='primary'
+                    style="width:280px"
+                    (click)="addToReadingList()"
+                >
+                    Add to reading list
+                </button>
+                <ng-template #removeButton>
+                    <button
+                    type="button"
+                    mat-raised-button
+                    style="width:280px"
+                    (click)="deleteFromReadingList()"
+                >
+                    Remove from reading list
+                </button>
+                </ng-template>
+                <br>
+            </ng-container>
         </div>
-        <br>
         <div>
             <button
                 type="button"

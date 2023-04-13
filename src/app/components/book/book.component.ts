@@ -9,6 +9,8 @@ import { MatDialog } from "@angular/material/dialog";
 import { TagComponent } from '../tag/tag.component';
 import { arrayUnion } from '@angular/fire/firestore';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { UserService } from 'src/app/services/user.service';
+import { AppUser } from 'src/app/models/user';
 
 @Component({
   selector: 'app-book',
@@ -17,8 +19,10 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class BookComponent implements OnInit {
   book: Book;
-  subscription: Subscription; 
+  userSubscription: Subscription;
+  bookSubscription: Subscription; 
   readingList$: Observable<ReadingList>;
+  appUser: AppUser;
 
   constructor(
     private bookService: BookService,
@@ -26,10 +30,11 @@ export class BookComponent implements OnInit {
     private route: ActivatedRoute,
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
+    private userService: UserService,
   ) {}
   
   ngOnInit() {
-    this.subscription = this.route.paramMap.pipe(
+    this.bookSubscription = this.route.paramMap.pipe(
       switchMap(params => {
         return this.bookService.getBook(params.get('id'));
       })
@@ -37,6 +42,8 @@ export class BookComponent implements OnInit {
       this.book = book;
       this.readingList$ = this.readingListService.getReadingList();
     });
+
+    this.userSubscription = this.userService.appUser$.subscribe(appUser => this.appUser = appUser);
   }
 
   async addToReadingList() {
@@ -70,6 +77,7 @@ export class BookComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    this.userSubscription.unsubscribe();
+    this.bookSubscription.unsubscribe();
   }
 }
