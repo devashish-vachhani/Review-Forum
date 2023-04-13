@@ -1,4 +1,4 @@
-<div class="grid-container" *ngIf="book">
+<div class="grid-container" *ngIf="book && readingList">
     <div class="item1">
         <br>
         <div>
@@ -31,28 +31,27 @@
         <img mat-card-image id ="bookImage" data-mb-toggle="popover" title="test" [src]="book.image">
         <br>
         <br>
-        <div *ngIf="readingList$ | async as readingList">
-            <ng-container *ngIf="!appUser.isAdmin">
-                <button *ngIf="!readingList.hasBook(book.id); else removeButton"
-                    type="button"
-                    mat-raised-button color='primary'
-                    style="width:280px"
-                    (click)="addToReadingList()"
-                >
-                    Add to reading list
-                </button>
-                <ng-template #removeButton>
-                    <button
-                    type="button"
-                    mat-raised-button
-                    style="width:280px"
-                    (click)="deleteFromReadingList()"
-                >
-                    Remove from reading list
-                </button>
-                </ng-template>
-                <br>
-            </ng-container>
+        <div *ngIf="!appUser.isAdmin">
+            <button *ngIf="!readingList.hasBook(book.id); else removeButton"
+                type="button"
+                mat-raised-button color='primary'
+                style="width:280px"
+                (click)="addToReadingList()"
+            >
+                Add to reading list
+            </button>
+            <ng-template #removeButton>
+                <button
+                type="button"
+                mat-raised-button
+                style="width:280px"
+                (click)="deleteFromReadingList()"
+            >
+                Remove from reading list
+            </button>
+            </ng-template>
+            <br>
+            <br>
         </div>
         <div>
             <button

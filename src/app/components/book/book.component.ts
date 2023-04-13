@@ -19,9 +19,9 @@ import { AppUser } from 'src/app/models/user';
 })
 export class BookComponent implements OnInit {
   book: Book;
-  userSubscription: Subscription;
   bookSubscription: Subscription; 
-  readingList$: Observable<ReadingList>;
+  readingListSubscription: Subscription;
+  readingList: ReadingList;
   appUser: AppUser;
 
   constructor(
@@ -34,24 +34,29 @@ export class BookComponent implements OnInit {
   ) {}
   
   ngOnInit() {
+
     this.bookSubscription = this.route.paramMap.pipe(
       switchMap(params => {
         return this.bookService.getBook(params.get('id'));
       })
-    ).subscribe((book: Book) => {
-      this.book = book;
-      this.readingList$ = this.readingListService.getReadingList();
-    });
+    ).subscribe((book: Book) => this.book = book);
 
-    this.userSubscription = this.userService.appUser$.subscribe(appUser => this.appUser = appUser);
+    this.readingListSubscription = this.userService.appUser$
+                                        .pipe(
+                                          switchMap(appUser => {
+                                            this.appUser = appUser;
+                                            return this.readingListService.getReadingList(this.appUser.id);
+                                          })
+                                        )
+                                        .subscribe(readingList => this.readingList = readingList)
   }
 
   async addToReadingList() {
-    await this.readingListService.addToReadingList(this.book);
+    await this.readingListService.addToReadingList(this.appUser.id, this.book);
   }
 
   async deleteFromReadingList() {
-    await this.readingListService.deleteFromReadingList(this.book.id);
+    await this.readingListService.deleteFromReadingList(this.appUser.id, this.book.id);
   }
 
   openDialog(): void {
@@ -77,7 +82,7 @@ export class BookComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    this.userSubscription.unsubscribe();
     this.bookSubscription.unsubscribe();
+    this.readingListSubscription.unsubscribe();
   }
 }

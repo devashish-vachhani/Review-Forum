@@ -16,11 +16,11 @@ export class UserService {
 
   getUser(uid: string): Observable<AppUser> {
     const userDocumentRef = doc(this.firestore, 'users', uid);
-    return docData(userDocumentRef)
+    return docData(userDocumentRef, { idField: 'id'})
             .pipe(
               map(user => {
                 if(user) {
-                  return new AppUser(user['email'], user['username'], user['isAdmin'])
+                  return new AppUser(user['email'], user['username'], user['isAdmin'], user['id'])
                 } else {
                   return null;
                 }
