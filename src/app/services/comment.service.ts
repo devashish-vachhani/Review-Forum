@@ -16,7 +16,7 @@ export class CommentService {
     const commentsCollectionRef = collection(this.firestore, `books/${bookId}/reviews/${reviewId}/comments`);
     return collectionData(commentsCollectionRef, { idField: 'id' })
             .pipe(
-              map(comments => comments.map(comment => new Comment(comment['commenter'], comment['text'], comment['date'], comment['id'])))
+              map(comments => comments.map(comment => new Comment(comment['commenter'], comment['text'], comment['date'].toDate(), comment['id'])))
             );
   }
 

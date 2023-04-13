@@ -17,7 +17,7 @@ export class ReviewService {
     const reviewsCollectionRef = collection(this.firestore, `books/${bookId}/reviews`);
     return collectionData(reviewsCollectionRef, { idField: 'id' })
             .pipe(
-              map(reviews => reviews.map(review => new Review(review['reviewer'], review['text'], review['date'], review['rating'], review['likes'], review['id'])))
+              map(reviews => reviews.map(review => new Review(review['reviewer'], review['text'], review['date'].toDate(), review['rating'], review['likes'], review['id'])))
             );
   }
 

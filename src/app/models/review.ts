@@ -2,11 +2,11 @@ export class Review {
     private _id?: string;
     private _reviewer: string;
     private _text: string;
-    private _date: any;
+    private _date: Date;
     private _rating: number;
     private _likes: string[];
   
-    constructor(reviewer: string, text: string, date: any, rating: number, likes: string[], id?: string) {
+    constructor(reviewer: string, text: string, date: Date, rating: number, likes: string[], id?: string) {
       this._id = id;
       this._reviewer = reviewer;
       this._text = text;
@@ -39,11 +39,11 @@ export class Review {
       this._text = value;
     }
   
-    get date(): any {
+    get date(): Date {
       return this._date;
     }
   
-    set date(value: any) {
+    set date(value: Date) {
       this._date = value;
     }
   

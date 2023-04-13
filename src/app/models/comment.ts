@@ -2,7 +2,7 @@ export class Comment {
     private _id?: string;
     private _commenter: string;
     private _text: string;
-    private _date: any;
+    private _date: Date;
   
     constructor(commenter: string, text: string, date: Date, id?: string) {
       this._id = id;
@@ -23,7 +23,7 @@ export class Comment {
       return this._text;
     }
   
-    get date(): any {
+    get date(): Date {
       return this._date;
     }
   
@@ -40,7 +40,7 @@ export class Comment {
       this._text = value;
     }
   
-    set date(value: any) {
+    set date(value: Date) {
       this._date = value;
     }
   
