@@ -1,8 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { environment } from '../environments/environment';
 import { getApp, initializeApp,provideFirebaseApp } from '@angular/fire/app';
-import { provideAuth,getAuth, connectAuthEmulator } from '@angular/fire/auth';
+import { provideAuth, getAuth, connectAuthEmulator } from '@angular/fire/auth';
 import { getStorage, provideStorage } from '@angular/fire/storage';
 import { provideFirestore, getFirestore, connectFirestoreEmulator, initializeFirestore, Firestore } from '@angular/fire/firestore';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -55,6 +54,7 @@ import { ReviewComponent } from './components/review/review.component';
 import { BookRequestsComponent } from './components/book-requests/book-requests.component';
 import { AdminBookRequestsComponent } from './components/admin-book-requests/admin-book-requests.component';
 import { UserBookRequestsComponent } from './components/user-book-requests/user-book-requests.component';
+import { environment } from 'src/environments/environment.development';
 
 @NgModule({
   declarations: [
@@ -100,6 +100,18 @@ import { UserBookRequestsComponent } from './components/user-book-requests/user-
     MatSelectModule,
     ReactiveFormsModule,
     provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
+    provideFirestore(() => {
+      let firestore: Firestore;
+      if(environment.useEmulators) {
+        firestore = initializeFirestore(getApp(), {
+          experimentalForceLongPolling: true,
+        });
+        connectFirestoreEmulator(firestore, 'localhost', 8080);
+      } else {
+        firestore = getFirestore();
+      }
+      return firestore;
+    }),
     provideAuth(() => {
       const auth = getAuth();
       if(environment.useEmulators) {
@@ -108,18 +120,6 @@ import { UserBookRequestsComponent } from './components/user-book-requests/user-
         })
       }
       return auth;
-    }),
-    provideFirestore(() => {
-      let firestore: Firestore;
-      if(environment.useEmulators) {
-        firestore = initializeFirestore(getApp(), {
-          experimentalAutoDetectLongPolling: true,
-        });
-        connectFirestoreEmulator(firestore, 'localhost', 8080);
-      } else {
-        firestore = getFirestore();
-      }
-      return firestore;
     }),
     provideStorage(() => getStorage()),
     NgbModule,

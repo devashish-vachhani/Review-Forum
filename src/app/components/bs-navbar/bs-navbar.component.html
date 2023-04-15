@@ -3,23 +3,23 @@
     <mat-icon [routerLink]="appUser ? '/books' : '/'">home</mat-icon>
     <span *ngIf="appUser" style="font-size: 13px; font-weight: normal; margin-left: 15px;">Signed in as: {{ appUser.username }}</span>
     <span class="example-spacer"></span>
-    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+    <button mat-icon-button [matMenuTriggerFor]="menu" data-testid="menu-btn">
       <mat-icon>more_vert</mat-icon>
     </button>
     <mat-menu #menu="matMenu" >
-      <button mat-menu-item routerLink="/login" *ngIf="!appUser">
+      <button mat-menu-item routerLink="/login" data-testid="login-page-btn" *ngIf="!appUser">
         <span>Log in</span>
       </button>
-      <button mat-menu-item routerLink="/signup" *ngIf="!appUser">
+      <button mat-menu-item routerLink="/signup" data-testid="signup-page-btn" *ngIf="!appUser">
         <span>Sign up</span>
       </button>
-      <button mat-menu-item routerLink="/reading-list" *ngIf="appUser && !appUser.isAdmin">
+      <button mat-menu-item routerLink="/reading-list" data-testid="reading-list-page-btn" *ngIf="appUser && !appUser.isAdmin">
         <span>Reading List</span>
       </button>
-      <button mat-menu-item routerLink="/books/requests" *ngIf="appUser">
+      <button mat-menu-item routerLink="/books/requests" data-testid="book-requests-page-btn" *ngIf="appUser">
         <span>Book Requests</span>
       </button>
-      <button mat-menu-item (click) = "logout()" *ngIf="appUser">
+      <button mat-menu-item (click) = "logout()" data-testid="logout-page-btn" *ngIf="appUser">
         <span>Log out</span>
       </button>
     </mat-menu>
