@@ -10,14 +10,13 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./new-review.component.css']
 })
 export class NewReviewComponent implements OnInit, OnDestroy {
-    rating: number = 0;
-    subscription: Subscription;
-    username: string;
-
     constructor(
         private dialogRef: MatDialogRef<NewReviewComponent>,
         private userService: UserService,
-        ) {}
+    ) {}
+    rating: number = 0;
+    subscription: Subscription;
+    username: string;
 
     ngOnInit(): void {
         this.username = this.userService.username;

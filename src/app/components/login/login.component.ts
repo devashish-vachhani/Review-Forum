@@ -48,15 +48,14 @@ export class LoginComponent {
       });      
       this.snackBar.open('Logged in successfully', 'Dismiss', {
         panelClass: 'success',
-        duration: 3000,
+        duration: 5000,
       })
       this.router.navigate(['/books']);
-    } catch (error) {
-      this.snackBar.open('Incorrect username or password', 'Dismiss', {
+    } catch(error) {
+      this.snackBar.open(error, 'Dismiss', {
         panelClass: 'error',
         duration: 5000,
       })
-      throw error;
     }
   }
 }

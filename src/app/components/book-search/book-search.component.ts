@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UniversityService } from '../../services/university.service';
 import { Observable } from 'rxjs';
@@ -9,16 +9,19 @@ import { University } from 'src/app/models/university';
   templateUrl: './book-search.component.html',
   styleUrls: ['./book-search.component.scss']
 })
-export class BookSearchComponent {
-  universities$: Observable<University[]>;
-  searchMode: string = 'byTitle';
-  searchTerm = '';
+export class BookSearchComponent implements OnInit {
 
   constructor(
     private router: Router,
     private universityService: UniversityService
-    ) {
-        this.universities$ = this.universityService.getUniversities();
+    ) {}
+
+  universities$: Observable<University[]>;
+  searchMode: string = 'byTitle';
+  searchTerm = '';
+
+  ngOnInit(): void {
+    this.universities$ = this.universityService.getUniversities();
   }
 
   setSearchMode(mode: string) {

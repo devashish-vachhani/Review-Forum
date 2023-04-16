@@ -1,5 +1,6 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { arrayRemove, arrayUnion } from '@angular/fire/firestore';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subscription } from 'rxjs';
 import { Review } from 'src/app/models/review';
 import { ReviewService } from 'src/app/services/review.service';
@@ -17,29 +18,46 @@ export class ReviewComponent implements OnInit, OnDestroy {
   constructor(
     private userService: UserService,
     private reviewService: ReviewService,
+    private snackBar: MatSnackBar,
   ) {}
   subscription: Subscription;
   username: string;
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.username = this.userService.username;
     if(!this.username) this.subscription = this.userService.appUser$.subscribe(appUser => this.username = appUser.username);
   }
 
   showComments: boolean = false;
 
-  onLike(reviewId: string) {
+  async onLike(reviewId: string) {
     const data = {
       likes: arrayUnion(this.username),
     }
-    this.reviewService.updateReview(this.bookId, reviewId, data);
+    try {
+      await this.reviewService.updateReview(this.bookId, reviewId, data);
+    }
+    catch (error) {
+      this.snackBar.open(error, 'Dismiss', {
+        panelClass: 'error',
+        duration: 5000,
+      })
+    }
   }
 
-  onDislike(reviewId: string) {
+  async onDislike(reviewId: string) {
     const data = {
       likes: arrayRemove(this.username),
     }
-    this.reviewService.updateReview(this.bookId, reviewId, data);
+    try {
+      await this.reviewService.updateReview(this.bookId, reviewId, data);
+    }
+    catch (error) {
+      this.snackBar.open(error, 'Dismiss', {
+        panelClass: 'error',
+        duration: 5000,
+      })
+    }
   }
 
   toggleComments() {

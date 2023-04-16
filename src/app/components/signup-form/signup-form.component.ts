@@ -79,11 +79,11 @@ export class SignupFormComponent {
       localStorage.setItem('username', JSON.stringify(appUser.username));
       this.snackBar.open('Signed up successfully', 'Dismiss', {
         panelClass: 'success',
-        duration: 3000,
+        duration: 5000,
       })
       this.router.navigate(['/books']);
     } catch (error) {
-      this.snackBar.open('Error while creating account', 'Dismiss', {
+      this.snackBar.open(error, 'Dismiss', {
         panelClass: 'error',
         duration: 5000,
       })

@@ -12,8 +12,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./bs-navbar.component.scss']
 })
 export class BsNavbarComponent implements OnInit, OnDestroy {
-  subscription: Subscription;
-  appUser: AppUser;
 
   constructor(
     private authService: AuthService,
@@ -21,6 +19,8 @@ export class BsNavbarComponent implements OnInit, OnDestroy {
     private userService: UserService,
     private snackBar: MatSnackBar,
     ) {}
+  subscription: Subscription;
+  appUser: AppUser;
 
   ngOnInit(): void {
     this.subscription = this.userService.appUser$
@@ -33,11 +33,14 @@ export class BsNavbarComponent implements OnInit, OnDestroy {
       localStorage.removeItem('username');
       this.snackBar.open('Logged out successfully', 'Dismiss', {
         panelClass: 'success',
-        duration: 3000,
+        duration: 5000,
       })
       this.router.navigate(['']);
     } catch (error) {
-      
+      this.snackBar.open(error, 'Dismiss', {
+        panelClass: 'error',
+        duration: 5000,
+      })
     }
   }
   

@@ -4,6 +4,7 @@ import { Review } from 'src/app/models/review';
 import { ReviewService } from 'src/app/services/review.service';
 import { NewReviewComponent } from '../new-review/new-review.component';
 import { MatDialog } from "@angular/material/dialog";
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'reviews',
@@ -12,16 +13,15 @@ import { MatDialog } from "@angular/material/dialog";
 })
 export class ReviewsComponent implements OnInit, OnDestroy {
   @Input('bookId') bookId;
-  
-  reviews: Review[];
-  ratingStats: number[];
-  subscription: Subscription;
-
 
   constructor(
     private reviewService: ReviewService,
     private dialog: MatDialog,
+    private snackBar: MatSnackBar,
   ) {}
+  reviews: Review[];
+  ratingStats: number[];
+  subscription: Subscription;
 
   ngOnInit(): void {
     this.subscription = this.reviewService.getReviews(this.bookId)
@@ -39,9 +39,21 @@ export class ReviewsComponent implements OnInit, OnDestroy {
       height: '300px',
       width: '600px',
     });
-    dialogRef.afterClosed().subscribe(data => {
+    dialogRef.afterClosed().subscribe(async data => {
       if(data) {
-        this.reviewService.addReview(this.bookId, data.review);
+        try {
+          await this.reviewService.addReview(this.bookId, data.review);
+          this.snackBar.open('Review added', 'Dismiss', {
+            panelClass: 'success',
+            duration: 5000,
+          })
+        }
+        catch (error) {
+          this.snackBar.open(error, 'Dismiss', {
+            panelClass: 'error',
+            duration: 5000,
+          })
+        }
       }
     });
   }
