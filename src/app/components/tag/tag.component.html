@@ -27,11 +27,13 @@
                 <button
                     mat-raised-button color='primary'
                     (click)="close()"
+                    data-testid="cancel-btn"
                 > Back
                 </button>
                 <button
                     mat-raised-button color='primary'
                     (click)="save(f.value)"
+                    data-testid="submit-btn"
                 > Submit
                 </button>
             </mat-dialog-actions>
