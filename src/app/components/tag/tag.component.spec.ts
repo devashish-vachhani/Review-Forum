@@ -3,10 +3,10 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TagComponent } from './tag.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { UniversityService } from 'src/app/services/university.service';
-import { UniversityServiceStub } from 'src/app/tests/services/university.service';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
+import { UniversityServiceStub } from 'src/app/tests/stubs/university-service';
 
 describe('TagComponent', () => {
   let component: TagComponent;
