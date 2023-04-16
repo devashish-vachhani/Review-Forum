@@ -20,7 +20,7 @@
       <td mat-cell *matCellDef="let element"> 
         <a [routerLink]="['/book', element.id]">View</a>
         <br>
-        <a (click)="deleteFromReadingList(element.id);">Remove</a>
+        <a (click)="deleteFromReadingList(element.id);" data-testid="delete-btn">Remove</a>
       </td>
     </ng-container>
 
