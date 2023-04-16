@@ -6,11 +6,22 @@ import { UniversityService } from 'src/app/services/university.service';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { UniversityServiceStub } from 'src/app/tests/stubs/university-service';
+import { University } from 'src/app/models/university';
+import { of } from 'rxjs';
 
 describe('TagComponent', () => {
   let component: TagComponent;
   let fixture: ComponentFixture<TagComponent>;
+  const universities: University[] = [
+    { id: '1', name: 'uni1', code: 'u1', courses: ['c1', 'c2'] },
+    { id: '2', name: 'uni2', code: 'u2', courses: ['c3','c4'] }
+]
+  const UniversityServiceStub = jasmine.createSpyObj<UniversityService>(
+    'UniversityService',
+    {
+        getUniversities: of(universities),
+    }
+  );
   const dialogRefStub = jasmine.createSpyObj('MatDialogRef', ['close']);
 
   beforeEach(async () => {

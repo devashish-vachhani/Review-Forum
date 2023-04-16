@@ -5,16 +5,34 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { CommentServiceStub } from 'src/app/tests/stubs/comment-service';
-import { UserServiceStub } from 'src/app/tests/stubs/user-service';
 import { CommentService } from 'src/app/services/comment.service';
 import { UserService } from 'src/app/services/user.service';
 import { By } from '@angular/platform-browser';
 import { Comment } from '../../models/comment';
+import { of } from 'rxjs';
 
 describe('CommentsComponent', () => {
   let component: CommentsComponent;
   let fixture: ComponentFixture<CommentsComponent>;
+  const UserServiceStub = jasmine.createSpyObj<UserService>(
+    'UserService', 
+    {
+        username: 'test',
+    }
+  );
+  const comments: Comment[] = [
+    new Comment('commenter1', 'text1', new Date(), '1'),
+    new Comment('commenter2', 'text2', new Date(), '2'),
+];
+
+  const CommentServiceStub = jasmine.createSpyObj<CommentService>(
+    'CommentService',
+    {
+        getComments: of(comments),
+        addComment: Promise.resolve(),
+        deleteComment: Promise.resolve(),
+    }
+  );
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
