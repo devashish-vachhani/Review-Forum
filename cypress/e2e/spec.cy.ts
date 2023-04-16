@@ -10,13 +10,14 @@ describe('e2e tests', () => {
 
     after(() => {
       cy.logout();
+      cy.clearData();
     })
 
     describe('New book feature', () => {
       beforeEach(() => {
         cy.visit('/books');
       })
-      it.only('should request a new book', () => {
+      it('should request a new book', () => {
         const title = "Software Engineering at Google";
         const author = "Winters, Manshreck, Wright";
         const description = "With this book, you'll get a candid and insightful look at how software is constructed and maintained by some of the world's leading practitioners."

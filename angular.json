@@ -65,6 +65,20 @@
                   "with": "src/environments/environment.development.ts"
                 }
               ]
+            },
+            "testing": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.testing.ts"
+                }
+              ]
             }
           },
           "defaultConfiguration": "production"
@@ -77,6 +91,9 @@
             },
             "development": {
               "browserTarget": "review-forum:build:development"
+            },
+            "testing": {
+              "browserTarget": "review-forum:build:testing"
             }
           },
           "defaultConfiguration": "development"
@@ -138,6 +155,9 @@
           "configurations": {
             "development": {
               "devServerTarget": "review-forum:serve:development"
+            },
+            "testing": {
+              "devServerTarget": "review-forum:serve:testing"
             }
           }
         },

@@ -54,7 +54,7 @@ import { ReviewComponent } from './components/review/review.component';
 import { BookRequestsComponent } from './components/book-requests/book-requests.component';
 import { AdminBookRequestsComponent } from './components/admin-book-requests/admin-book-requests.component';
 import { UserBookRequestsComponent } from './components/user-book-requests/user-book-requests.component';
-import { environment } from 'src/environments/environment.development';
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   declarations: [

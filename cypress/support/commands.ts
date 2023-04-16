@@ -1,4 +1,9 @@
-declare namespace Cypress {
+import { collection, deleteDoc, doc, getDocs, getFirestore } from 'firebase/firestore';
+import { initializeApp} from 'firebase/app';
+import { environment } from 'src/environments/environment.testing';
+
+declare global {
+  namespace Cypress {
     interface Chainable {
       /**
        * Get one or more DOM elements by test id.
@@ -17,7 +22,9 @@ declare namespace Cypress {
       login(email: string, password: string): void;
       logout(): void;
       searchBy(searchMode: string, searchTerm: string): void;
+      clearData(): void;
     }
+}
 }
 
   Cypress.Commands.add('byTestId',
@@ -55,3 +62,23 @@ declare namespace Cypress {
     }
     cy.byTestId('search-btn').click();
   })
+
+  Cypress.Commands.add('clearData', async () => {
+    await deleteCollection("books/imF9qNeAJ6EZ7i82epbM/reviews/Y4U4lpqRVUtp4mawVmSF/comments")
+    await deleteCollection("books/imF9qNeAJ6EZ7i82epbM/reviews", ["Y4U4lpqRVUtp4mawVmSF"])
+    await deleteCollection("books", ["imF9qNeAJ6EZ7i82epbM"])
+    await deleteCollection("users/tlMl9ZWNOZacOvtUhkt8Hq69Wkk1/reading-list")
+    await deleteCollection("books", ["imF9qNeAJ6EZ7i82epbM"])
+  });
+
+async function deleteCollection(path: string, exclude?: string[]) {
+  initializeApp(environment.firebaseConfig)
+    let db = getFirestore()
+    const querySnapshot = await getDocs(collection(db, path));
+    querySnapshot.forEach(async (document) => {
+      if(exclude == undefined || exclude.indexOf(document.id) == -1) {
+        const documentRef = doc(db, path, document.id);
+        await deleteDoc(documentRef);
+      }
+    });
+}
