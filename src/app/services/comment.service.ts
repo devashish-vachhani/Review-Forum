@@ -29,9 +29,4 @@ export class CommentService {
     const commentDocumentRef = doc(this.firestore, `books/${bookId}/reviews/${reviewId}/comments`, commentId);
     await deleteDoc(commentDocumentRef);
   }
-
-  async updateReview(bookId: string, reviewId: string, commentId: string, data): Promise<void> {
-    const commentDocumentRef = doc(this.firestore, `books/${bookId}/reviews/${reviewId}/comments`, commentId);
-    await updateDoc(commentDocumentRef, data);
-  }
 }
