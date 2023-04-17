@@ -10,19 +10,12 @@ import { RouterTestingModule } from '@angular/router/testing';
 describe('SignupFormComponent', () => {
   let component: SignupFormComponent;
   let fixture: ComponentFixture<SignupFormComponent>;
-  const AuthServiceStub = jasmine.createSpyObj<AuthService>(
-    'AuthService',
-    {
-        uid: '1',
-    }
-  );
-  const UserServiceStub = jasmine.createSpyObj<UserService>(
-    'UserService', 
-    {
-        username: 'test',
-    }
-  );
-
+  const AuthServiceStub = {
+    uid: '1'
+  };
+  const UserServiceStub = {
+    username: 'test'
+  };
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ SignupFormComponent ],

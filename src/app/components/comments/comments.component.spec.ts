@@ -14,12 +14,9 @@ import { of } from 'rxjs';
 describe('CommentsComponent', () => {
   let component: CommentsComponent;
   let fixture: ComponentFixture<CommentsComponent>;
-  const UserServiceStub = jasmine.createSpyObj<UserService>(
-    'UserService', 
-    {
+  const UserServiceStub = {
         username: 'test',
-    }
-  );
+  }
   const comments: Comment[] = [
     new Comment('commenter1', 'text1', new Date(), '1'),
     new Comment('commenter2', 'text2', new Date(), '2'),
@@ -72,7 +69,7 @@ describe('CommentsComponent', () => {
     spyOn(component, 'onPost').and.callThrough();
 
     const text = 'This is a comment.'
-    const comment: Comment = new Comment(component.username, text, new Date());
+    const comment: Comment = new Comment('test', text, new Date());
     const textarea = fixture.debugElement.query(By.css('#text')).nativeElement;
     const postBtn = fixture.debugElement.query(By.css('[data-testid="post-btn"]')).nativeElement
 
@@ -83,6 +80,6 @@ describe('CommentsComponent', () => {
     tick(200);
 
     expect(component.onPost).toHaveBeenCalled();
-    expect(CommentServiceStub.addComment).toHaveBeenCalledWith(component.bookId, component.reviewId, comment);
+    expect(CommentServiceStub.addComment).toHaveBeenCalledWith('123', '123', comment);
   }));
 });

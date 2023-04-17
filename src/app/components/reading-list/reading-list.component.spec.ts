@@ -17,12 +17,9 @@ import { of } from 'rxjs';
 describe('ReadingListComponent', () => {
   let component: ReadingListComponent;
   let fixture: ComponentFixture<ReadingListComponent>;
-  const AuthServiceStub = jasmine.createSpyObj<AuthService>(
-    'AuthService',
-    {
-        uid: '1',
-    }
-  );
+  const AuthServiceStub = {
+    uid: '1',
+  }
   const books: Book[] = [
     new Book('book1', 'author1', 'description1', 'image1', [], 'approved', 'admin', '1'),
     new Book('book2', 'author2', 'description2', 'image2', [], 'approved', 'admin', '2'),
@@ -84,6 +81,6 @@ describe('ReadingListComponent', () => {
     tick();
 
     expect(component.deleteFromReadingList).toHaveBeenCalledWith(bookToRemove.id);
-    expect(ReadingListServiceStub.deleteFromReadingList).toHaveBeenCalledWith(component.uid, bookToRemove.id);
+    expect(ReadingListServiceStub.deleteFromReadingList).toHaveBeenCalledWith('1', bookToRemove.id);
   }));
 });
