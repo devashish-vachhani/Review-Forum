@@ -37,6 +37,7 @@
                 mat-raised-button color='primary'
                 style="width:280px"
                 (click)="addToReadingList()"
+                data-testid="add-btn"
             >
                 Add to reading list
             </button>
@@ -46,6 +47,7 @@
                 mat-raised-button
                 style="width:280px"
                 (click)="deleteFromReadingList()"
+                data-testid="delete-btn"
             >
                 Remove from reading list
             </button>
@@ -59,6 +61,7 @@
                 mat-raised-button color='primary'
                 style="width:280px"
                 (click)="openDialog()"
+                data-testid="recommend-tag-btn"
             >
                 Recommend a tag
             </button>
