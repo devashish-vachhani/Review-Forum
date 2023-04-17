@@ -16,39 +16,30 @@ import { CommentsComponent } from '../comments/comments.component';
 describe('ReviewComponent', () => {
   let component: ReviewComponent;
   let fixture: ComponentFixture<ReviewComponent>;
-  const ReviewServiceStub = jasmine.createSpyObj<ReviewService>(
-    'ReviewService', 
-    {
-      updateReview: Promise.resolve(),
-    }
-  );
-  const UserServiceStub = {
+  const userServiceStub = {
     username: 'test',
   }
   const comments: Comment[] = [
     new Comment('commenter1', 'text1', new Date(), '1'),
     new Comment('commenter2', 'text2', new Date(), '2'),
-];
-
-  const CommentServiceStub = jasmine.createSpyObj<CommentService>(
-    'CommentService',
-    {
-        getComments: of(comments),
-        addComment: Promise.resolve(),
-        deleteComment: Promise.resolve(),
-    }
-  );
+  ];
+  let reviewServiceSpy: jasmine.SpyObj<ReviewService>;
+  let commentServiceSpy: jasmine.SpyObj<CommentService>;
 
   beforeEach(async () => {
+    reviewServiceSpy = jasmine.createSpyObj('ReviewService', ['updateReview']);
+    commentServiceSpy = jasmine.createSpyObj('CommentService', ['getComments', 'addComment', 'deleteComment']);
+    commentServiceSpy.getComments.and.returnValue(of(comments));
+
     await TestBed.configureTestingModule({
       declarations: [ 
         ReviewComponent,
         CommentsComponent, 
       ],
       providers: [
-        { provide: ReviewService, useValue: ReviewServiceStub },
-        { provide: UserService, useValue: UserServiceStub },
-        { provide: CommentService, useValue: CommentServiceStub },
+        { provide: ReviewService, useValue: reviewServiceSpy },
+        { provide: UserService, useValue: userServiceStub },
+        { provide: CommentService, useValue: commentServiceSpy },
       ],
       imports: [
         FormsModule,
@@ -79,14 +70,19 @@ describe('ReviewComponent', () => {
     expect(component.onLike).toHaveBeenCalled();
   }));
 
-  it('should pass input properties to comment component', () => {
+  it('should not render comment component if showComments is false', () => {
+    const commentsComponent = fixture.nativeElement.querySelector('comments');
+    expect(commentsComponent).toBeFalsy();
+  });
+
+  it('should render and pass input properties to comment component if showComments is true', () => {
     component.showComments = true;
     fixture.detectChanges();
 
-    const commentComponents = fixture.debugElement.query(By.css('comments')).componentInstance;
+    const commentsComponent = fixture.debugElement.query(By.css('comments')).componentInstance;
 
-    expect(commentComponents.bookId).toBe('123');
-    expect(commentComponents.reviewId).toBe('123');
-    expect(commentComponents.reviewer).toBe('reviewer1');
+    expect(commentsComponent.bookId).toBe('123');
+    expect(commentsComponent.reviewId).toBe('123');
+    expect(commentsComponent.reviewer).toBe('reviewer1');
   });
 });

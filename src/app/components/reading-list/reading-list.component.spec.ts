@@ -24,19 +24,15 @@ describe('ReadingListComponent', () => {
     new Book('book1', 'author1', 'description1', 'image1', [], 'approved', 'admin', '1'),
     new Book('book2', 'author2', 'description2', 'image2', [], 'approved', 'admin', '2'),
     new Book('book3', 'author3', 'description3', 'image3', [], 'approved', 'admin', '3'),
-  ]
-
-  const ReadingListServiceStub = jasmine.createSpyObj<ReadingListService>(
-    'ReadingListService',
-    {
-        getReadingList: of(new ReadingList(books)),
-        addToReadingList: Promise.resolve(),
-        deleteFromReadingList: Promise.resolve(),
-    }
-  );
-  let snackBarStub = jasmine.createSpyObj(['open']);
+  ];
+  let readingListServiceSpy: jasmine.SpyObj<ReadingListService>;
+  let snackBarSpy: jasmine.SpyObj<MatSnackBar>;
 
   beforeEach(async () => {
+    readingListServiceSpy = jasmine.createSpyObj('ReadingListService', ['getReadingList', 'deleteFromReadingList'])
+    readingListServiceSpy.getReadingList.and.returnValue(of(new ReadingList(books)));
+    snackBarSpy = jasmine.createSpyObj(['open']);
+
     await TestBed.configureTestingModule({
       declarations: [ ReadingListComponent ],
       imports: [
@@ -48,8 +44,8 @@ describe('ReadingListComponent', () => {
       ],
       providers: [
         { provide: AuthService, useValue: AuthServiceStub },
-        { provide: ReadingListService, useValue: ReadingListServiceStub },
-        { provide: MatSnackBar, useValue: snackBarStub },
+        { provide: ReadingListService, useValue: readingListServiceSpy },
+        { provide: MatSnackBar, useValue: snackBarSpy },
       ],
       schemas: [ NO_ERRORS_SCHEMA ],
     })
@@ -74,13 +70,13 @@ describe('ReadingListComponent', () => {
     spyOn(component, 'deleteFromReadingList').and.callThrough();
 
     const bookToRemove = books[0];
-    const deleteLink = fixture.debugElement.query(By.css('[data-testid="delete-btn"]')).nativeElement;
+    const deleteLink = fixture.debugElement.queryAll(By.css('[data-testid="delete-btn"]'))[0].nativeElement;
 
     deleteLink.click();
     fixture.detectChanges();
     tick();
 
     expect(component.deleteFromReadingList).toHaveBeenCalledWith(bookToRemove.id);
-    expect(ReadingListServiceStub.deleteFromReadingList).toHaveBeenCalledWith('1', bookToRemove.id);
+    expect(readingListServiceSpy.deleteFromReadingList).toHaveBeenCalledWith('1', bookToRemove.id);
   }));
 });

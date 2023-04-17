@@ -22,20 +22,18 @@ describe('BookSearchFormComponent', () => {
   let loader: HarnessLoader;
   const universities: University[] = [
     { id: '1', name: 'uni1', code: 'u1', courses: ['c1', 'c2'] },
-    { id: '2', name: 'uni2', code: 'u2', courses: ['c3','c4'] }
-]
-  const UniversityServiceStub = jasmine.createSpyObj<UniversityService>(
-    'UniversityService',
-    {
-        getUniversities: of(universities),
-    }
-  );
+    { id: '2', name: 'uni2', code: 'u2', courses: ['c3', 'c4'] }
+  ]
+  let universityServiceSpy: jasmine.SpyObj<UniversityService>;
 
   beforeEach(async () => {
+    universityServiceSpy = jasmine.createSpyObj('UniversityService', ['getUniversities']);
+    universityServiceSpy.getUniversities.and.returnValue(of(universities));
+
     await TestBed.configureTestingModule({
       declarations: [ BookSearchComponent ],
       providers: [
-        { provide: UniversityService, useValue: UniversityServiceStub },
+        { provide: UniversityService, useValue: universityServiceSpy },
       ],
       imports: [
         MatFormFieldModule,
@@ -73,7 +71,7 @@ describe('BookSearchFormComponent', () => {
     expect(component.searchMode).toEqual('byUniversity')
   });
 
-  it('should redirect to /books with queryParams on clicking submit', () => {
+  it('should redirect to /books with title in queryParams on clicking submit', () => {
     spyOn(component, 'onSubmit').and.callThrough();
     const routerSpy = spyOn(router, 'navigate');
 
@@ -86,5 +84,20 @@ describe('BookSearchFormComponent', () => {
     
     expect(component.onSubmit).toHaveBeenCalled();
     expect(routerSpy).toHaveBeenCalledWith(['/books'], Object({ queryParams: Object({ title: 'code' }), queryParamsHandling: 'merge' }));
+  })
+
+  it('should redirect to /books with university in queryParams on clicking submit', () => {
+    spyOn(component, 'onSubmit').and.callThrough();
+    const routerSpy = spyOn(router, 'navigate');
+
+    component.searchMode = 'byUniversity';
+    component.searchTerm = 'ncsu';
+    fixture.detectChanges();
+    const searchBtn = fixture.debugElement.query(By.css("[data-testid='search-btn']")).nativeElement;
+    searchBtn.click();
+    fixture.detectChanges();
+    
+    expect(component.onSubmit).toHaveBeenCalled();
+    expect(routerSpy).toHaveBeenCalledWith(['/books'], Object({ queryParams: Object({ university: 'ncsu' }), queryParamsHandling: 'merge' }));
   })
 });

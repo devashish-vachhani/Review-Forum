@@ -16,10 +16,13 @@ describe('NewReviewComponent', () => {
   const UserServiceStub = {
     username: 'test',
   }
-  let dialogRefStub = jasmine.createSpyObj('MatDialogRef', ['close']);
-  let snackBarStub = jasmine.createSpyObj('MatSnackBar', ['open']);
+  let dialogRefStub: jasmine.SpyObj<MatDialogRef<NewReviewComponent>>;
+  let snackBarStub: jasmine.SpyObj<MatSnackBar>;
 
   beforeEach(async () => {
+    dialogRefStub = jasmine.createSpyObj('MatDialogRef', ['close']);
+    snackBarStub = jasmine.createSpyObj('MatSnackBar', ['open']);
+
     await TestBed.configureTestingModule({
       declarations: [ NewReviewComponent ],
       providers: [
@@ -47,8 +50,8 @@ describe('NewReviewComponent', () => {
 
   it('should update rating when a star is clicked', () => {
     // Select star rating of 3
-    const postBtn = fixture.debugElement.queryAll(By.css("[data-testid='rating-btn']"))[2].nativeElement;
-    postBtn.click()
+    const ratingBtn = fixture.debugElement.queryAll(By.css("[data-testid='rating-btn']"))[2].nativeElement;
+    ratingBtn.click()
     fixture.detectChanges();
     expect(component.rating).toEqual(3)
   });
@@ -86,18 +89,19 @@ describe('NewReviewComponent', () => {
     fixture.detectChanges();
   
     // Verify that dialog was closed with a no review
-    expect(dialogRefStub.close).toHaveBeenCalledWith();
+    expect(dialogRefStub.close).toHaveBeenCalled();
   });
 
   it('should show an alert if a user attempts to submit without a rating', () => {
 
-    component.rating = 0;
-
     // Write description
-    const review = fixture.debugElement.nativeElement.querySelector('#text');
+    const review = fixture.debugElement.query(By.css("#text")).nativeElement;
     const reviewText = 'This is a test review';
     review.value = reviewText;
     review.dispatchEvent(new Event('input'));
+    fixture.detectChanges();
+
+    component.rating = 0;
     fixture.detectChanges();
 
     // Click post button

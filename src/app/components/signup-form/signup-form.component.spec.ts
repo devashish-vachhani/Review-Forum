@@ -10,10 +10,10 @@ import { RouterTestingModule } from '@angular/router/testing';
 describe('SignupFormComponent', () => {
   let component: SignupFormComponent;
   let fixture: ComponentFixture<SignupFormComponent>;
-  const AuthServiceStub = {
+  const authServiceStub = {
     uid: '1'
   };
-  const UserServiceStub = {
+  const userServiceStub = {
     username: 'test'
   };
   beforeEach(async () => {
@@ -24,8 +24,8 @@ describe('SignupFormComponent', () => {
         RouterTestingModule.withRoutes([]),
       ],
       providers: [
-        { provide: AuthService, useValue: AuthServiceStub },
-        { provide: UserService, useValue: UserServiceStub }
+        { provide: AuthService, useValue: authServiceStub },
+        { provide: UserService, useValue: userServiceStub }
       ],
       schemas: [ NO_ERRORS_SCHEMA ],
     })

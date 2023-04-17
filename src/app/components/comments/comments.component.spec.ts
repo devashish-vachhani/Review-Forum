@@ -4,7 +4,7 @@ import { CommentsComponent } from './comments.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { CommentService } from 'src/app/services/comment.service';
 import { UserService } from 'src/app/services/user.service';
 import { By } from '@angular/platform-browser';
@@ -14,24 +14,21 @@ import { of } from 'rxjs';
 describe('CommentsComponent', () => {
   let component: CommentsComponent;
   let fixture: ComponentFixture<CommentsComponent>;
-  const UserServiceStub = {
+  const userServiceStub = {
         username: 'test',
   }
   const comments: Comment[] = [
     new Comment('commenter1', 'text1', new Date(), '1'),
     new Comment('commenter2', 'text2', new Date(), '2'),
-];
-
-  const CommentServiceStub = jasmine.createSpyObj<CommentService>(
-    'CommentService',
-    {
-        getComments: of(comments),
-        addComment: Promise.resolve(),
-        deleteComment: Promise.resolve(),
-    }
-  );
+  ];
+  let commentServiceSpy: jasmine.SpyObj<CommentService>;
+  let snackBarSpy: jasmine.SpyObj<MatSnackBar>;
 
   beforeEach(async () => {
+    commentServiceSpy = jasmine.createSpyObj('CommentService', ['getComments', 'addComment']);
+    commentServiceSpy.getComments.and.returnValue(of(comments));
+    snackBarSpy = jasmine.createSpyObj('MatSnackBar', ['open']);
+
     await TestBed.configureTestingModule({
       declarations: [ CommentsComponent ],
       imports: [
@@ -40,8 +37,9 @@ describe('CommentsComponent', () => {
         MatSnackBarModule,
       ],
       providers: [
-        { provide: CommentService, useValue: CommentServiceStub },
-        { provide: UserService, useValue: UserServiceStub }
+        { provide: CommentService, useValue: commentServiceSpy },
+        { provide: UserService, useValue: userServiceStub },
+        { provide: MatSnackBar, useValue: snackBarSpy },
       ],
       schemas: [ NO_ERRORS_SCHEMA ],
     })
@@ -66,7 +64,9 @@ describe('CommentsComponent', () => {
   });
 
   it('should post a comment', fakeAsync(() => {
+    commentServiceSpy.addComment.and.returnValue(Promise.resolve());
     spyOn(component, 'onPost').and.callThrough();
+    const success = 'Comment posted';
 
     const text = 'This is a comment.'
     const comment: Comment = new Comment('test', text, new Date());
@@ -80,6 +80,7 @@ describe('CommentsComponent', () => {
     tick(200);
 
     expect(component.onPost).toHaveBeenCalled();
-    expect(CommentServiceStub.addComment).toHaveBeenCalledWith('123', '123', comment);
+    expect(commentServiceSpy.addComment).toHaveBeenCalledWith('123', '123', comment);
+    expect(snackBarSpy.open).toHaveBeenCalledWith(success, 'Dismiss', Object({ panelClass: 'success', duration: 5000 }));
   }));
 });

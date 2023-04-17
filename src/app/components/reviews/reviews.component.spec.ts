@@ -19,17 +19,14 @@ describe('ReviewsComponent', () => {
     new Review('reviewer2', 'text2', new Date(), 2, [], '2'),
     new Review('reviewer3', 'text3', new Date(), 3, [], '3'),
   ];
-  const ReviewServiceStub = jasmine.createSpyObj<ReviewService>(
-    'ReviewService', 
-    {
-      getReviews: of(reviews),
-    }
-  );
-  const UserServiceStub = {
+  const userServiceStub = {
     username: 'test',
   }
+  let reviewServiceSpy: jasmine.SpyObj<ReviewService>;
 
   beforeEach(async () => {
+    reviewServiceSpy = jasmine.createSpyObj('ReviewService', ['getReviews']);
+    reviewServiceSpy.getReviews.and.returnValue(of(reviews));
 
     await TestBed.configureTestingModule({
       declarations: [ 
@@ -37,8 +34,8 @@ describe('ReviewsComponent', () => {
                       ReviewComponent,
                     ],
       providers: [
-        { provide: ReviewService, useValue: ReviewServiceStub },
-        { provide: UserService, useValue: UserServiceStub }
+        { provide: ReviewService, useValue: reviewServiceSpy },
+        { provide: UserService, useValue: userServiceStub }
       ],
       imports: [ 
         MatDialogModule, 
@@ -70,7 +67,7 @@ describe('ReviewsComponent', () => {
     expect(component.openDialog).toHaveBeenCalled()
   })
 
-  it('should display correct number of review components', () => {
+  it('should render correct number of review components', () => {
     const reviewComponents = fixture.nativeElement.querySelectorAll('review');
     expect(reviewComponents.length).toEqual(3);
   })

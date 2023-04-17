@@ -28,8 +28,8 @@
       <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef> Actions </th>
         <td mat-cell *matCellDef="let element"> 
-            <button mat-button color="primary" (click)="approve(element.id)">Accept</button>
-            <button mat-button color="warn" (click)="decline(element.id)">Decline</button>
+            <button mat-button color="primary" (click)="approve(element.id)" data-testid="approve-btn">Accept</button>
+            <button mat-button color="warn" (click)="decline(element.id)" data-testid="decline-btn">Decline</button>
         </td>
       </ng-container>
   

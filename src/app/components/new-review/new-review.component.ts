@@ -16,11 +16,12 @@ export class NewReviewComponent implements OnInit, OnDestroy {
         private userService: UserService,
         private snackBar: MatSnackBar,
     ) {}
-    rating: number = 0;
+    rating: number;
     subscription: Subscription;
     username: string;
 
     ngOnInit(): void {
+        this.rating = 0;
         this.username = this.userService.username;
         if(!this.username) this.subscription = this.userService.appUser$.subscribe(appUser => this.username = appUser.username);
     }

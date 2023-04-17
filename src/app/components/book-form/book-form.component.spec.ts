@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 
 import { BookFormComponent } from './book-form.component';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
@@ -26,26 +26,23 @@ describe('BookFormComponent', () => {
     { id: '1', name: 'uni1', code: 'u1', courses: ['c1', 'c2'] },
     { id: '2', name: 'uni2', code: 'u2', courses: ['c3', 'c4'] }
 ]
-  const UniversityServiceStub = jasmine.createSpyObj<UniversityService>(
-    'UniversityService',
-    {
-        getUniversities: of(universities),
-    }
-  );
-  const BookServiceStub = jasmine.createSpyObj<BookService>(
-    'BookService',
-    {
-      createBook: Promise.resolve(),
-    }
-  );
+  let bookServiceSpy: jasmine.SpyObj<BookService>;
+  let universityServiceSpy: jasmine.SpyObj<UniversityService>;
+  let snackBarSpy: jasmine.SpyObj<MatSnackBar>;
 
   beforeEach(async () => {
+    bookServiceSpy = jasmine.createSpyObj('BookService', ['createBook']);
+    universityServiceSpy = jasmine.createSpyObj('UniversityService', ['getUniversities']);
+    universityServiceSpy.getUniversities.and.returnValue(of(universities));
+    snackBarSpy = jasmine.createSpyObj('MatSnackBar', ['open']);
+
     await TestBed.configureTestingModule({
       declarations: [ BookFormComponent ],
       providers: [
         { provide: UserService, useValue: UserServiceStub },
-        { provide: UniversityService, useValue: UniversityServiceStub },
-        { provide: BookService, useValue: BookServiceStub },
+        { provide: UniversityService, useValue: universityServiceSpy },
+        { provide: BookService, useValue: bookServiceSpy },
+        { provide: MatSnackBar, useValue: snackBarSpy },
       ],
       imports: [
         BrowserAnimationsModule,
@@ -68,7 +65,7 @@ describe('BookFormComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should start with no filled fields', () => {
+  it('should start with empty fields', () => {
 
     const title = fixture.debugElement.query(By.css('#title')).nativeElement;
     const author = fixture.debugElement.query(By.css('#author')).nativeElement;
@@ -103,15 +100,15 @@ describe('BookFormComponent', () => {
     expect(coursesSelect.options[2].value).toEqual('c4');
   });
 
-  it('should select title, author, description, university, course, and image, then create a book on submit', fakeAsync (() => {
+  it('should submit a book request on clicking submit', fakeAsync (() => {
+    // Watch router navigations
+    const routerSpy = spyOn(router, 'navigate');
+    spyOn(component, 'onSubmit').and.callThrough();
+
     const title = fixture.debugElement.query(By.css('#title')).nativeElement;
     const author = fixture.debugElement.query(By.css('#author')).nativeElement;
     const description = fixture.debugElement.query(By.css('#description')).nativeElement;
     const image = fixture.debugElement.query(By.css('#image')).nativeElement;
-
-    // Watch router navigations
-    const routerSpy = spyOn(router, 'navigate');
-    spyOn(component, 'onSubmit').and.callThrough();
 
     //Fill out title
     title.value = 'title'
@@ -154,7 +151,8 @@ describe('BookFormComponent', () => {
 
     expect(component.onSubmit).toHaveBeenCalled();
     // Verify that the book was made with the correct information
-    expect(BookServiceStub.createBook).toHaveBeenCalledWith(new Book('title', 'author', 'description', 'image', ['u2/c3'], "pending", 'test'));
+    expect(bookServiceSpy.createBook).toHaveBeenCalledWith(new Book('title', 'author', 'description', 'image', ['u2/c3'], "pending", 'test'));
+    expect(snackBarSpy.open).toHaveBeenCalled();
     expect(routerSpy).toHaveBeenCalledWith(['/books']);
   }));
 });

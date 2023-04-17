@@ -15,16 +15,16 @@ describe('TagComponent', () => {
   const universities: University[] = [
     { id: '1', name: 'uni1', code: 'u1', courses: ['c1', 'c2'] },
     { id: '2', name: 'uni2', code: 'u2', courses: ['c3','c4'] }
-]
-  const UniversityServiceStub = jasmine.createSpyObj<UniversityService>(
-    'UniversityService',
-    {
-        getUniversities: of(universities),
-    }
-  );
-  const dialogRefStub = jasmine.createSpyObj('MatDialogRef', ['close']);
+  ];
+  let universityServiceSpy: jasmine.SpyObj<UniversityService>;
+  let dialogRefSpy: jasmine.SpyObj<MatDialogRef<TagComponent>>;
 
   beforeEach(async () => {
+    universityServiceSpy = jasmine.createSpyObj('UniversityService', ['getUniversities']);
+    universityServiceSpy.getUniversities.and.returnValue(of(universities));
+
+    dialogRefSpy = jasmine.createSpyObj('MatDialogRef', ['close']);
+
     await TestBed.configureTestingModule({
       declarations: [ TagComponent ],
       imports: [ 
@@ -32,8 +32,8 @@ describe('TagComponent', () => {
         FormsModule,
       ],
       providers: [
-        { provide: UniversityService, useValue: UniversityServiceStub },
-        { provide: MatDialogRef, useValue: dialogRefStub },
+        { provide: UniversityService, useValue: universityServiceSpy },
+        { provide: MatDialogRef, useValue: dialogRefSpy },
       ],
       schemas: [ NO_ERRORS_SCHEMA ],
     })
@@ -82,7 +82,7 @@ describe('TagComponent', () => {
     fixture.detectChanges();
 
     // Verify that dialog was closed with the correct tag
-    expect(dialogRefStub.close).toHaveBeenCalledWith('u2/c3');
+    expect(dialogRefSpy.close).toHaveBeenCalledWith('u2/c3');
   });  
 
   it('should close dialog with no value when cancel button is clicked', () => {
@@ -92,6 +92,6 @@ describe('TagComponent', () => {
     fixture.detectChanges();
   
     // Verify that dialog was closed with a no tag
-    expect(dialogRefStub.close).toHaveBeenCalledWith();
+    expect(dialogRefSpy.close).toHaveBeenCalledWith();
   });
 });
