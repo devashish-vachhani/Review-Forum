@@ -12,14 +12,14 @@ import { BookService } from 'src/app/services/book.service';
   styleUrls: ['./admin-book-requests.component.scss']
 })
 export class AdminBookRequestsComponent implements OnInit, OnDestroy {
-  displayedColumns = ['cover', 'title', 'author', 'description', 'tags', 'actions' ];
-  dataSource = new MatTableDataSource<Book>();
-  subscription: Subscription;
 
   constructor(
     private bookService: BookService,
     private snackBar: MatSnackBar,
   ) {}
+  displayedColumns = ['cover', 'title', 'author', 'description', 'tags', 'actions' ];
+  dataSource = new MatTableDataSource<Book>();
+  subscription: Subscription;
 
   @ViewChild(MatSort) sort: MatSort;
 
@@ -41,12 +41,11 @@ export class AdminBookRequestsComponent implements OnInit, OnDestroy {
       await this.bookService.updateBook(bookId, data);
       this.snackBar.open('Book request was accepted', 'Dismiss', {
         panelClass: 'success',
-        duration: 3000,
+        duration: 5000,
       })
     }
     catch(error) {
-      console.log(error);
-      this.snackBar.open('Book request could not be accepted', 'Dismiss', {
+      this.snackBar.open(error, 'Dismiss', {
         panelClass: 'error',
         duration: 5000,
       })
@@ -61,11 +60,11 @@ export class AdminBookRequestsComponent implements OnInit, OnDestroy {
       await this.bookService.updateBook(bookId, data);
       this.snackBar.open('Book request was declined', 'Dismiss', {
         panelClass: 'success',
-        duration: 3000,
+        duration: 5000,
       })
     }
     catch(error) {
-      this.snackBar.open('Book request could not be declined', 'Dismiss', {
+      this.snackBar.open(error, 'Dismiss', {
         panelClass: 'error',
         duration: 5000,
       })

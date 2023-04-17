@@ -5,6 +5,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Book } from 'src/app/models/book';
 import { MatSort } from '@angular/material/sort';
 import { AuthService } from 'src/app/services/auth.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-reading-list',
@@ -12,15 +13,16 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./reading-list.component.css']
 })
 export class ReadingListComponent implements OnInit, AfterViewInit, OnDestroy {
-  displayedColumns = ['cover', 'title', 'author', 'actions' ];
-  dataSource = new MatTableDataSource<Book>();
-  subscription: Subscription;
-  uid: string;
 
   constructor(
     private authService: AuthService,
     private readingListService: ReadingListService,
+    private snackBar: MatSnackBar,
   ) {}
+  displayedColumns = [ 'cover', 'title', 'author', 'actions' ];
+  dataSource = new MatTableDataSource<Book>();
+  subscription: Subscription;
+  uid: string;
 
   @ViewChild(MatSort) sort: MatSort;
 
@@ -45,7 +47,19 @@ export class ReadingListComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   async deleteFromReadingList(bookId: string) {
-    await this.readingListService.deleteFromReadingList(this.uid, bookId);
+    try {
+      await this.readingListService.deleteFromReadingList(this.uid, bookId);
+      this.snackBar.open('Removed from reading list', 'Dismiss', {
+        panelClass: 'success',
+        duration: 5000,
+      })
+    }
+    catch(error) {
+      this.snackBar.open(error, 'Dismiss', {
+        panelClass: 'error',
+        duration: 5000,
+      })
+    }
   }
 
   ngOnDestroy(): void {

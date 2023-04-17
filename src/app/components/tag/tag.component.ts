@@ -17,7 +17,7 @@ export class TagComponent implements OnInit, OnDestroy {
     constructor(
         private universityService: UniversityService,
         private dialogRef: MatDialogRef<TagComponent>,
-        ) {}
+    ) {}
 
     ngOnInit(): void {
         this.subscription = this.universityService.getUniversities().subscribe(universities => {
@@ -25,7 +25,7 @@ export class TagComponent implements OnInit, OnDestroy {
         })
     }
 
-    updateCourses(universityCode: string) {
+    updateCourses(universityCode: string): void {
         const selectedUniversity = this.universities.find(university => university.code === universityCode);
         this.courses = selectedUniversity ? selectedUniversity.courses : [];
     }

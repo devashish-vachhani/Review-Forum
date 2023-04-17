@@ -10,14 +10,14 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./books.component.scss']
 })
 export class BooksComponent implements OnInit, OnDestroy {
-  books: Book[];
-  filteredBooks: Book[];
-  subscription: Subscription;
 
   constructor(
     private bookService: BookService,
     private route: ActivatedRoute,
   ) {}
+  books: Book[];
+  filteredBooks: Book[];
+  subscription: Subscription;
   
   ngOnInit(): void {
     this.subscription = this.bookService.getBooks("approved")

@@ -4,9 +4,9 @@ import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { Book } from 'src/app/models/book';
 import { BookService } from 'src/app/services/book.service';
-import { ToastrService } from 'ngx-toastr';
 import { University } from 'src/app/models/university';
 import { UserService } from 'src/app/services/user.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-book-form',
@@ -14,19 +14,19 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./book-form.component.scss']
 })
 export class BookFormComponent implements OnInit, OnDestroy {
-  universitySubscription: Subscription;
-  userSubscription: Subscription;
-  universities: University[];
-  courses: string[];
-  username: string;
 
   constructor(
     private router: Router,
     private universityService: UniversityService,
     private bookService: BookService,
     private userService: UserService,
-    private toastr: ToastrService,
+    private snackBar: MatSnackBar,
     ) {}
+    universitySubscription: Subscription;
+    userSubscription: Subscription;
+    universities: University[];
+    courses: string[];
+    username: string;
 
   ngOnInit(): void {
     this.universitySubscription = this.universityService.getUniversities().subscribe(universities => this.universities = universities);
@@ -39,7 +39,7 @@ export class BookFormComponent implements OnInit, OnDestroy {
     this.courses = selectedUniversity ? selectedUniversity.courses : [];
   }
 
-  onSubmit(f) { 
+  async onSubmit(f) { 
     const tag = `${f.university}/${f.course}`;
     const book = new Book(
       f.title,
@@ -50,14 +50,20 @@ export class BookFormComponent implements OnInit, OnDestroy {
       "pending",
       this.username,
     );
-    this.bookService.createBook(book)
-    .then(() => {
-      this.toastr.success('Book request submitted successfully');
+    try {
+      await this.bookService.createBook(book);
+      this.snackBar.open('Book request was submitted', 'Dismiss', {
+        panelClass: 'success',
+        duration: 5000,
+      })
       this.router.navigate(['/books']);
-    })
-    .catch(error => {
-      this.toastr.error(error);
-    })
+    }
+    catch (error) {
+      this.snackBar.open(error, 'Dismiss', {
+        panelClass: 'error',
+        duration: 5000,
+      })
+    }
   }
 
   ngOnDestroy() {

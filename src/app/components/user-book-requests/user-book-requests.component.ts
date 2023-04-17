@@ -12,14 +12,14 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./user-book-requests.component.scss']
 })
 export class UserBookRequestsComponent {
-  displayedColumns = ['cover', 'title', 'author', 'description', 'tags', 'status' ];
-  dataSource = new MatTableDataSource<Book>();
-  subscription: Subscription;
 
   constructor(
     private bookService: BookService,
     private userService: UserService,
   ) {}
+  displayedColumns = ['cover', 'title', 'author', 'description', 'tags', 'status' ];
+  dataSource = new MatTableDataSource<Book>();
+  subscription: Subscription;
 
   @ViewChild(MatSort) sort: MatSort;
 

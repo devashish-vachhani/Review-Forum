@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BookService } from 'src/app/services/book.service';
 import { ActivatedRoute } from '@angular/router';
 import { Book } from 'src/app/models/book';
-import { Subscription, switchMap, Observable } from 'rxjs';
+import { Subscription, switchMap } from 'rxjs';
 import { ReadingListService } from '../../services/reading-list.service';
 import { ReadingList } from 'src/app/models/reading-list';
 import { MatDialog } from "@angular/material/dialog";
@@ -18,11 +18,6 @@ import { AppUser } from 'src/app/models/user';
   styleUrls: ['./book.component.scss']
 })
 export class BookComponent implements OnInit {
-  book: Book;
-  bookSubscription: Subscription; 
-  readingListSubscription: Subscription;
-  readingList: ReadingList;
-  appUser: AppUser;
 
   constructor(
     private bookService: BookService,
@@ -32,6 +27,11 @@ export class BookComponent implements OnInit {
     private snackBar: MatSnackBar,
     private userService: UserService,
   ) {}
+  book: Book;
+  bookSubscription: Subscription; 
+  readingListSubscription: Subscription;
+  readingList: ReadingList;
+  appUser: AppUser;
   
   ngOnInit() {
 
@@ -52,11 +52,35 @@ export class BookComponent implements OnInit {
   }
 
   async addToReadingList() {
-    await this.readingListService.addToReadingList(this.appUser.id, this.book);
+    try {
+      await this.readingListService.addToReadingList(this.appUser.id, this.book);
+      this.snackBar.open('Added to reading list', 'Dismiss', {
+        panelClass: 'success',
+        duration: 5000,
+      })
+    } 
+    catch(error) {
+      this.snackBar.open(error, 'Dismiss', {
+        panelClass: 'error',
+        duration: 5000,
+      })
+    }
   }
 
   async deleteFromReadingList() {
-    await this.readingListService.deleteFromReadingList(this.appUser.id, this.book.id);
+    try {
+      await this.readingListService.deleteFromReadingList(this.appUser.id, this.book.id);
+      this.snackBar.open('Removed from reading list', 'Dismiss', {
+        panelClass: 'success',
+        duration: 5000,
+      })
+    }
+    catch(error) {
+      this.snackBar.open(error, 'Dismiss', {
+        panelClass: 'error',
+        duration: 5000,
+      })
+    }
   }
 
   openDialog(): void {
@@ -75,7 +99,19 @@ export class BookComponent implements OnInit {
           const data = {
             tags: arrayUnion(tag)
           } 
-          this.bookService.updateBook(this.book.id, data);
+          try {
+            this.bookService.updateBook(this.book.id, data);
+            this.snackBar.open('Tag recommended', 'Dismiss', {
+              panelClass: 'success',
+              duration: 5000,
+            })
+          }
+          catch(error) {
+            this.snackBar.open(error, 'Dismiss', {
+              panelClass: 'error',
+              duration: 5000,
+            })
+          }
         }
       }
     });

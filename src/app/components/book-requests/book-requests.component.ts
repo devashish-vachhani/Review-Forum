@@ -20,7 +20,6 @@ export class BookRequestsComponent {
   }
 
   ngOnDestroy(): void {
-
     this.subscription.unsubscribe();
   }
 }
