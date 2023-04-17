@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialogRef } from "@angular/material/dialog";
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subscription } from 'rxjs';
 import { Review } from 'src/app/models/review';
 import { UserService } from 'src/app/services/user.service';
@@ -13,12 +14,14 @@ export class NewReviewComponent implements OnInit, OnDestroy {
     constructor(
         private dialogRef: MatDialogRef<NewReviewComponent>,
         private userService: UserService,
+        private snackBar: MatSnackBar,
     ) {}
-    rating: number = 0;
+    rating: number;
     subscription: Subscription;
     username: string;
 
     ngOnInit(): void {
+        this.rating = 0;
         this.username = this.userService.username;
         if(!this.username) this.subscription = this.userService.appUser$.subscribe(appUser => this.username = appUser.username);
     }
@@ -28,10 +31,17 @@ export class NewReviewComponent implements OnInit, OnDestroy {
     }
 
     save(f): void {
-        const data = {
-            review: new Review(this.username, f.text, new Date(), this.rating, []),
+        if(this.rating > 0) {
+            const data = {
+                review: new Review(this.username, f.text, new Date(), this.rating, []),
+            }
+            this.dialogRef.close(data);
+        } else {
+            this.snackBar.open('Rating is required', 'Dismiss', {
+                panelClass: 'error',
+                duration: 5000,
+            })
         }
-        this.dialogRef.close(data);
     }
 
     close(): void {

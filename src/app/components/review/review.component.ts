@@ -30,12 +30,12 @@ export class ReviewComponent implements OnInit, OnDestroy {
 
   showComments: boolean = false;
 
-  async onLike(reviewId: string) {
+  async onLike() {
     const data = {
       likes: arrayUnion(this.username),
     }
     try {
-      await this.reviewService.updateReview(this.bookId, reviewId, data);
+      await this.reviewService.updateReview(this.bookId, this.review.id, data);
     }
     catch (error) {
       this.snackBar.open(error, 'Dismiss', {
@@ -45,12 +45,12 @@ export class ReviewComponent implements OnInit, OnDestroy {
     }
   }
 
-  async onDislike(reviewId: string) {
+  async onDislike() {
     const data = {
       likes: arrayRemove(this.username),
     }
     try {
-      await this.reviewService.updateReview(this.bookId, reviewId, data);
+      await this.reviewService.updateReview(this.bookId, this.review.id, data);
     }
     catch (error) {
       this.snackBar.open(error, 'Dismiss', {
