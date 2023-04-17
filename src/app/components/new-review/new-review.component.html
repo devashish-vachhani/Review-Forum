@@ -3,7 +3,7 @@
         <form #f="ngForm">
             <div style="text-align: center; font-size: 20px;">Post a Review</div><br>
             <div class="form-group" style="text-align: center;">
-                <button mat-icon-button *ngFor="let i of [0, 1, 2, 3, 4]" (click)="onClick(i+1)" matTooltipPosition="above" required>
+                <button mat-icon-button *ngFor="let i of [0, 1, 2, 3, 4]" (click)="onClick(i+1)" matTooltipPosition="above" required data-testid="rating-btn">
                     <mat-icon style="color: rgb(167, 123, 2);">
                         {{ i < rating ? 'star' : 'star_border' }}
                     </mat-icon>
@@ -16,11 +16,13 @@
                 <button
                     mat-raised-button color='primary'
                     (click)="close()"
+                    data-testid="cancel-btn"
                 > Cancel
                 </button>
                 <button
                     mat-raised-button color='primary'
                     (click)="save(f.value)"
+                    data-testid="post-btn"
                 > Post
                 </button>
             </mat-dialog-actions>
