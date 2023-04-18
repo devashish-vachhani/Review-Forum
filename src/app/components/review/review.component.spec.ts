@@ -70,6 +70,30 @@ describe('ReviewComponent', () => {
     expect(component.onLike).toHaveBeenCalled();
   }));
 
+  it('should call onDislike on clicking on a liked review', fakeAsync( () => {
+    spyOn(component, 'onDislike');
+
+    component.review.likes.push('test');
+    fixture.detectChanges();
+
+    const dislikeBtn = fixture.debugElement.query(By.css("[data-testid='dislike-btn']")).nativeElement;
+    dislikeBtn.click()
+    fixture.detectChanges();
+
+    expect(component.onDislike).toHaveBeenCalled();
+  }));
+
+  it('should toggle comments on clicking comment button', () => {
+    component.showComments = false;
+    fixture.detectChanges();
+
+    const toggleCommentsBtn = fixture.debugElement.query(By.css("[data-testid='toggle-comments-btn']")).nativeElement;
+    toggleCommentsBtn.click()
+    fixture.detectChanges();
+
+    expect(component.showComments).toBe(true);
+  })
+
   it('should not render comment component if showComments is false', () => {
     const commentsComponent = fixture.nativeElement.querySelector('comments');
     expect(commentsComponent).toBeFalsy();

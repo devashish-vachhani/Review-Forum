@@ -22,7 +22,7 @@
         <div class="wrapper17" style="padding-left: 10px">
             <div class="wrapper154">
                 <ng-container *ngIf="review.likes.includes(username); else notLiked">
-                    <button mat-icon-button (click)="onDislike()">
+                    <button mat-icon-button (click)="onDislike()" data-testid="dislike-btn">
                         <mat-icon style="color:green; vertical-align: middle; padding: 0px 30px 30px 0px;">thumb_up</mat-icon>
                     </button>{{review.likes.length}}
                 </ng-container>
@@ -34,7 +34,7 @@
             </div>
 
             <div class="wrapper154">
-                    <button mat-icon-button (click)="toggleComments()">
+                    <button mat-icon-button (click)="toggleComments()" data-testid="toggle-comments-btn">
                         <mat-icon style="color:rgb(87, 87, 87); vertical-align: middle; padding: 0px 30px 30px 0px;">comment</mat-icon>
                     </button>
             </div>

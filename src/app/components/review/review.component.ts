@@ -22,13 +22,13 @@ export class ReviewComponent implements OnInit, OnDestroy {
   ) {}
   subscription: Subscription;
   username: string;
+  showComments: boolean;
 
   ngOnInit(): void {
+    this.showComments = false;
     this.username = this.userService.username;
     if(!this.username) this.subscription = this.userService.appUser$.subscribe(appUser => this.username = appUser.username);
   }
-
-  showComments: boolean = false;
 
   async onLike() {
     const data = {
