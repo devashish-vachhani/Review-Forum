@@ -61,7 +61,7 @@
         <div style="text-align: center; margin-top: 20px;">
             <h2>Community Forum</h2>
         </div>
-        <div class="box2" *ngFor="let review of reviews">
+        <div class="box2" *ngFor="let review of reviews" data-testid="review-container">
             <review [bookId]="bookId" [review]="review" [appUser]="appUser"></review>
         </div>
     </section>
