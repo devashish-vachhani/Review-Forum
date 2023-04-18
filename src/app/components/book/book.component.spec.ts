@@ -162,13 +162,14 @@ describe('BookComponent', () => {
     expect(component.openDialog).toHaveBeenCalled()
   });
 
-  it('should display reviews component', () => {
+  it('should render reviews component', () => {
     const reviewsComponent = fixture.nativeElement.querySelector('reviews');
     expect(reviewsComponent).toBeTruthy();
   })
 
-  it('should pass book id to reviews component', () => {
+  it('should pass input properties to reviews component', () => {
     const reviewsComponent = fixture.debugElement.query(By.css('reviews')).componentInstance;
     expect(reviewsComponent.bookId).toBe('1');
+    expect(reviewsComponent.appUser).toBe(appUser);
   })
 });

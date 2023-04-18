@@ -30,7 +30,6 @@ export class BsNavbarComponent implements OnInit, OnDestroy {
   async logout() {
     try {
       await this.authService.logout();
-      localStorage.removeItem('username');
       this.snackBar.open('Logged out successfully', 'Dismiss', {
         panelClass: 'success',
         duration: 5000,

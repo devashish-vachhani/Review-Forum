@@ -1,11 +1,10 @@
 <ng-container *ngIf="universities">
     <div class="col-md-12" style="padding: 10px;">
         <form #f="ngForm">
-            <div style="text-align: center; font-size: 20px;">Tag</div><br>
+            <div style="text-align: center; font-size: 20px;">Recommend a tag</div><br>
             <div class="form-group">
-                <label for="university">University</label>
-                <select ngModel name="university" id="university" class="form-control" #university="ngModel" (ngModelChange)="updateCourses(university.value)" required>
-                    <option value=""> </option>
+                <select ngModel name="university" id="university" class="form-control" #university="ngModel" (ngModelChange)="updateCourses(university.value)">
+                    <option value="">Select university</option>
                     <option *ngFor="let university of universities" [value]="university.code">
                         {{  university.name  }}
                     </option>
@@ -13,25 +12,23 @@
             </div>
             <br>
             <div class="form-group">
-                <label for="course">Course</label>
                 <select ngModel name="course" id="course" class="form-control" #course="ngModel" required>
-                    <option value=""> </option>
+                    <option value="">Select course</option>
                     <option *ngFor="let course of courses" [value]="course">
                         {{  course  }}
                     </option>
                 </select>
             </div>
-        
 
-            <mat-dialog-actions style="padding: 5px;">
+            <mat-dialog-actions style="margin-top: 10px;">
                 <button
-                    mat-raised-button color='primary'
+                    mat-stroked-button
                     (click)="close()"
                     data-testid="cancel-btn"
-                > Back
+                > Cancel
                 </button>
                 <button
-                    mat-raised-button color='primary'
+                    mat-flat-button color='primary'
                     (click)="save(f.value)"
                     data-testid="submit-btn"
                 > Submit

@@ -1,6 +1,7 @@
 <mat-toolbar style="margin-bottom: 10px;">
   <mat-toolbar-row>
     <mat-icon [routerLink]="appUser ? '/books' : '/'">home</mat-icon>
+    <span *ngIf="appUser" style="font-size: 13px; font-weight: normal; margin-left: 15px;">Signed in as: {{ appUser.username }}</span>
     <span class="example-spacer"></span>
     <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
       <mat-icon>more_vert</mat-icon>

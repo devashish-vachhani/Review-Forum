@@ -44,15 +44,5 @@ export class UserService {
           }
         })
       );
-  }  
-
-  get username(): string {
-    const username = this.getUsernameFromLocalStorage();
-    return username;
-  }
-  
-  private getUsernameFromLocalStorage() {
-    const usernameJson = localStorage.getItem('username');
-    return usernameJson ? JSON.parse(usernameJson) : null;
   }
 }

@@ -9,19 +9,17 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { By } from '@angular/platform-browser';
 import { ReviewComponent } from '../review/review.component';
-import { UserService } from 'src/app/services/user.service';
+import { AppUser } from 'src/app/models/user';
 
 describe('ReviewsComponent', () => {
   let component: ReviewsComponent;
   let fixture: ComponentFixture<ReviewsComponent>;
-  const reviews: Review[] = [
+  let reviews: Review[] = [
     new Review('reviewer1', 'text1', new Date(), 1, [], '1'),
     new Review('reviewer2', 'text2', new Date(), 2, [], '2'),
     new Review('reviewer3', 'text3', new Date(), 3, [], '3'),
   ];
-  const userServiceStub = {
-    username: 'test',
-  }
+  let appUser = new AppUser('email1', 'username1', false, '1');
   let reviewServiceSpy: jasmine.SpyObj<ReviewService>;
 
   beforeEach(async () => {
@@ -35,7 +33,6 @@ describe('ReviewsComponent', () => {
                     ],
       providers: [
         { provide: ReviewService, useValue: reviewServiceSpy },
-        { provide: UserService, useValue: userServiceStub }
       ],
       imports: [ 
         MatDialogModule, 
@@ -47,6 +44,8 @@ describe('ReviewsComponent', () => {
 
     fixture = TestBed.createComponent(ReviewsComponent);
     component = fixture.componentInstance;
+    component.appUser = appUser;
+    component.bookId = '123';
     fixture.detectChanges();
   });
 
@@ -70,5 +69,12 @@ describe('ReviewsComponent', () => {
   it('should render correct number of review components', () => {
     const reviewComponents = fixture.nativeElement.querySelectorAll('review');
     expect(reviewComponents.length).toEqual(3);
+  })
+
+  it('should pass input properties to review component', () => {
+    const reviewComponent = fixture.debugElement.queryAll(By.css('review'))[0].componentInstance;
+    expect(reviewComponent.bookId).toBe('123');
+    expect(reviewComponent.review).toBe(reviews[0]);
+    expect(reviewComponent.appUser).toBe(appUser);
   })
 });

@@ -14,32 +14,37 @@ import { By } from '@angular/platform-browser';
 import { Router, RouterModule } from '@angular/router';
 import { Book } from 'src/app/models/book';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AppUser } from 'src/app/models/user';
 
 describe('BookFormComponent', () => {
   let component: BookFormComponent;
   let fixture: ComponentFixture<BookFormComponent>;
   let router: Router;
-  const UserServiceStub = {
-    username: 'test'
-  };
-  const universities: University[] = [
+  let appUser = new AppUser('email', 'username1', false, '2');
+  let universities: University[] = [
     { id: '1', name: 'uni1', code: 'u1', courses: ['c1', 'c2'] },
     { id: '2', name: 'uni2', code: 'u2', courses: ['c3', 'c4'] }
 ]
   let bookServiceSpy: jasmine.SpyObj<BookService>;
   let universityServiceSpy: jasmine.SpyObj<UniversityService>;
+  let userServiceSpy: jasmine.SpyObj<UserService>;
   let snackBarSpy: jasmine.SpyObj<MatSnackBar>;
 
   beforeEach(async () => {
     bookServiceSpy = jasmine.createSpyObj('BookService', ['createBook']);
     universityServiceSpy = jasmine.createSpyObj('UniversityService', ['getUniversities']);
     universityServiceSpy.getUniversities.and.returnValue(of(universities));
+    userServiceSpy = jasmine.createSpyObj('UserService', ['']);
+    Object.defineProperty(userServiceSpy, 'appUser$', {
+        value: of(appUser),
+        writable: true,
+      });
     snackBarSpy = jasmine.createSpyObj('MatSnackBar', ['open']);
 
     await TestBed.configureTestingModule({
       declarations: [ BookFormComponent ],
       providers: [
-        { provide: UserService, useValue: UserServiceStub },
+        { provide: UserService, useValue: userServiceSpy },
         { provide: UniversityService, useValue: universityServiceSpy },
         { provide: BookService, useValue: bookServiceSpy },
         { provide: MatSnackBar, useValue: snackBarSpy },
@@ -151,7 +156,7 @@ describe('BookFormComponent', () => {
 
     expect(component.onSubmit).toHaveBeenCalled();
     // Verify that the book was made with the correct information
-    expect(bookServiceSpy.createBook).toHaveBeenCalledWith(new Book('title', 'author', 'description', 'image', ['u2/c3'], "pending", 'test'));
+    expect(bookServiceSpy.createBook).toHaveBeenCalledWith(new Book('title', 'author', 'description', 'image', ['u2/c3'], "pending", 'username1'));
     expect(snackBarSpy.open).toHaveBeenCalled();
     expect(routerSpy).toHaveBeenCalledWith(['/books']);
   }));

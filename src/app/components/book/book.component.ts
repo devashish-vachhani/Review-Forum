@@ -85,8 +85,8 @@ export class BookComponent implements OnInit {
 
   openDialog(): void {
     const dialogRef = this.dialog.open(TagComponent, {
-      height: '250px',
-      width: '600px',
+      height: '225px',
+      width: '500px',
     });
 
     dialogRef.afterClosed().subscribe(tag => {

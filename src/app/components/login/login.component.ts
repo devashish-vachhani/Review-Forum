@@ -42,10 +42,7 @@ export class LoginComponent {
     }
 
     try {
-      const userCredential = await this.authService.login(email, password);
-      this.userService.getUser(userCredential.user.uid).pipe(take(1)).subscribe(appUser => {
-        localStorage.setItem('username', JSON.stringify(appUser.username));
-      });      
+      await this.authService.login(email, password);    
       this.snackBar.open('Logged in successfully', 'Dismiss', {
         panelClass: 'success',
         duration: 5000,

@@ -3,6 +3,7 @@ import { Subscription } from 'rxjs';
 import { MatDialogRef } from "@angular/material/dialog";
 import { UniversityService } from 'src/app/services/university.service';
 import { University } from 'src/app/models/university';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'tag',
@@ -16,6 +17,7 @@ export class TagComponent implements OnInit, OnDestroy {
 
     constructor(
         private universityService: UniversityService,
+        private snackBar: MatSnackBar,
         private dialogRef: MatDialogRef<TagComponent>,
     ) {}
 
@@ -31,8 +33,15 @@ export class TagComponent implements OnInit, OnDestroy {
     }
 
     save(f): void {
-        const tag = `${f.university}/${f.course}`;
-        this.dialogRef.close(tag);
+        if(f.university === "" || f.course === "") {
+            this.snackBar.open('University or course is missing', 'Dismiss', {
+                panelClass: 'error',
+                duration: 5000,
+            });
+        } else {
+            const tag = `${f.university}/${f.course}`;
+            this.dialogRef.close(tag);
+        }
     }
 
     close(): void {

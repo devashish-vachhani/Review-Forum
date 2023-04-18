@@ -1,4 +1,4 @@
-<div class="grid-container" *ngIf="book && readingList">
+<div class="grid-container" *ngIf="appUser && book && readingList">
     <div class="item1">
         <br>
         <div>
@@ -68,6 +68,6 @@
         </div>
     </div>
     <div class="item3">
-        <reviews [bookId]="book.id"></reviews>
+        <reviews [bookId]="book.id" [appUser]="appUser"></reviews>
     </div>
 </div>

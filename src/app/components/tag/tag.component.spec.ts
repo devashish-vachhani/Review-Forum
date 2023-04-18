@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { University } from 'src/app/models/university';
 import { of } from 'rxjs';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 describe('TagComponent', () => {
   let component: TagComponent;
@@ -17,12 +18,14 @@ describe('TagComponent', () => {
     { id: '2', name: 'uni2', code: 'u2', courses: ['c3','c4'] }
   ];
   let universityServiceSpy: jasmine.SpyObj<UniversityService>;
+  let snackBarSpy: jasmine.SpyObj<MatSnackBar>;
   let dialogRefSpy: jasmine.SpyObj<MatDialogRef<TagComponent>>;
 
   beforeEach(async () => {
     universityServiceSpy = jasmine.createSpyObj('UniversityService', ['getUniversities']);
     universityServiceSpy.getUniversities.and.returnValue(of(universities));
 
+    snackBarSpy = jasmine.createSpyObj('MatSnackBar', ['open']);
     dialogRefSpy = jasmine.createSpyObj('MatDialogRef', ['close']);
 
     await TestBed.configureTestingModule({
@@ -34,6 +37,7 @@ describe('TagComponent', () => {
       providers: [
         { provide: UniversityService, useValue: universityServiceSpy },
         { provide: MatDialogRef, useValue: dialogRefSpy },
+        { provide: MatSnackBar, useValue: snackBarSpy },
       ],
       schemas: [ NO_ERRORS_SCHEMA ],
     })
@@ -84,6 +88,19 @@ describe('TagComponent', () => {
     // Verify that dialog was closed with the correct tag
     expect(dialogRefSpy.close).toHaveBeenCalledWith('u2/c3');
   });  
+
+  it('should flash error and not close dialog when university or course is misisng', () => {
+      const error = 'University or course is missing';
+
+      // Click submit button
+      const submitButton = fixture.debugElement.query(By.css("[data-testid=submit-btn]")).nativeElement;
+      submitButton.click();
+      fixture.detectChanges();
+
+      expect(snackBarSpy.open).toHaveBeenCalledWith(error, 'Dismiss', Object({ panelClass: 'error', duration: 5000 }))
+      expect(dialogRefSpy.close).not.toHaveBeenCalled();
+
+  })
 
   it('should close dialog with no value when cancel button is clicked', () => {
     // Click cancel button

@@ -6,20 +6,19 @@ import { AuthService } from 'src/app/services/auth.service';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ReactiveFormsModule } from '@angular/forms';
 import { UserService } from 'src/app/services/user.service';
+import { AppUser } from 'src/app/models/user';
+import { of } from 'rxjs';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
-  const AuthServiceStub = jasmine.createSpyObj<AuthService>(
-    'AuthService', {
-      uid: '1',
-    }
-  );
-  const UserServiceStub = jasmine.createSpyObj<UserService>(
-    'UserService', {
-      username: 'test',
-    }
-  )
+  let appUser = new AppUser('email1', 'username1', false, '1');
+  let userServiceStub = {
+    appUser: of(),
+  }
+  let authServiceStub = {
+    currentUser$: of(),
+  }
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -29,8 +28,8 @@ describe('LoginComponent', () => {
         ReactiveFormsModule,
       ],
       providers: [
-        { provide: AuthService, useValue: AuthServiceStub },
-        { provide: UserService, useValue: UserServiceStub },
+        { provide: AuthService, useValue: authServiceStub },
+        { provide: UserService, useValue: userServiceStub },
       ],
       schemas: [ NO_ERRORS_SCHEMA ],
     })

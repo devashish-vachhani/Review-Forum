@@ -2,7 +2,6 @@ import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testin
 
 import { ReviewComponent } from './review.component';
 import { ReviewService } from 'src/app/services/review.service';
-import { UserService } from 'src/app/services/user.service';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
@@ -12,17 +11,16 @@ import { Comment } from '../../models/comment';
 import { CommentService } from 'src/app/services/comment.service';
 import { of } from 'rxjs';
 import { CommentsComponent } from '../comments/comments.component';
+import { AppUser } from 'src/app/models/user';
 
 describe('ReviewComponent', () => {
   let component: ReviewComponent;
   let fixture: ComponentFixture<ReviewComponent>;
-  const userServiceStub = {
-    username: 'test',
-  }
-  const comments: Comment[] = [
+  let comments: Comment[] = [
     new Comment('commenter1', 'text1', new Date(), '1'),
     new Comment('commenter2', 'text2', new Date(), '2'),
   ];
+  let appUser = new AppUser('email1', 'username1', false, '1');
   let reviewServiceSpy: jasmine.SpyObj<ReviewService>;
   let commentServiceSpy: jasmine.SpyObj<CommentService>;
 
@@ -38,7 +36,6 @@ describe('ReviewComponent', () => {
       ],
       providers: [
         { provide: ReviewService, useValue: reviewServiceSpy },
-        { provide: UserService, useValue: userServiceStub },
         { provide: CommentService, useValue: commentServiceSpy },
       ],
       imports: [
@@ -53,6 +50,7 @@ describe('ReviewComponent', () => {
     component = fixture.componentInstance;
     component.bookId = '123',
     component.review = new Review('reviewer1', 'text1', new Date(), 3, [], '123');
+    component.appUser = appUser;
     fixture.detectChanges();
   });
 
@@ -73,7 +71,7 @@ describe('ReviewComponent', () => {
   it('should call onDislike on clicking on a liked review', fakeAsync( () => {
     spyOn(component, 'onDislike');
 
-    component.review.likes.push('test');
+    component.review.likes.push('username1');
     fixture.detectChanges();
 
     const dislikeBtn = fixture.debugElement.query(By.css("[data-testid='dislike-btn']")).nativeElement;
@@ -108,5 +106,6 @@ describe('ReviewComponent', () => {
     expect(commentsComponent.bookId).toBe('123');
     expect(commentsComponent.reviewId).toBe('123');
     expect(commentsComponent.reviewer).toBe('reviewer1');
+    expect(commentsComponent.appUser).toBe(appUser);
   });
 });

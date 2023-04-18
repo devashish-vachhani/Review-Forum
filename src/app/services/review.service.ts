@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Firestore, addDoc, collection, collectionData, doc } from '@angular/fire/firestore';
+import { Firestore, addDoc, collection, collectionData, doc, orderBy, query } from '@angular/fire/firestore';
 import { Observable, map } from 'rxjs';
 import { Review } from '../models/review';
 import { deleteDoc, updateDoc } from 'firebase/firestore';
@@ -14,7 +14,7 @@ export class ReviewService {
   ) { }
 
   getReviews(bookId: string): Observable<Review[]> {
-    const reviewsCollectionRef = collection(this.firestore, `books/${bookId}/reviews`);
+    const reviewsCollectionRef = query(collection(this.firestore, `books/${bookId}/reviews`), orderBy('date', 'desc'));
     return collectionData(reviewsCollectionRef, { idField: 'id' })
             .pipe(
               map(reviews => reviews.map(review => new Review(review['reviewer'], review['text'], review['date'].toDate(), review['rating'], review['likes'], review['id'])))

@@ -8,27 +8,32 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { AuthService } from 'src/app/services/auth.service';
 import { By } from '@angular/platform-browser';
 import { Book } from 'src/app/models/book';
 import { ReadingList } from 'src/app/models/reading-list';
 import { of } from 'rxjs';
+import { AppUser } from 'src/app/models/user';
+import { UserService } from 'src/app/services/user.service';
 
 describe('ReadingListComponent', () => {
   let component: ReadingListComponent;
   let fixture: ComponentFixture<ReadingListComponent>;
-  const AuthServiceStub = {
-    uid: '1',
-  }
-  const books: Book[] = [
+  let appUser = new AppUser('email1', 'username1', false, '1');
+  let books: Book[] = [
     new Book('book1', 'author1', 'description1', 'image1', [], 'approved', 'admin', '1'),
     new Book('book2', 'author2', 'description2', 'image2', [], 'approved', 'admin', '2'),
     new Book('book3', 'author3', 'description3', 'image3', [], 'approved', 'admin', '3'),
   ];
+  let userServiceSpy: jasmine.SpyObj<UserService>;
   let readingListServiceSpy: jasmine.SpyObj<ReadingListService>;
   let snackBarSpy: jasmine.SpyObj<MatSnackBar>;
 
   beforeEach(async () => {
+    userServiceSpy = jasmine.createSpyObj('UserService', ['']);
+    Object.defineProperty(userServiceSpy, 'appUser$', {
+        value: of(appUser),
+        writable: true,
+      });
     readingListServiceSpy = jasmine.createSpyObj('ReadingListService', ['getReadingList', 'deleteFromReadingList'])
     readingListServiceSpy.getReadingList.and.returnValue(of(new ReadingList(books)));
     snackBarSpy = jasmine.createSpyObj(['open']);
@@ -43,7 +48,7 @@ describe('ReadingListComponent', () => {
         MatSnackBarModule,
       ],
       providers: [
-        { provide: AuthService, useValue: AuthServiceStub },
+        { provide: UserService, useValue: userServiceSpy },
         { provide: ReadingListService, useValue: readingListServiceSpy },
         { provide: MatSnackBar, useValue: snackBarSpy },
       ],

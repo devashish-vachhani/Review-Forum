@@ -9,24 +9,30 @@ import { By } from '@angular/platform-browser';
 import { Review } from 'src/app/models/review';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AppUser } from 'src/app/models/user';
+import { of } from 'rxjs';
 
 describe('NewReviewComponent', () => {
   let component: NewReviewComponent;
   let fixture: ComponentFixture<NewReviewComponent>;
-  const UserServiceStub = {
-    username: 'test',
-  }
+  let appUser = new AppUser('email1', 'username1', false, '1');
+  let userServiceSpy: jasmine.SpyObj<UserService>;
   let dialogRefStub: jasmine.SpyObj<MatDialogRef<NewReviewComponent>>;
   let snackBarStub: jasmine.SpyObj<MatSnackBar>;
 
   beforeEach(async () => {
+    userServiceSpy = jasmine.createSpyObj('UserService', ['']);
+    Object.defineProperty(userServiceSpy, 'appUser$', {
+        value: of(appUser),
+        writable: true,
+      });
     dialogRefStub = jasmine.createSpyObj('MatDialogRef', ['close']);
     snackBarStub = jasmine.createSpyObj('MatSnackBar', ['open']);
 
     await TestBed.configureTestingModule({
       declarations: [ NewReviewComponent ],
       providers: [
-        { provide: UserService, useValue: UserServiceStub },
+        { provide: UserService, useValue: userServiceSpy },
         { provide: MatDialogRef, useValue: dialogRefStub },
         { provide: MatSnackBar, useValue: snackBarStub },
       ],
@@ -78,7 +84,7 @@ describe('NewReviewComponent', () => {
 
     // Verify that dialog was closed with the correct review
     expect(dialogRefStub.close).toHaveBeenCalledWith({
-      review: new Review('test', reviewText, new Date(), 3, []),
+      review: new Review('username1', reviewText, new Date(), 3, []),
     });
   }); 
 

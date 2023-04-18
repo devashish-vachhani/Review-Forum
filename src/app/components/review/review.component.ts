@@ -1,38 +1,31 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { arrayRemove, arrayUnion } from '@angular/fire/firestore';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subscription } from 'rxjs';
 import { Review } from 'src/app/models/review';
+import { AppUser } from 'src/app/models/user';
 import { ReviewService } from 'src/app/services/review.service';
-import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'review',
   templateUrl: './review.component.html',
   styleUrls: ['./review.component.scss']
 })
-export class ReviewComponent implements OnInit, OnDestroy {
+export class ReviewComponent {
   @Input('bookId') bookId: string;
   @Input('review') review: Review;
+  @Input('appUser') appUser: AppUser;
 
   constructor(
-    private userService: UserService,
     private reviewService: ReviewService,
     private snackBar: MatSnackBar,
   ) {}
   subscription: Subscription;
-  username: string;
-  showComments: boolean;
-
-  ngOnInit(): void {
-    this.showComments = false;
-    this.username = this.userService.username;
-    if(!this.username) this.subscription = this.userService.appUser$.subscribe(appUser => this.username = appUser.username);
-  }
+  showComments: boolean = false;
 
   async onLike() {
     const data = {
-      likes: arrayUnion(this.username),
+      likes: arrayUnion(this.appUser.username),
     }
     try {
       await this.reviewService.updateReview(this.bookId, this.review.id, data);
@@ -47,7 +40,7 @@ export class ReviewComponent implements OnInit, OnDestroy {
 
   async onDislike() {
     const data = {
-      likes: arrayRemove(this.username),
+      likes: arrayRemove(this.appUser.username),
     }
     try {
       await this.reviewService.updateReview(this.bookId, this.review.id, data);
@@ -62,9 +55,5 @@ export class ReviewComponent implements OnInit, OnDestroy {
 
   toggleComments() {
     this.showComments = !this.showComments;
-  }
-
-  ngOnDestroy() {
-    if(this.subscription) this.subscription.unsubscribe();
   }
 }

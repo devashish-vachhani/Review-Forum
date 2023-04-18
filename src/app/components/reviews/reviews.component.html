@@ -62,7 +62,7 @@
             <h2>Community Forum</h2>
         </div>
         <div class="box2" *ngFor="let review of reviews">
-            <review [bookId]="bookId" [review]="review"></review>
+            <review [bookId]="bookId" [review]="review" [appUser]="appUser"></review>
         </div>
     </section>
     </div>

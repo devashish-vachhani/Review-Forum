@@ -10,17 +10,16 @@ import { UserService } from 'src/app/services/user.service';
 import { By } from '@angular/platform-browser';
 import { Comment } from '../../models/comment';
 import { of } from 'rxjs';
+import { AppUser } from 'src/app/models/user';
 
 describe('CommentsComponent', () => {
   let component: CommentsComponent;
   let fixture: ComponentFixture<CommentsComponent>;
-  const userServiceStub = {
-        username: 'test',
-  }
-  const comments: Comment[] = [
+  let comments: Comment[] = [
     new Comment('commenter1', 'text1', new Date(), '1'),
     new Comment('commenter2', 'text2', new Date(), '2'),
   ];
+  let appUser = new AppUser('email1', 'username1', false, '1');
   let commentServiceSpy: jasmine.SpyObj<CommentService>;
   let snackBarSpy: jasmine.SpyObj<MatSnackBar>;
 
@@ -38,7 +37,6 @@ describe('CommentsComponent', () => {
       ],
       providers: [
         { provide: CommentService, useValue: commentServiceSpy },
-        { provide: UserService, useValue: userServiceStub },
         { provide: MatSnackBar, useValue: snackBarSpy },
       ],
       schemas: [ NO_ERRORS_SCHEMA ],
@@ -47,9 +45,10 @@ describe('CommentsComponent', () => {
 
     fixture = TestBed.createComponent(CommentsComponent);
     component = fixture.componentInstance;
-    component.bookId = '123'
-    component.reviewId = '123'
-    component.reviewer = 'John Doe'
+    component.bookId = '123';
+    component.reviewId = '123';
+    component.reviewer = 'John Doe';
+    component.appUser = appUser;
     fixture.detectChanges();
   });
 
@@ -69,7 +68,7 @@ describe('CommentsComponent', () => {
     const success = 'Comment posted';
 
     const text = 'This is a comment.'
-    const comment: Comment = new Comment('test', text, new Date());
+    const comment: Comment = new Comment('username1', text, new Date());
     const textarea = fixture.debugElement.query(By.css('#text')).nativeElement;
     const postBtn = fixture.debugElement.query(By.css('[data-testid="post-btn"]')).nativeElement
 
@@ -82,5 +81,26 @@ describe('CommentsComponent', () => {
     expect(component.onPost).toHaveBeenCalled();
     expect(commentServiceSpy.addComment).toHaveBeenCalledWith('123', '123', comment);
     expect(snackBarSpy.open).toHaveBeenCalledWith(success, 'Dismiss', Object({ panelClass: 'success', duration: 5000 }));
+  }));
+
+  it('should handle error if service could not add comment', fakeAsync( () => {
+    const error = 'error';
+    commentServiceSpy.addComment.and.returnValue(Promise.reject(error));
+    spyOn(component, 'onPost').and.callThrough();
+
+    const text = 'This is a comment.'
+    const comment: Comment = new Comment('username1', text, new Date());
+    const textarea = fixture.debugElement.query(By.css('#text')).nativeElement;
+    const postBtn = fixture.debugElement.query(By.css('[data-testid="post-btn"]')).nativeElement
+
+    textarea.value = text;
+    textarea.dispatchEvent(new Event('input'));
+    postBtn.click();
+    fixture.detectChanges();
+    tick(200);
+
+    expect(component.onPost).toHaveBeenCalled();
+    expect(commentServiceSpy.addComment).toHaveBeenCalledWith('123', '123', comment);
+    expect(snackBarSpy.open).toHaveBeenCalledWith(error, 'Dismiss', Object({ panelClass: 'error', duration: 5000 }));
   }));
 });

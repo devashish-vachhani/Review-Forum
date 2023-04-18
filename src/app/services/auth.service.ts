@@ -6,7 +6,6 @@ import {
   createUserWithEmailAndPassword,
   UserCredential,
 } from '@angular/fire/auth';
-import { tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -17,15 +16,7 @@ export class AuthService {
     private auth: Auth,
     ) {}
 
-  currentUser$ = authState(this.auth).pipe(
-    tap(user => {
-      if (user) {
-        localStorage.setItem('uid', JSON.stringify(user.uid));
-      } else {
-        localStorage.removeItem('uid');
-      }
-    })
-  );
+  currentUser$ = authState(this.auth);
 
   signup(email: string, password: string): Promise<UserCredential> {
     return createUserWithEmailAndPassword(this.auth, email, password);
@@ -37,16 +28,6 @@ export class AuthService {
 
   logout(): Promise<void> {
     return this.auth.signOut();
-  }
-
-  get uid(): string {
-    const uid = this.getUidFromLocalStorage();
-    return uid;
-  }
-  
-  private getUidFromLocalStorage() {
-    const uidJson = localStorage.getItem('uid');
-    return uidJson ? JSON.parse(uidJson) : null;
   }
 
 }

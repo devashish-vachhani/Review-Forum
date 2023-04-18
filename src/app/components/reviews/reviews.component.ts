@@ -5,6 +5,7 @@ import { ReviewService } from 'src/app/services/review.service';
 import { NewReviewComponent } from '../new-review/new-review.component';
 import { MatDialog } from "@angular/material/dialog";
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { AppUser } from 'src/app/models/user';
 
 @Component({
   selector: 'reviews',
@@ -12,7 +13,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./reviews.component.scss']
 })
 export class ReviewsComponent implements OnInit, OnDestroy {
-  @Input('bookId') bookId;
+  @Input('bookId') bookId: string;
+  @Input('appUser') appUser: AppUser;
 
   constructor(
     private reviewService: ReviewService,

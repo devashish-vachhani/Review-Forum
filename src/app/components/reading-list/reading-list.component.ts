@@ -4,18 +4,18 @@ import { Subscription, switchMap } from 'rxjs';
 import { MatTableDataSource } from '@angular/material/table';
 import { Book } from 'src/app/models/book';
 import { MatSort } from '@angular/material/sort';
-import { AuthService } from 'src/app/services/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
-  selector: 'app-reading-list',
+  selector: 'reading-list',
   templateUrl: './reading-list.component.html',
   styleUrls: ['./reading-list.component.css']
 })
 export class ReadingListComponent implements OnInit, AfterViewInit, OnDestroy {
 
   constructor(
-    private authService: AuthService,
+    private userService: UserService,
     private readingListService: ReadingListService,
     private snackBar: MatSnackBar,
   ) {}
@@ -27,19 +27,14 @@ export class ReadingListComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild(MatSort) sort: MatSort;
 
   ngOnInit() {
-    this.uid = this.authService.uid;
-    if(!this.uid) {
-      this.subscription = this.authService.currentUser$
-                                              .pipe(
-                                                switchMap(user => {
-                                                  this.uid = user.uid;
-                                                  return this.readingListService.getReadingList(this.uid)
-                                                })
-                                              )
-                                              .subscribe(readingList => this.dataSource.data = readingList.books);
-    } else {
-      this.subscription = this.readingListService.getReadingList(this.uid).subscribe(readingList => this.dataSource.data = readingList.books);
-    }
+    this.subscription = this.userService.appUser$
+                                            .pipe(
+                                              switchMap(appUser => {
+                                                this.uid = appUser.id
+                                                return this.readingListService.getReadingList(this.uid)
+                                              })
+                                            )
+                                            .subscribe(readingList => this.dataSource.data = readingList.books);
   }
 
   ngAfterViewInit(): void {

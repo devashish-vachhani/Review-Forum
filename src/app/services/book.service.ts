@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { collection, collectionData, Firestore, addDoc, doc, updateDoc, docData, query, where, deleteDoc } from '@angular/fire/firestore';
+import { collection, collectionData, Firestore, addDoc, doc, updateDoc, docData, query, where, deleteDoc, orderBy } from '@angular/fire/firestore';
 import { map, Observable } from 'rxjs';
 import { Book } from '../models/book';
 
@@ -15,11 +15,11 @@ export class BookService {
   getBooks(status?: string, requester?: string): Observable<Book[]> {
     let q;
     if (status !== undefined) {
-      q = query(collection(this.firestore, "books"), where("status", "==", status));
+      q = query(collection(this.firestore, "books"), where("status", "==", status), orderBy('title'));
     } else if (requester !== undefined) {
-      q = query(collection(this.firestore, "books"), where("requester", "==", requester));
+      q = query(collection(this.firestore, "books"), where("requester", "==", requester), orderBy('title'));
     } else {
-      q = collection(this.firestore, "books");
+      q = query(collection(this.firestore, "books"), orderBy('title'));
     }
     return collectionData(q, { idField: 'id' })
       .pipe(

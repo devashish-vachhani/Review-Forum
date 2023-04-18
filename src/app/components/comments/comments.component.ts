@@ -1,9 +1,8 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { CommentService } from '../../services/comment.service';
 import { Comment } from '../../models/comment';
 import { NgForm } from '@angular/forms';
-import { UserService } from 'src/app/services/user.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
@@ -11,28 +10,25 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   templateUrl: './comments.component.html',
   styleUrls: ['./comments.component.scss']
 })
-export class CommentsComponent implements OnInit, OnDestroy {
+export class CommentsComponent implements OnInit {
   @Input('bookId') bookId;
   @Input('reviewId') reviewId;
   @Input('reviewer') reviewer;
+  @Input('appUser') appUser;
 
   constructor(
-    private userService: UserService,
     private commentService: CommentService,
     private snackBar: MatSnackBar,
   ) {}
   comments$: Observable<Comment[]>;
-  username: string;
   subscription: Subscription;
 
   ngOnInit(): void {
-    this.username = this.userService.username;
-    if(!this.username) this.subscription = this.userService.appUser$.subscribe(appUser => this.username = appUser.username);
     this.comments$ = this.commentService.getComments(this.bookId, this.reviewId);
   }
 
   async onPost(f: NgForm) {
-    const comment = new Comment(this.username, f.value.text, new Date());
+    const comment = new Comment(this.appUser.username, f.value.text, new Date());
     try {
       await this.commentService.addComment(this.bookId, this.reviewId, comment);
       this.snackBar.open('Comment posted', 'Dismiss', {
@@ -48,9 +44,5 @@ export class CommentsComponent implements OnInit, OnDestroy {
       })
     }
       
-  }
-
-  ngOnDestroy() {
-    if(this.subscription) this.subscription.unsubscribe();
   }
 }
