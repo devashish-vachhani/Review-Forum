@@ -5,10 +5,14 @@
             <h1 style="font-size:xx-large; font-weight: bold;">{{ book.title }}</h1>
         </div>
         <div>
-            <h2 style="font-weight: lighter; font-size: x-large;">{{ book.author }}</h2>
+            <h3 style="font-weight: lighter; font-size: x-large;">{{ book.author }}</h3>
         </div>
         <div>
-            Average Rating
+            <ng-container *ngFor="let i of [1, 2, 3, 4, 5]">
+                <mat-icon style="color: rgb(167, 123, 2); display: inline-block;">
+                {{ i <= avgRating ? 'star' : (i-0.5 <= avgRating ? 'star_half' : 'star_border') }}
+                </mat-icon>
+            </ng-container>
         </div>
         <br>
         <div>
@@ -68,6 +72,6 @@
         </div>
     </div>
     <div class="item3">
-        <reviews [bookId]="book.id" [appUser]="appUser"></reviews>
+        <reviews [bookId]="book.id" [appUser]="appUser" (avgRatingEvent)="getAvgRating($event)"></reviews>
     </div>
 </div>

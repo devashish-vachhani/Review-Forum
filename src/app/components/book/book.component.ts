@@ -32,6 +32,7 @@ export class BookComponent implements OnInit {
   readingListSubscription: Subscription;
   readingList: ReadingList;
   appUser: AppUser;
+  avgRating: number;
   
   ngOnInit() {
 
@@ -115,6 +116,10 @@ export class BookComponent implements OnInit {
         }
       }
     });
+  }
+
+  getAvgRating(value: number) {
+    this.avgRating = value;
   }
 
   ngOnDestroy(): void {

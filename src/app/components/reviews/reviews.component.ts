@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Review } from 'src/app/models/review';
 import { ReviewService } from 'src/app/services/review.service';
@@ -15,6 +15,7 @@ import { AppUser } from 'src/app/models/user';
 export class ReviewsComponent implements OnInit, OnDestroy {
   @Input('bookId') bookId: string;
   @Input('appUser') appUser: AppUser;
+  @Output() avgRatingEvent = new EventEmitter<number>();
 
   constructor(
     private reviewService: ReviewService,
@@ -24,6 +25,7 @@ export class ReviewsComponent implements OnInit, OnDestroy {
   reviews: Review[];
   ratingStats: number[];
   subscription: Subscription;
+  avgRating: string;
 
   ngOnInit(): void {
     this.subscription = this.reviewService.getReviews(this.bookId)
@@ -33,6 +35,13 @@ export class ReviewsComponent implements OnInit, OnDestroy {
                           reviews.forEach((review) => {
                             this.ratingStats[review.rating - 1]++;
                           });
+                          if(this.isReviewEmpty()) this.avgRating = "0";
+                          else {
+                            const sum = this.ratingStats.reduce((accumulator, value, index) => accumulator + (value*(index+1)), 0);
+                            this.avgRating = ( sum / (this.reviews.length) ).toFixed(1);
+                          }
+                          this.avgRatingEvent.emit(parseFloat(this.avgRating));
+
     });
   }
 
@@ -63,13 +72,6 @@ export class ReviewsComponent implements OnInit, OnDestroy {
   convertToPercent(value: number) {
     if(this.isReviewEmpty()) return "0";
     return ((value / this.reviews.length) * 100).toFixed(0);
-  }
-
-  calculateAverageRating() {
-    const sum = this.ratingStats.reduce((accumulator, value, index) => accumulator + (value*(index+1)), 0);
-    if(this.isReviewEmpty()) return "0";
-    const avg = sum/(this.reviews.length);
-    return avg.toFixed(1);
   }
 
   ngOnDestroy(): void {
