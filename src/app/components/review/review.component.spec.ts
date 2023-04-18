@@ -82,6 +82,7 @@ describe('ReviewComponent', () => {
   }));
 
   it('should toggle comments on clicking comment button', () => {
+    spyOn(component, 'toggleComments').and.callThrough();
     component.showComments = false;
     fixture.detectChanges();
 
@@ -89,6 +90,7 @@ describe('ReviewComponent', () => {
     toggleCommentsBtn.click()
     fixture.detectChanges();
 
+    expect(component.toggleComments).toHaveBeenCalled();
     expect(component.showComments).toBe(true);
   })
 
