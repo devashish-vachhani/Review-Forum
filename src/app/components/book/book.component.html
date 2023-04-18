@@ -2,10 +2,10 @@
     <div class="item1">
         <br>
         <div>
-            <h1 style="font-size:xx-large; font-weight: bold;">{{ book.title }}</h1>
+            <h1 style="font-size:xx-large; font-weight: bold;" data-testid="book-title">{{ book.title }}</h1>
         </div>
         <div>
-            <h3 style="font-weight: lighter; font-size: x-large;">{{ book.author }}</h3>
+            <h2 style="font-weight: lighter; font-size: x-large;" data-testid="book-author">{{ book.author }}</h2>
         </div>
         <div>
             <ng-container *ngFor="let i of [1, 2, 3, 4, 5]">

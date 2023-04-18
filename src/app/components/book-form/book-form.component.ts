@@ -51,7 +51,7 @@ export class BookFormComponent implements OnInit, OnDestroy {
     );
     try {
       await this.bookService.createBook(book);
-      this.snackBar.open('Book request was submitted', 'Dismiss', {
+      this.snackBar.open('Thank you for your book request. We will get back to you soon.', 'Dismiss', {
         panelClass: 'success',
         duration: 5000,
       })
