@@ -7,5 +7,5 @@ export const environment = {
         messagingSenderId: "302445210600",
         appId: "1:302445210600:web:c8429cf1dc0a2aadead25d"
     },
-    useEmulators: false,
+    useEmulators: true,
 };

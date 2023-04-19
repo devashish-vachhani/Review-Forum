@@ -1,0 +1,34 @@
+[debug] [2023-04-19T19:36:43.801Z] ----------------------------------------------------------------------
+[debug] [2023-04-19T19:36:43.803Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Avi\Documents\GitHub\CSC-510-Project\node_modules\firebase-tools\lib\bin\firebase.js emulators:start --import ./tests-acceptance/export_directory/
+[debug] [2023-04-19T19:36:43.803Z] CLI Version:   11.24.1
+[debug] [2023-04-19T19:36:43.803Z] Platform:      win32
+[debug] [2023-04-19T19:36:43.803Z] Node Version:  v18.15.0
+[debug] [2023-04-19T19:36:43.803Z] Time:          Wed Apr 19 2023 15:36:43 GMT-0400 (Eastern Daylight Time)
+[debug] [2023-04-19T19:36:43.804Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2023-04-19T19:36:43.844Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2023-04-19T19:36:43.844Z] > authorizing via signed-in user (ajchoks2@ncsu.edu)
+[debug] [2023-04-19T19:36:43.903Z] java version "20" 2023-03-21
+
+[debug] [2023-04-19T19:36:43.904Z] Java(TM) SE Runtime Environment (build 20+36-2344)
+Java HotSpot(TM) 64-Bit Server VM (build 20+36-2344, mixed mode, sharing)
+
+[debug] [2023-04-19T19:36:43.919Z] Parsed Java major version: 20
+[info] i  emulators: Starting emulators: auth, firestore, hosting {"metadata":{"emulator":{"name":"hub"},"message":"Starting emulators: auth, firestore, hosting"}}
+[debug] [2023-04-19T19:36:43.932Z] [logging] Logging Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2023-04-19T19:36:43.932Z] [auth] Authentication Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2023-04-19T19:36:43.933Z] [firestore] Firestore Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2023-04-19T19:36:43.933Z] [firestore.websocket] websocket server for firestore only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2023-04-19T19:36:43.933Z] [hosting] Hosting Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2023-04-19T19:36:43.933Z] assigned listening specs for emulators {"user":{"hub":[{"address":"127.0.0.1","family":"IPv4","port":4400},{"address":"::1","family":"IPv6","port":4400}],"ui":[{"address":"127.0.0.1","family":"IPv4","port":4000},{"address":"::1","family":"IPv6","port":4000}],"logging":[{"address":"127.0.0.1","family":"IPv4","port":4500}],"auth":[{"address":"127.0.0.1","family":"IPv4","port":9099}],"firestore":[{"address":"127.0.0.1","family":"IPv4","port":8080}],"firestore.websocket":[{"address":"127.0.0.1","family":"IPv4","port":9150}],"hosting":[{"address":"127.0.0.1","family":"IPv4","port":5000}]},"metadata":{"message":"assigned listening specs for emulators"}}
+[debug] [2023-04-19T19:36:43.936Z] [hub] writing locator at C:\Users\Avi\AppData\Local\Temp\hub-csc-510-ba9f8.json
+[info] i  emulators: Shutting down emulators. {"metadata":{"emulator":{"name":"hub"},"message":"Shutting down emulators."}}
+[info] i  hub: Stopping emulator hub {"metadata":{"emulator":{"name":"hub"},"message":"Stopping emulator hub"}}
+[debug] [2023-04-19T19:36:43.943Z] Error: ENOENT: no such file or directory, lstat 'C:\Users\Avi\Documents\GitHub\CSC-510-Project\tests-acceptance\tests-acceptance\export_directory'
+    at Object.lstatSync (node:fs:1593:3)
+    at findExportMetadata (C:\Users\Avi\Documents\GitHub\CSC-510-Project\node_modules\firebase-tools\lib\emulator\controller.js:118:32)
+    at Object.startAll (C:\Users\Avi\Documents\GitHub\CSC-510-Project\node_modules\firebase-tools\lib\emulator\controller.js:268:31)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async C:\Users\Avi\Documents\GitHub\CSC-510-Project\node_modules\firebase-tools\lib\commands\emulators-start.js:32:43
+[error] 
+[error] Error: An unexpected error has occurred.

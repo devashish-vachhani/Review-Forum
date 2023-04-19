@@ -1,0 +1,74 @@
+[debug] [2023-04-19T19:42:05.408Z] ----------------------------------------------------------------------
+[debug] [2023-04-19T19:42:05.409Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Avi\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js emulators:start --import .\tests-acceptance\export_directory\
+[debug] [2023-04-19T19:42:05.409Z] CLI Version:   11.25.3
+[debug] [2023-04-19T19:42:05.409Z] Platform:      win32
+[debug] [2023-04-19T19:42:05.409Z] Node Version:  v18.15.0
+[debug] [2023-04-19T19:42:05.410Z] Time:          Wed Apr 19 2023 15:42:05 GMT-0400 (Eastern Daylight Time)
+[debug] [2023-04-19T19:42:05.410Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2023-04-19T19:42:05.450Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2023-04-19T19:42:05.451Z] > authorizing via signed-in user (ajchoks2@ncsu.edu)
+[debug] [2023-04-19T19:42:05.508Z] java version "20" 2023-03-21
+
+[debug] [2023-04-19T19:42:05.508Z] Java(TM) SE Runtime Environment (build 20+36-2344)
+Java HotSpot(TM) 64-Bit Server VM (build 20+36-2344, mixed mode, sharing)
+
+[debug] [2023-04-19T19:42:05.532Z] Parsed Java major version: 20
+[info] i  emulators: Starting emulators: auth, firestore, hosting {"metadata":{"emulator":{"name":"hub"},"message":"Starting emulators: auth, firestore, hosting"}}
+[debug] [2023-04-19T19:42:05.542Z] [logging] Logging Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2023-04-19T19:42:05.542Z] [auth] Authentication Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2023-04-19T19:42:05.542Z] [firestore] Firestore Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2023-04-19T19:42:05.542Z] [firestore.websocket] websocket server for firestore only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2023-04-19T19:42:05.542Z] [hosting] Hosting Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2023-04-19T19:42:05.542Z] assigned listening specs for emulators {"user":{"hub":[{"address":"127.0.0.1","family":"IPv4","port":4400},{"address":"::1","family":"IPv6","port":4400}],"ui":[{"address":"127.0.0.1","family":"IPv4","port":4000},{"address":"::1","family":"IPv6","port":4000}],"logging":[{"address":"127.0.0.1","family":"IPv4","port":4500}],"auth":[{"address":"127.0.0.1","family":"IPv4","port":9099}],"firestore":[{"address":"127.0.0.1","family":"IPv4","port":8080}],"firestore.websocket":[{"address":"127.0.0.1","family":"IPv4","port":9150}],"hosting":[{"address":"127.0.0.1","family":"IPv4","port":5000}]},"metadata":{"message":"assigned listening specs for emulators"}}
+[debug] [2023-04-19T19:42:05.545Z] [hub] writing locator at C:\Users\Avi\AppData\Local\Temp\hub-csc-510-ba9f8.json
+[info] i  firestore: Importing data from C:\Users\Avi\Documents\GitHub\CSC-510-Project\tests-acceptance\export_directory\firestore_export\firestore_export.overall_export_metadata {"metadata":{"emulator":{"name":"firestore"},"message":"Importing data from C:\\Users\\Avi\\Documents\\GitHub\\CSC-510-Project\\tests-acceptance\\export_directory\\firestore_export\\firestore_export.overall_export_metadata"}}
+[warn] !  firestore: Cloud Firestore Emulator does not support multiple databases yet. {"metadata":{"emulator":{"name":"firestore"},"message":"Cloud Firestore Emulator does not support multiple databases yet."}}
+[warn] !  firestore: Did not find a Cloud Firestore rules file specified in a firebase.json config file. {"metadata":{"emulator":{"name":"firestore"},"message":"Did not find a Cloud Firestore rules file specified in a firebase.json config file."}}
+[warn] !  firestore: The emulator will default to allowing all reads and writes. Learn more about this option: https://firebase.google.com/docs/emulator-suite/install_and_configure#security_rules_configuration. {"metadata":{"emulator":{"name":"firestore"},"message":"The emulator will default to allowing all reads and writes. Learn more about this option: https://firebase.google.com/docs/emulator-suite/install_and_configure#security_rules_configuration."}}
+[debug] [2023-04-19T19:42:05.551Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"firestore"},"message":"Ignoring unsupported arg: auto_download"}}
+[debug] [2023-04-19T19:42:05.551Z] Ignoring unsupported arg: single_project_mode_error {"metadata":{"emulator":{"name":"firestore"},"message":"Ignoring unsupported arg: single_project_mode_error"}}
+[debug] [2023-04-19T19:42:05.551Z] Starting Firestore Emulator with command {"binary":"java","args":["-Dgoogle.cloud_firestore.debug_log_level=FINE","-Duser.language=en","-jar","C:\\Users\\Avi\\.cache\\firebase\\emulators\\cloud-firestore-emulator-v1.16.2.jar","--host","127.0.0.1","--port",8080,"--websocket_port",9150,"--project_id","csc-510-ba9f8","--seed_from_export","C:\\Users\\Avi\\Documents\\GitHub\\CSC-510-Project\\tests-acceptance\\export_directory\\firestore_export\\firestore_export.overall_export_metadata","--single_project_mode",true],"optionalArgs":["port","webchannel_port","host","rules","websocket_port","functions_emulator","seed_from_export","project_id","single_project_mode"],"joinArgs":false} {"metadata":{"emulator":{"name":"firestore"},"message":"Starting Firestore Emulator with command {\"binary\":\"java\",\"args\":[\"-Dgoogle.cloud_firestore.debug_log_level=FINE\",\"-Duser.language=en\",\"-jar\",\"C:\\\\Users\\\\Avi\\\\.cache\\\\firebase\\\\emulators\\\\cloud-firestore-emulator-v1.16.2.jar\",\"--host\",\"127.0.0.1\",\"--port\",8080,\"--websocket_port\",9150,\"--project_id\",\"csc-510-ba9f8\",\"--seed_from_export\",\"C:\\\\Users\\\\Avi\\\\Documents\\\\GitHub\\\\CSC-510-Project\\\\tests-acceptance\\\\export_directory\\\\firestore_export\\\\firestore_export.overall_export_metadata\",\"--single_project_mode\",true],\"optionalArgs\":[\"port\",\"webchannel_port\",\"host\",\"rules\",\"websocket_port\",\"functions_emulator\",\"seed_from_export\",\"project_id\",\"single_project_mode\"],\"joinArgs\":false}"}}
+[info] i  firestore: Firestore Emulator logging to firestore-debug.log {"metadata":{"emulator":{"name":"firestore"},"message":"Firestore Emulator logging to \u001b[1mfirestore-debug.log\u001b[22m"}}
+[info] +  firestore: Firestore Emulator UI websocket is running on 9150. {"metadata":{"emulator":{"name":"firestore"},"message":"Firestore Emulator UI websocket is running on 9150."}}
+[info] i  auth: Importing config from C:\Users\Avi\Documents\GitHub\CSC-510-Project\tests-acceptance\export_directory\auth_export\config.json {"metadata":{"emulator":{"name":"auth"},"message":"Importing config from C:\\Users\\Avi\\Documents\\GitHub\\CSC-510-Project\\tests-acceptance\\export_directory\\auth_export\\config.json"}}
+[info] i  auth: Importing accounts from C:\Users\Avi\Documents\GitHub\CSC-510-Project\tests-acceptance\export_directory\auth_export\accounts.json {"metadata":{"emulator":{"name":"auth"},"message":"Importing accounts from C:\\Users\\Avi\\Documents\\GitHub\\CSC-510-Project\\tests-acceptance\\export_directory\\auth_export\\accounts.json"}}
+[debug] [2023-04-19T19:42:10.168Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/csc-510-ba9f8/sites 
+[debug] [2023-04-19T19:42:10.621Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/csc-510-ba9f8/sites 200
+[debug] [2023-04-19T19:42:10.621Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/csc-510-ba9f8/sites {"sites":[{"name":"projects/csc-510-ba9f8/sites/csc-510-ba9f8","defaultUrl":"https://csc-510-ba9f8.web.app","appId":"1:302445210600:web:c8429cf1dc0a2aadead25d","type":"DEFAULT_SITE"}]}
+[debug] [2023-04-19T19:42:10.621Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/csc-510-ba9f8/webApps/1:302445210600:web:c8429cf1dc0a2aadead25d/config [none]
+[debug] [2023-04-19T19:42:11.085Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/csc-510-ba9f8/webApps/1:302445210600:web:c8429cf1dc0a2aadead25d/config 200
+[debug] [2023-04-19T19:42:11.085Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/csc-510-ba9f8/webApps/1:302445210600:web:c8429cf1dc0a2aadead25d/config {"projectId":"csc-510-ba9f8","appId":"1:302445210600:web:c8429cf1dc0a2aadead25d","databaseURL":"https://csc-510-ba9f8-default-rtdb.firebaseio.com","storageBucket":"csc-510-ba9f8.appspot.com","apiKey":"AIzaSyAFjbPemhTfv30n1B72MxCK7ld8-Ypr2jk","authDomain":"csc-510-ba9f8.firebaseapp.com","messagingSenderId":"302445210600"}
+[debug] [2023-04-19T19:42:11.107Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/csc-510-ba9f8 [none]
+[debug] [2023-04-19T19:42:11.403Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/csc-510-ba9f8 200
+[debug] [2023-04-19T19:42:11.403Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/csc-510-ba9f8 {"projectId":"csc-510-ba9f8","projectNumber":"302445210600","displayName":"CSC-510","name":"projects/csc-510-ba9f8","resources":{"hostingSite":"csc-510-ba9f8","realtimeDatabaseInstance":"csc-510-ba9f8-default-rtdb"},"state":"ACTIVE","etag":"1_ba1d66c5-89ad-4a97-939d-622936703709"}
+[info] i  hosting[csc-510-ba9f8]: Serving hosting files from: public {"metadata":{"emulator":{"name":"hosting"},"message":"Serving hosting files from: \u001b[1mpublic\u001b[22m"}}
+[info] +  hosting[csc-510-ba9f8]: Local server: http://127.0.0.1:5000 {"metadata":{"emulator":{"name":"hosting"},"message":"Local server: \u001b[4m\u001b[1mhttp://127.0.0.1:5000\u001b[22m\u001b[24m"}}
+[debug] [2023-04-19T19:42:11.415Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"ui"},"message":"Ignoring unsupported arg: auto_download"}}
+[debug] [2023-04-19T19:42:11.415Z] Ignoring unsupported arg: port {"metadata":{"emulator":{"name":"ui"},"message":"Ignoring unsupported arg: port"}}
+[debug] [2023-04-19T19:42:11.415Z] Starting Emulator UI with command {"binary":"node","args":["C:\\Users\\Avi\\.cache\\firebase\\emulators\\ui-v1.11.5\\server\\server.js"],"optionalArgs":[],"joinArgs":false} {"metadata":{"emulator":{"name":"ui"},"message":"Starting Emulator UI with command {\"binary\":\"node\",\"args\":[\"C:\\\\Users\\\\Avi\\\\.cache\\\\firebase\\\\emulators\\\\ui-v1.11.5\\\\server\\\\server.js\"],\"optionalArgs\":[],\"joinArgs\":false}"}}
+[info] i  ui: Emulator UI logging to ui-debug.log {"metadata":{"emulator":{"name":"ui"},"message":"Emulator UI logging to \u001b[1mui-debug.log\u001b[22m"}}
+[debug] [2023-04-19T19:42:11.489Z] Web / API server started at 127.0.0.1:4000
+ {"metadata":{"emulator":{"name":"ui"},"message":"Web / API server started at 127.0.0.1:4000\n"}}
+[debug] [2023-04-19T19:42:11.490Z] Web / API server started at ::1:4000
+ {"metadata":{"emulator":{"name":"ui"},"message":"Web / API server started at ::1:4000\n"}}
+[info] 
+┌─────────────────────────────────────────────────────────────┐
+│ ✔  All emulators ready! It is now safe to connect your app. │
+│ i  View Emulator UI at http://127.0.0.1:4000/               │
+└─────────────────────────────────────────────────────────────┘
+
+┌────────────────┬────────────────┬─────────────────────────────────┐
+│ Emulator       │ Host:Port      │ View in Emulator UI             │
+├────────────────┼────────────────┼─────────────────────────────────┤
+│ Authentication │ 127.0.0.1:9099 │ http://127.0.0.1:4000/auth      │
+├────────────────┼────────────────┼─────────────────────────────────┤
+│ Firestore      │ 127.0.0.1:8080 │ http://127.0.0.1:4000/firestore │
+├────────────────┼────────────────┼─────────────────────────────────┤
+│ Hosting        │ 127.0.0.1:5000 │ n/a                             │
+└────────────────┴────────────────┴─────────────────────────────────┘
+  Emulator Hub running at 127.0.0.1:4400
+  Other reserved ports: 4500, 9150
+
+Issues? Report them at https://github.com/firebase/firebase-tools/issues and attach the *-debug.log files.
+ 

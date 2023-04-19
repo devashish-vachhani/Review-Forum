@@ -20,7 +20,7 @@
     </p>
     <div class="wrapper16">
     <div class="wrapper17" style="padding-left: 10px">
-        <div class="wrapper154">
+        <div class="wrapper154" name="likeCount">
             <ng-container *ngIf="review.likes.includes(appUser.username); else notLiked">
                 <button mat-icon-button (click)="onDislike()" data-testid="dislike-btn">
                     <mat-icon style="color:green; vertical-align: middle; padding: 0px 30px 30px 0px;">thumb_up</mat-icon>
