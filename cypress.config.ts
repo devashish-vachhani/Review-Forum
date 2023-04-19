@@ -8,7 +8,8 @@ export default defineConfig({
       require('@cypress/code-coverage/task')(on, config)
       return config
     },
-    'baseUrl': 'http://localhost:4200'
+    'baseUrl': 'http://localhost:4200',
+    "video": false,
   },
   
   

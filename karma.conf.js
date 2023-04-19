@@ -25,15 +25,17 @@ module.exports = function (config) {
       suppressAll: true // removes the duplicated traces
     },
     coverageReporter: {
-      dir: require('path').join(__dirname, './coverage/review-forum'),
+      dir: require('path').join(__dirname, './coverage/karma'),
       subdir: '.',
       reporters: [
         { type: 'html' },
+        { type: 'json' },
+        { type: 'json-summary' },
         { type: 'text-summary' }
       ]
     },
     reporters: ['progress', 'kjhtml'],
     browsers: ['Chrome'],
-    restartOnFileChange: true
+    restartOnFileChange: true,
   });
 };

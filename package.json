@@ -9,7 +9,9 @@
     "test": "ng test",
     "e2e": "ng e2e",
     "cypress:open": "cypress open",
-    "cypress:run": "cypress run"
+    "cypress:run": "cypress run",
+    "coverage:badge": "coverage-badge-creator",
+    "nyc": "nyc"
   },
   "private": true,
   "dependencies": {
@@ -51,8 +53,10 @@
     "@jsdevtools/coverage-istanbul-loader": "^3.0.5",
     "@types/jasmine": "~4.3.0",
     "babel-plugin-istanbul": "^6.1.1",
+    "coverage-badge-creator": "^1.0.17",
     "cypress": "latest",
     "istanbul-lib-coverage": "^3.2.0",
+    "istanbul-merge": "^2.0.0",
     "jasmine-core": "~4.5.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.1.0",
@@ -76,7 +80,11 @@
       "**/*.spec.ts"
     ],
     "reporter": [
-      "html"
-    ]
+      "html",
+      "json",
+      "json-summary",
+      "text-summary"
+    ],
+    "report-dir": "./coverage/cypress"
   }
 }
