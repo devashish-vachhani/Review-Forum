@@ -1,5 +1,5 @@
 {
-    "coverage_file_path": "./coverage/review-forum/combined/coverage-summary.json",
+    "coverage_file_path": "./coverage/combined/coverage-summary.json",
     "badges": {
       "coverage": {
         "style": "flat",

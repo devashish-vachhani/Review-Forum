@@ -28,11 +28,11 @@ jobs:
       - name: Install dependencies
         run: npm install
       - name: Run unit and integration tests
-        run: npm test --no-watch --code-coverage
+        run: npm run test
       - name: Serve the application with testing configuration
-        run: npx ng serve --configuration testing --extra-webpack-config ./cypress/coverage.webpack.js
+        run: npm run start-test
       - name: Run end-to-end tests
-        run: npx run cypress --env coverage=true
+        run: npm run cypress:run
       - run: npx istanbul-merge --out ./coverage//combined/coverage-final.json ./coverage/cypress/coverage-final.json ./coverage/karma/coverage-final.json 
       - run: npx istanbul report json-summary --dir=./coverage/combined --include=coverage/combined/coverage-final.json
       - run: npm run coverage:badge
