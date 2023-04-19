@@ -15,3 +15,5 @@ You should see something like:
 16:42:54.030 INFO [SeleniumServer.boot] - Selenium Server is up and running on port 4444
 
 6. Run `npm test`
+
+Note: rerun `firebase emulators:start --import .\tests-acceptance\export_directory\` after every test
