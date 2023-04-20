@@ -1,3 +1,15 @@
+[![CI](https://github.ncsu.edu/csc510-spring2023/CSC-510-Project/actions/workflows/testing.yml/badge.svg)](https://github.ncsu.edu/csc510-spring2023/CSC-510-Project/actions/workflows/testing.yml)
+![](https://img.shields.io/badge/Coverage-66%25-5A7302.svg?style=flat&logoColor=white&color=green&prefix=$coverage$)
+
+[![Language](https://img.shields.io/badge/language-HTML-orange.svg)](https://html.spec.whatwg.org/)
+[![Language](https://img.shields.io/badge/language-TypeScript-blue.svg)](https://www.typescriptlang.org/)
+[![Language](https://img.shields.io/badge/language-CSS-purple.svg)](https://www.w3.org/TR/CSS/#css)
+
+[![Framework](https://img.shields.io/badge/framework-Angular-red.svg)](https://angular.io/)
+[![Dependencies](https://img.shields.io/badge/dependencies-Firebase-yellow.svg)](https://firebase.google.com/)
+
+![](https://img.shields.io/static/v1?label=Group&message=7&color=<blue>)
+[![Collaborators](https://img.shields.io/badge/Collaborators-4-orange.svg?style=flat)](https://github.ncsu.edu/csc510-spring2023/CSC-510-Project/graphs/contributors)
 # ReviewForum: CSC 510 Final Project Documentation
 
 ## Project Description:
@@ -8,82 +20,21 @@ Scenario 2: Submit a request for a new textbook listing.
 Scenario 3: Rating a textbook based off user experiences with it. 
 In addition to these scenarios, students are able to sign up for Rate Reads with proper authentication, allowing individuals to have accounts that allow them to engage with the forum. 
 
+## Scenario Changes:
 
-## Configuration File Outline:
+original scenarios: https://docs.google.com/presentation/d/1OnToDL7ojjW1qlgyJHYdH6HPSR_w1TMUuk7awm-Gsas/edit?usp=sharing
 
-Set-Up Instructions: 
-Ensure and install all proper version requirements (listed below)
-Pull files from submitted GitHub Repository’s main branch
-Launch files in IDE of choice
-Open a new terminal window in IDE of choice
-Ensure all version requirements are installed in the terminal 
-Run code by running "ng serve" in terminal 
-Explore our project in your localhost browser! 
+Feature 1:
+* One search bar for both university and text search with a dropdown to choose search type
+* "Write a review" button was moved to be above review section
 
-## Version Requirements:
+Feature 2:
+* Scenario now starts on the book request page since the feature is about book requests
+* Book request button moved to book search page
+* Removed dropdown of book suggestions when requesting a book as it would clutter the form once the amount of available books grew
+* Course selections was changed to a dropdown to ensure tag uniformity
+* Added a text field to specify the book's description and image to make accepting and rejecting book requests easier for admins
+* Instead of telling users they will be updated by email they are given a notification and can view their book request status on a seperate page
 
-node: 18.14.2
-npm: 9.5.0
-@angular/cli: 15.2.0
-Firebase (most recent online version)
-
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.0.
-
-## Static Badges 
-https://img.shields.io/badge/<Authors>-<Vachhani-Choksi-Gagné-Middleton>-<blue>
-
-## Dynamic Badges
-### tag
-<img src="https://img.shields.io/github.ncsu.edu/csc510-spring2023/CSC-510-Project/tree/dev/tag/expressjs/express.svg"alt="made with python">
-
-### issues
-<img src="https://img.shields.io/github.ncsu.edu/csc510-spring2023/CSC-510-Project/tree/dev/issues/badges/shields.svg"alt="made with python">
-
-### code size: bytes
-<img src="https://img.shields.io/github.ncsu.edu/csc510-spring2023/CSC-510-Project/tree/dev/languages/code-size/badges/shields.svg"alt="made with python">
-
-### top language
-<img src="https://img.shields.io/github.ncsu.edu/csc510-spring2023/CSC-510-Project/tree/dev/languages/top/badges/shields.svg"alt="made with python">
-
-### language count
-https://img.shields.io/github.ncsu.edu/csc510-spring2023/CSC-510-Project/tree/dev/languages/count/badges/shields.svg
-
-Badges gathered and learned from: https://nitratine.net/blog/post/github-badges/
-
-
-
-## Development server
-
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
-
-## Badges: Static
-
-![](https://img.shields.io/static/v1?label=Group&message=7&color=<blue>)
-
-## Badges: Dynamic
-
-![](https://img.shields.io/badge/Coverage-66%25-5A7302.svg?style=flat&logoColor=white&color=green&prefix=$coverage$)
-
-
-
-
+Feature 3:
+* The post button is not greyed out, instead it will show a warning message if the user has not specified a rating when clicked
