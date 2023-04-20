@@ -53,7 +53,5 @@ Feature 3:
 ## Project Management
 https://github.ncsu.edu/csc510-spring2023/CSC-510-Project/projects/1
 
-## GitHub actions
-
 ## Setup Instructions
-
+https://github.ncsu.edu/csc510-spring2023/CSC-510-Project/blob/main/CONFIGURE_ENVIRONMENT.md
