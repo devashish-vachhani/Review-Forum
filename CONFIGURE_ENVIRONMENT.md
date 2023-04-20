@@ -29,4 +29,4 @@
         To view the coverage information, navigate to the `/coverage/cypress` directory in your project directory 
 
 ### Acceptance tests
-
+https://github.ncsu.edu/csc510-spring2023/CSC-510-Project/blob/main/tests-acceptance/CONFIGURE.md
