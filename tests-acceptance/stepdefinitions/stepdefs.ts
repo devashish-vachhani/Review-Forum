@@ -20,6 +20,8 @@ Given(/^I am at the website’s search page$/, async () => {
 
 // When I enter a title in the textbook’s search bar
 When(/^I enter a title in the textbook’s search bar$/, async () => {
+    var EC = protractor.ExpectedConditions
+    await browser.wait(EC.visibilityOf(element(by.name('searchTerm'))), 5000)
     await element(by.css('input[name="searchTerm"]')).sendKeys('Algorithms');
 });
 
