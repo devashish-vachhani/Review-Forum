@@ -123,7 +123,8 @@
               "node_modules/ngx-toastr/toastr.css"
             ],
             "scripts": [],
-            "karmaConfig": "karma.conf.js"
+            "karmaConfig": "karma.conf.js",
+            "codeCoverageExclude": [ "src/app/services/*.ts" ]
           }
         },
         "cypress-run": {
