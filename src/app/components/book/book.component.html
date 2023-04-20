@@ -1,0 +1,77 @@
+<div class="grid-container" *ngIf="appUser && book && readingList">
+    <div class="item1">
+        <br>
+        <div>
+            <h1 style="font-size:xx-large; font-weight: bold;" data-testid="book-title">{{ book.title }}</h1>
+        </div>
+        <div>
+            <h2 style="font-weight: lighter; font-size: x-large;" data-testid="book-author">{{ book.author }}</h2>
+        </div>
+        <div>
+            <ng-container *ngFor="let i of [1, 2, 3, 4, 5]">
+                <mat-icon style="color: rgb(167, 123, 2); display: inline-block;">
+                {{ i <= avgRating ? 'star' : (i-0.5 <= avgRating ? 'star_half' : 'star_border') }}
+                </mat-icon>
+            </ng-container>
+        </div>
+        <br>
+        <div>
+            <h3 name="description">{{ book.description }}</h3>
+        </div>
+        <div>
+            <strong>Tags:</strong>
+            <span *ngFor = "let tag of book.tags" style="padding: 5px;">
+                <span
+                    style="width:auto; display: inline; color: black;"
+                >
+                    {{ tag }}
+                </span>
+            </span>
+        </div>
+        
+    </div>
+    <div class="item2">
+        <br>
+        <img mat-card-image id ="bookImage" data-mb-toggle="popover" title="test" name="image" [src]="book.image">
+        <br>
+        <br>
+        <div *ngIf="!appUser.isAdmin">
+            <button *ngIf="!readingList.hasBook(book.id); else removeButton"
+                type="button"
+                mat-raised-button color='primary'
+                style="width:280px"
+                (click)="addToReadingList()"
+                data-testid="add-btn"
+            >
+                Add to reading list
+            </button>
+            <ng-template #removeButton>
+                <button
+                type="button"
+                mat-raised-button
+                style="width:280px"
+                (click)="deleteFromReadingList()"
+                data-testid="delete-btn"
+            >
+                Remove from reading list
+            </button>
+            </ng-template>
+            <br>
+            <br>
+        </div>
+        <div>
+            <button
+                type="button"
+                mat-raised-button color='primary'
+                style="width:280px"
+                (click)="openDialog()"
+                data-testid="recommend-tag-btn"
+            >
+                Recommend a tag
+            </button>
+        </div>
+    </div>
+    <div class="item3">
+        <reviews [bookId]="book.id" [appUser]="appUser" (avgRatingEvent)="getAvgRating($event)"></reviews>
+    </div>
+</div>

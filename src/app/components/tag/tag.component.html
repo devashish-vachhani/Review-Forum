@@ -1,0 +1,39 @@
+<ng-container *ngIf="universities">
+    <div class="col-md-12" style="padding: 10px;">
+        <form #f="ngForm">
+            <div style="text-align: center; font-size: 20px;">Recommend a tag</div><br>
+            <div class="form-group">
+                <select ngModel name="university" id="university" class="form-control" #university="ngModel" (ngModelChange)="updateCourses(university.value)">
+                    <option value="">Select university</option>
+                    <option *ngFor="let university of universities" [value]="university.code">
+                        {{  university.name  }}
+                    </option>
+                </select>
+            </div>
+            <br>
+            <div class="form-group">
+                <select ngModel name="course" id="course" class="form-control" #course="ngModel" required>
+                    <option value="">Select course</option>
+                    <option *ngFor="let course of courses" [value]="course">
+                        {{  course  }}
+                    </option>
+                </select>
+            </div>
+
+            <mat-dialog-actions style="margin-top: 10px;">
+                <button
+                    mat-stroked-button
+                    (click)="close()"
+                    data-testid="cancel-btn"
+                > Cancel
+                </button>
+                <button
+                    mat-flat-button color='primary'
+                    (click)="save(f.value)"
+                    data-testid="submit-btn"
+                > Submit
+                </button>
+            </mat-dialog-actions>
+        </form>
+    </div>
+</ng-container>

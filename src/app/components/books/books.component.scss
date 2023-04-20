@@ -1,0 +1,21 @@
+mat-toolbar {
+    justify-content: space-between;
+}
+
+.content {
+    padding: 16px;
+}
+
+.content > mat-card {
+    margin-bottom: 16px;
+}
+
+.book-img {
+    width: 75%;
+    height: 300px;
+  
+}
+  
+.multi-line-popover {
+    white-space: pre-line;
+}  
