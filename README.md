@@ -51,7 +51,7 @@ Feature 3:
 2. Non-acceptance tests: Unit, Integration, End-to-end
 
 ## Project Management
-`https://github.ncsu.edu/csc510-spring2023/CSC-510-Project/projects/1`
+https://github.ncsu.edu/csc510-spring2023/CSC-510-Project/projects/1
 
 ## GitHub actions
 
