@@ -1,8 +1,6 @@
-# ReviewForum
+# ReviewForum: CSC 510 Final Project Documentation
 
-CSC 510 Final Project Documentation
-
-Project Description:
+## Project Description:
 
 Our group’s webpage, Rate Reads, provides users with a review forum site that allows them the opportunity to explore potential textbooks linked to courses at their university. This review forum allows students to rate books and provide comments and feedback on how topical the listings of textbooks are to content discussed in various classes at a number of different universities. Students are also allowed to interact with one another through commenting as a means of discussing application of textbooks to course material and even solutions to unworked examples. Our platform hopes to help bridge the divide between professor assigned readings and student comprehension by creating a virtual space for discussing content. As classes at universities grow and change, new textbooks can be added to the site and reviewed by students. Our project’s set up allows for direct interaction with this forum as well as exhibits three core scenarios: 
 Scenario 1: Search for a particular textbook based on name or university and interact with it by liking or commenting on individual posts. 
@@ -11,7 +9,7 @@ Scenario 3: Rating a textbook based off user experiences with it.
 In addition to these scenarios, students are able to sign up for Rate Reads with proper authentication, allowing individuals to have accounts that allow them to engage with the forum. 
 
 
-Configuration File Outline:
+## Configuration File Outline:
 
 Set-Up Instructions: 
 Ensure and install all proper version requirements (listed below)
@@ -22,13 +20,37 @@ Ensure all version requirements are installed in the terminal
 Run code by running "ng serve" in terminal 
 Explore our project in your localhost browser! 
 
-Version Requirements:
+## Version Requirements:
+
 node: 18.14.2
 npm: 9.5.0
 @angular/cli: 15.2.0
 Firebase (most recent online version)
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.0.
+
+## Static Badges 
+https://img.shields.io/badge/<Authors>-<Vachhani-Choksi-Gagné-Middleton>-<blue>
+
+## Dynamic Badges
+### tag
+<img src="https://img.shields.io/github.ncsu.edu/csc510-spring2023/CSC-510-Project/tree/dev/tag/expressjs/express.svg"alt="made with python">
+
+### issues
+<img src="https://img.shields.io/github.ncsu.edu/csc510-spring2023/CSC-510-Project/tree/dev/issues/badges/shields.svg"alt="made with python">
+
+### code size: bytes
+<img src="https://img.shields.io/github.ncsu.edu/csc510-spring2023/CSC-510-Project/tree/dev/languages/code-size/badges/shields.svg"alt="made with python">
+
+### top language
+<img src="https://img.shields.io/github.ncsu.edu/csc510-spring2023/CSC-510-Project/tree/dev/languages/top/badges/shields.svg"alt="made with python">
+
+### language count
+https://img.shields.io/github.ncsu.edu/csc510-spring2023/CSC-510-Project/tree/dev/languages/count/badges/shields.svg
+
+Badges gathered and learned from: https://nitratine.net/blog/post/github-badges/
+
+
 
 ## Development server
 
@@ -54,7 +76,14 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
 
+## Badges: Static
+
+![](https://img.shields.io/static/v1?label=Group&message=7&color=<blue>)
+
+## Badges: Dynamic
+
 ![](https://img.shields.io/badge/Coverage-66%25-5A7302.svg?style=flat&logoColor=white&color=green&prefix=$coverage$)
+
 
 
 
