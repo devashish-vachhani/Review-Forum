@@ -16,7 +16,7 @@
         </div>
         <br>
         <div>
-            <h3>{{ book.description }}</h3>
+            <h3 name="description">{{ book.description }}</h3>
         </div>
         <div>
             <strong>Tags:</strong>
@@ -32,7 +32,7 @@
     </div>
     <div class="item2">
         <br>
-        <img mat-card-image id ="bookImage" data-mb-toggle="popover" title="test" [src]="book.image">
+        <img mat-card-image id ="bookImage" data-mb-toggle="popover" title="test" name="image" [src]="book.image">
         <br>
         <br>
         <div *ngIf="!appUser.isAdmin">
