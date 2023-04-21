@@ -55,3 +55,11 @@ https://github.ncsu.edu/csc510-spring2023/CSC-510-Project/projects/1
 
 ## Setup Instructions
 https://github.ncsu.edu/csc510-spring2023/CSC-510-Project/blob/main/CONFIGURE_ENVIRONMENT.md
+
+## Credentials
+1. Admin
+    1. Email: admin@gmail.com
+    2. Password: admin1234
+2. User
+    1. Email: test@gmail.com
+    2. Password: test1234

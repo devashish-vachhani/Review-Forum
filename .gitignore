@@ -36,6 +36,7 @@ yarn-error.log
 testem.log
 /typings
 .nyc_output
+ui-debug.log
 
 # System files
 .DS_Store

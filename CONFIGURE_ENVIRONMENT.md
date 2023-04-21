@@ -3,7 +3,7 @@
 2. Install Angular CLI: `npm install -g @angular/cli`
 
 # Deployment
-1. The project is deployed at 
+1. The live project is available at https://csc-510-ba9f8.web.app/
 
 # To set up the project locally:
 1. Clone the project repository: `git clone https://github.ncsu.edu/csc510-spring2023/CSC-510-Project.git`
