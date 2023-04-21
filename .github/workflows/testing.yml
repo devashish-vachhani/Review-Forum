@@ -15,6 +15,8 @@ jobs:
   build_docker:
     runs-on: self-hosted
     steps:
+      - name: Enable insecure commands
+        run: echo "ACTIONS_ALLOW_UNSECURE_COMMANDS=true" >> $GITHUB_ENV
       - uses: actions/checkout@v3
       - name: Run docker tests
         run: ./run_tests.sh
