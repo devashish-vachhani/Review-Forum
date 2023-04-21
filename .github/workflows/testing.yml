@@ -21,13 +21,12 @@ jobs:
       - name: Run docker tests
         run: ./run_tests.sh
       - name: Upload coverage files
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: Coverage
           path: ${{ env.COVERAGE_PATH }}
-
       - name: Upload README file
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: README
           path: ${{ env.README_PATH }}
