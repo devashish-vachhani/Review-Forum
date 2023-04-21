@@ -16,5 +16,9 @@ docker exec -it $CONTAINER_ID sh -c 'npm run test:ci && npm run cypress:run && n
 docker cp $CONTAINER_ID:/app/coverage ./coverage
 docker cp $CONTAINER_ID:/app/README.md ./README.md
 
+# Set env variables for coverage and readme files
+echo "::set-env name=COVERAGE_PATH::$(pwd)/coverage"
+echo "::set-env name=README_PATH::$(pwd)/README.md"
+
 # Delete the container
 docker rm -f $CONTAINER_ID
