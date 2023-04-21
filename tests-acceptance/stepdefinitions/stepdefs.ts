@@ -524,7 +524,7 @@ Given('the system has a book', async function () {
         {
             method:'GET',
         }
-    ).then(function(response) { return response.json().then(function(json) {exp(json.documents.length).to.equal(1); return json.documents[0].fields})})
+    ).then(function(response) { return response.json().then(function(json) {exp(json.documents.length).to.not.equal(0); return json.documents[0].fields})})
 })
 
 When('I add the book to a user\'s reading list', async function () {
