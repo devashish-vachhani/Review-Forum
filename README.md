@@ -1,5 +1,5 @@
 [![CI](https://github.ncsu.edu/csc510-spring2023/CSC-510-Project/actions/workflows/testing.yml/badge.svg)](https://github.ncsu.edu/csc510-spring2023/CSC-510-Project/actions/workflows/testing.yml)
-![](https://img.shields.io/badge/Coverage-66%25-5A7302.svg?style=flat&logoColor=white&color=green&prefix=$coverage$)
+![](https://img.shields.io/badge/Coverage-68%25-5A7302.svg?style=flat&logoColor=white&color=green&prefix=$coverage$)
 
 [![Language](https://img.shields.io/badge/language-HTML-orange.svg)](https://html.spec.whatwg.org/)
 [![Language](https://img.shields.io/badge/language-TypeScript-blue.svg)](https://www.typescriptlang.org/)
